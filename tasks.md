@@ -12,7 +12,7 @@
 - [x] Validate script syntax, launcher/restore previews, source pins and safe remotes.
 - [x] Validate Handy 20-second startup and generated setting persistence; no ASR run claimed.
 - [ ] Exercise fresh-machine source/runtime restoration before calling recovery fully verified.
-- [ ] Publish only source/docs/gitlinks to Akshat's private voice-workspace GitHub repository.
+- [x] Publish only source/docs/gitlinks to Akshat's private voice-workspace GitHub repository.
 
 ## G1 — Physical dictation comparison (next)
 

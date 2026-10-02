@@ -3,8 +3,8 @@
 Project-owned Windows launch, source-recovery, and local test preparation tools. These tools are
 not the integrated application. Product decisions belong in the parent project documents.
 
-**Status:** Setup tooling — syntax, baseline verification and launcher/restore previews passed;
-physical microphone/ASR/paste tests are still required, and fresh-machine restoration is unverified.
+**Status:** Setup tooling — syntax, baseline verification, launcher preview and idempotent restore
+of existing pins passed; physical ASR/paste tests and fresh-machine restoration remain unverified.
 
 ## Files
 

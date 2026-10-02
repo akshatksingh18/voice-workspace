@@ -66,11 +66,14 @@ URLs disabled and hooks disabled for these evidence checkouts. Source files are 
 The scripts use temporary, exact-path Git safe-directory options for this project and its nine
 known reference paths, handling Windows sandbox/user ownership differences without trusting all
 repositories or modifying global Git configuration. Script syntax, launcher/restore `-WhatIf`,
-source pin/remote/license-file checks and runtime/model hashing passed. A full fresh-machine
+source pin/remote/license-file checks and runtime/model hashing passed. An actual repeat restore
+on the already present checkouts preserved all pins and source cleanliness. A full fresh-machine
 restore has not been run; no third-party application feature is validated by those checks.
 
 Project remote: `https://github.com/akshatksingh18/voice-workspace.git`, owned by Akshat and verified
 private. Visibility must remain private. Runtimes/weights/private-tests are ignored.
+The initial source/docs/gitlink push was verified against GitHub's main commit. No runtime,
+model or private test file is tracked. This is source recovery, not a private-data backup.
 Private audio/text data has no backup destination configured; personal-project is excluded from
 the workspace OneDrive archive. Source recovery is not private-data recovery.
 
