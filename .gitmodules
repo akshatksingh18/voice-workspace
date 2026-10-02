@@ -1,0 +1,27 @@
+[submodule "handy"]
+	path = references/handy
+	url = https://github.com/akshatksingh18/handy.git
+[submodule "granola-alt"]
+	path = references/granola-alt
+	url = https://github.com/akshatksingh18/granola-alt.git
+[submodule "openwhispr"]
+	path = references/openwhispr
+	url = https://github.com/OpenWhispr/openwhispr.git
+[submodule "anarlog"]
+	path = references/anarlog
+	url = https://github.com/fastrepl/anarlog.git
+[submodule "minutes"]
+	path = references/minutes
+	url = https://github.com/silverstein/minutes.git
+[submodule "open-granola"]
+	path = references/open-granola
+	url = https://github.com/anshuman-pandey/open-granola.git
+[submodule "omascribe"]
+	path = references/omascribe
+	url = https://github.com/jamespember/omascribe.git
+[submodule "meetily"]
+	path = references/meetily
+	url = https://github.com/Zackriya-Solutions/meetily.git
+[submodule "steno"]
+	path = references/steno
+	url = https://github.com/ruzin/stenoai.git

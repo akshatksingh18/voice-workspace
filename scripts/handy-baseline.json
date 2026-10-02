@@ -1,0 +1,41 @@
+{
+  "settings": {
+    "settings_schema_version": 2,
+    "bindings": {
+      "transcribe": {
+        "id": "transcribe",
+        "name": "Transcribe",
+        "description": "Converts your speech into text.",
+        "default_binding": "ctrl+space",
+        "current_binding": "ctrl+shift+f12"
+      }
+    },
+    "shortcut_activation": "push_to_talk",
+    "selected_model": "small",
+    "onboarding_completed": true,
+    "selected_language": "auto",
+    "translate_to_english": false,
+    "selected_microphone": null,
+    "always_on_microphone": false,
+    "start_hidden": false,
+    "autostart_enabled": false,
+    "update_checks_enabled": false,
+    "show_whats_new_on_update": false,
+    "post_process_enabled": false,
+    "post_process_api_keys": {},
+    "filler_word_removal_enabled": false,
+    "custom_words": [],
+    "model_unload_timeout": "min5",
+    "transcribe_accelerator": "cpu",
+    "ort_accelerator": "cpu",
+    "history_limit": 20,
+    "recording_retention_period": "preserve_limit",
+    "paste_method": "ctrl_v",
+    "clipboard_handling": "dont_modify",
+    "auto_submit": false,
+    "mute_while_recording": false,
+    "debug_mode": false,
+    "log_level": "warn",
+    "reliable_paste": false
+  }
+}

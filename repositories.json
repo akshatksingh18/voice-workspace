@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-02",
+  "purpose": "Pinned, reference-only source checkouts; not merged product dependencies or a complete license audit",
+  "repositories": [
+    {
+      "name": "handy",
+      "path": "references/handy",
+      "url": "https://github.com/akshatksingh18/handy.git",
+      "upstream": "https://github.com/cjpais/Handy.git",
+      "revision": "46d6311feef18950487220226c467c95c7f9afd7",
+      "sourceBranch": "main",
+      "license": "MIT",
+      "licenseFile": "LICENSE",
+      "boundary": "Accepted desktop base; private fork. Model, asset and dependency terms require separate review. Runtime binary is the existing build, not a rebuild of documentation-only changes."
+    },
+    {
+      "name": "granola-alt",
+      "path": "references/granola-alt",
+      "url": "https://github.com/akshatksingh18/granola-alt.git",
+      "upstream": "https://github.com/Natively-AI-assistant/natively-cluely-ai-assistant.git",
+      "revision": "dadb19873bff9a531213619edc047a59ce1f773d",
+      "sourceBranch": "main",
+      "license": "Natively Personal Use License (restricted, noncommercial)",
+      "licenseFile": "LICENSE",
+      "boundary": "Requirements/UX evidence only; do not copy into permissively licensed product. No premium/API nested submodules initialized. Sibling implementation remains planning-only."
+    },
+    {
+      "name": "openwhispr",
+      "path": "references/openwhispr",
+      "url": "https://github.com/OpenWhispr/openwhispr.git",
+      "revision": "0c232a3eaa30f2fde318d0ae0254dfb19cca3f54",
+      "sourceBranch": "main",
+      "license": "MIT",
+      "licenseFile": "LICENSE",
+      "boundary": "Current main reference can be ahead of v1.10.2 downloaded Windows binary. Brand assets, models, dependency and service terms separate; no wholesale vendoring."
+    },
+    {
+      "name": "anarlog",
+      "path": "references/anarlog",
+      "url": "https://github.com/fastrepl/anarlog.git",
+      "revision": "1da4ef93dbc1a5d20a241e0eef57851e8000cba5",
+      "sourceBranch": "main",
+      "license": "MIT community; separate commercial enterprise license",
+      "licenseFile": "LICENSE",
+      "boundary": "Also read LICENSE.enterprise and per-file terms. Built-in local ASR is documented macOS-only; do not infer Windows local capture/inference parity."
+    },
+    {
+      "name": "minutes",
+      "path": "references/minutes",
+      "url": "https://github.com/silverstein/minutes.git",
+      "revision": "53ff16c8830330930c4bd5dff74edfc83ac39d24",
+      "sourceBranch": "main",
+      "license": "MIT",
+      "licenseFile": "LICENSE",
+      "boundary": "Windows CLI support does not establish macOS desktop parity. Native diarization/runtime/model dependencies need review. No live coaching adopted."
+    },
+    {
+      "name": "open-granola",
+      "path": "references/open-granola",
+      "url": "https://github.com/anshuman-pandey/open-granola.git",
+      "revision": "6127b7f34b2e3ea786481953cfe57a7179a214c6",
+      "sourceBranch": "main",
+      "license": "Apache-2.0",
+      "licenseFile": "LICENSE",
+      "boundary": "Architecture reference only; Windows loopback/security-related placeholders block production-base claims. Preserve applicable notices on any future reuse."
+    },
+    {
+      "name": "omascribe",
+      "path": "references/omascribe",
+      "url": "https://github.com/jamespember/omascribe.git",
+      "revision": "f348783eb445963aa873160ab90b75e8058dabac",
+      "sourceBranch": "main",
+      "license": "MIT",
+      "licenseFile": "LICENSE",
+      "boundary": "Linux/Omarchy TUI workflow reference, not a Windows runtime candidate."
+    },
+    {
+      "name": "meetily",
+      "path": "references/meetily",
+      "url": "https://github.com/Zackriya-Solutions/meetily.git",
+      "revision": "a2cb62e827da7ef59f65064c97233efb2313878e",
+      "sourceBranch": "main",
+      "license": "MIT community; Pro separate",
+      "licenseFile": "LICENSE.md",
+      "boundary": "Windows community capture/ASR candidate, not tested locally here. Advanced Pro capabilities cannot be inferred from community source."
+    },
+    {
+      "name": "steno",
+      "path": "references/steno",
+      "url": "https://github.com/ruzin/stenoai.git",
+      "revision": "d6d3f3c408d2a7aafc641f64a248ba7a4462a72f",
+      "sourceBranch": "main",
+      "license": "MIT",
+      "licenseFile": "LICENSE",
+      "boundary": "Meeting notepad reference with Windows alpha maturity gate, not verified local runtime."
+    }
+  ]
+}
