@@ -13,6 +13,8 @@ see the research document's official links and source caveats before refreshing 
   "Let's meet at 6 pm." This is distinct from learning a preferred spelling from later typed edits.
 - English only: prioritize speed and accuracy. Hindi/Hinglish is explicitly removed from active scope
   after the live test failed; the previous Roman-Hinglish requirement is superseded.
+- Correct technical names and natural punctuation without losing the accepted fast delivery;
+  the live E03 result missed PostgreSQL and punctuation, so speed alone is not acceptance.
 - Use Handy as the production desktop foundation; evaluate the best ideas from multiple projects.
 - Bring the existing Granola alternative into the analysis without losing its separate context.
 - Keep source copies, research, requirements, setup, and agent instructions in this new project.
@@ -46,7 +48,11 @@ order. Compare streaming finalization and batch recognition on this laptop, not 
 Streaming can move computation into speaking time; it can also increase work or reduce accuracy.
 Choose from measured results, with no automatic cloud fallback or silent model change.
 
-Akshat accepts the current Parakeet profile's live speed; technical vocabulary is not yet tested.
+Akshat accepts the earlier Parakeet streaming profile's live speed, but its live E03 technical/
+punctuation test failed. The same saved clip retained technical terms with a final period using
+Parakeet batch in 0.378–0.439 s of recognition; natural list commas were still absent. This one-clip
+result motivates opt-in full-recording mode and a narrow manual vocabulary, not an all-model
+accuracy claim. Live quality-profile latency/accuracy must be retested; longer clips may slow down.
 This qualitative result is not a measured numeric/p95 pass. Proposed warm target: release-to-paste
 below one second for short dictations, with cold preparation,
 p50/p95, speech duration and resource use reported separately. Measure E01–E12 with Akshat's accent,
@@ -57,7 +63,7 @@ Hindi/Hinglish is deferred, not an active readiness gate. The old converter and 
 recoverable. The user reported unwanted English translation from Hindi despite translation being
 off; script-only tests did not solve acoustic/meaning accuracy. Do not re-enable it without a new decision.
 
-### D3 — Clean speech without changing intent (P1)
+### D3 — Clean speech without changing intent (P0 punctuation; P1 polish/repair)
 
 Wispr: filler removal, punctuation and cleanup levels; some style features are English-limited.
 Handy has filler handling and optional post-processing, but not verified complete contextual
@@ -68,6 +74,13 @@ failure even if prose sounds better. Raw mode and cleanup-timeout
 fallback both retain English source meaning. Raw mode skips prose rewriting; original ASR remains
 recoverable explicitly. The dormant Hindi converter is not part of this active pipeline. Every rewrite should be undoable;
 no silent cloud fallback.
+
+OpenWhispr's pinned source separates ASR/dictionary from optional cleanup, with prompt rules for
+punctuation, jargon and explicit backtracking. Reuse that architecture with provenance, not its
+cloud sync or an unvalidated prompt as a correctness guarantee. Full-recording ASR and the manual
+dictionary do not solve natural list punctuation/contextual grammar. A separate small local text
+model/runtime comparison requires download authority, latency/meaning tests and safe fallback
+before adoption; none is configured or enabled. The first slice must not hardcode the test sentence.
 
 Spoken self-correction is a requested behavior, not currently implemented. Proposed first slice:
 while the user holds the recording shortcut, keep ASR text provisional, recognize explicit
@@ -225,9 +238,10 @@ secure text fields and keyboard-extension microphone limits must be respected.
 
 ## Order and decisions
 
-Keep the speed-accepted English profile and test technical accuracy/insertion. Proposed next
-dictation slice is same-recording spoken self-correction, preserving speed and raw recovery;
-it is not an implemented or enabled feature. Then build notes + manual meeting
+Retain the speed-accepted English model; retest the full-recording/vocabulary quality slice after
+the failed live E03 test. Next measure a separate punctuation/cleanup path with explicit authority;
+same-recording spoken self-correction remains proposed, preserving speed and raw recovery,
+not an implemented or enabled feature. Then build notes + manual meeting
 capture. Add explicit editing/cleanup, correction learning and grounded summaries in small tested
 slices. Defer mobile, calendar automation, biometric identity, connectors and cloud sync.
 

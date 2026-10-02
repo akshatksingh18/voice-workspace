@@ -22,7 +22,9 @@ setup.md/performance.md own the current English profile and measurements, not th
 - Handy is a Rust/Tauri + React desktop fork. Its Windows source build/startup and initial Notepad
   capture/insertion worked, but speed/script/acronym acceptance failed. Local CPU/GPU model
   inference is measured; Turbo's updated live latency was still about 4 seconds and Hindi output
-  failed. Akshat accepts the current English profile's live speed; technical accuracy, broader
+  failed. Akshat accepts the earlier English streaming profile's live speed; live E03 then failed
+  PostgreSQL spelling and punctuation. A same-clip batch/vocabulary comparison motivates the
+  new full-recording quality test; accuracy, broader
   insertion/reliability and signed installer behavior remain open. See
   `../handy/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
   and SQLite dictation history already provide useful integration points.
@@ -82,6 +84,21 @@ version instead of assuming fixes on main are released.
 [diarization source](https://github.com/OpenWhispr/openwhispr/blob/main/src/helpers/diarization.js),
 [Windows](https://docs.openwhispr.com/platform/windows),
 [changelog](https://github.com/OpenWhispr/openwhispr/blob/main/CHANGELOG.md).
+
+Focused local source review at immutable revision `0c232a3eaa30f2fde318d0ae0254dfb19cca3f54`:
+`src/locales/en/prompts.json` defines punctuation/grammar/spelling cleanup, exact dictionary
+spellings, preserving jargon, and explicit spoken backtracking, with literal/emphatic exceptions.
+`src/helpers/audioManager.js` separates optional cleanup from recognition, checks complete output,
+and falls back to raw text on failure/truncation. Its Parakeet local-server route does not pass
+Whisper dictionary prompts. `src/utils/cleanupOutput.ts` checks whole-transcript duplication, not
+complete semantic fidelity. `src/services/DictionaryService.ts` is a cloud-sync service, not a
+portable local dictionary implementation. These are useful workflow ideas; no code/prompt was
+copied or external app run, and no local cleanup latency was measured. Preserve MIT provenance
+and notices if actual code/prompt reuse follows. Do not import cloud/account behavior implicitly.
+
+For Handy, first improve the chosen ASR path and manual vocabulary, then independently benchmark
+punctuation/repair cleanup. Switching to another app with the same recognizer is not itself an
+accuracy fix. This laptop's RAM/VRAM and accepted responsiveness are explicit adoption gates.
 
 ### Anarlog — strong meeting-module reference, Windows local-ASR caveat
 

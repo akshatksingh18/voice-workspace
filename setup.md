@@ -1,8 +1,9 @@
 # Local setup and verification boundaries
 
 **Status:** English-only runtime/profile evaluation; local GPU inference and model integrity are
-verified, and Akshat accepts the current Parakeet profile's live English speed. Technical-word
-accuracy, broader insertion/reliability coverage and signed packaging remain unverified.
+verified, and Akshat accepts the earlier Parakeet streaming profile's live English speed.
+Live E03 technical/punctuation acceptance failed. The full-recording quality profile is deployed;
+live retest, broader insertion/reliability coverage and signed packaging remain open.
 Hindi work is deferred; dedicated spoken self-correction is not implemented or enabled.
 
 ## Machine and prerequisite boundary
@@ -26,7 +27,7 @@ existing release directory. The `portable` marker contains `Handy Portable Mode`
 `runtime/handy/Data/` for settings/models/history/recordings/logs. The user's normal Handy
 profile is not overwritten. Generated files are ignored; never stage them with force.
 
-Prepared settings are described in testing-guide.md. The initial portable startup was verified;
+Active quality-test settings are described in testing-guide.md. The initial portable startup was verified;
 Akshat subsequently recorded/inserted speech in Notepad, reporting the failed acceptance described
 in performance.md. Local headless CPU/GPU inference used saved audio without a microphone/paste.
 Onboarding completion is not proof of language or delivery acceptance. The user-selected microphone,
@@ -34,7 +35,7 @@ shortcut and existing history must be preserved when tuning the profile.
 
 Original runtime benchmark provenance SHA-256:
 `5b97789e07688cf713d7d0914053dbbd40a220e747ded22f2ad3a0f53c2ece32`.
-Current English runtime SHA-256: `b09a409df19f66e1de6b343a5240b35d8250a94baaac1ac99fb94856635c375d`.
+Current English quality runtime SHA-256: `d4a376bdba1c0a34c9b30e9c2369e1b2bb2bd8435dc3bbc1c341343f9ebc51c4`.
 The release build used Tauri's embedded production asset protocol and passed headless native
 device/inference/conversion checks. It is locally built and unsigned; do not bypass a Windows
 application-control block. Rollback copies are ignored `runtime/handy/handy-before-hinglish.exe`
@@ -47,11 +48,25 @@ preload on and unload Never, retaining the user's microphone/shortcut/history. C
 priming before dictating; no microphone recording is started by verification. The timing-only CLI
 and standalone diagnostic omit transcript text. `settings-before-english-model.json` preserves
 the prior Turbo model selection locally; earlier rollback files remain untouched.
-The rebuilt English GUI remains alive after verified Parakeet/NVIDIA load and synthetic streaming
-priming (2.251 s priming in the GUI startup sample). Persisted English/model/device/privacy settings
-match the intended profile. That automated check is startup/readiness verification. Akshat's
-subsequent live test accepts English speed only; it does not establish technical-word accuracy,
-numeric p95 or the complete insertion/reliability suite. No runtime/settings change is implied.
+The earlier English streaming GUI passed startup/priming (2.251 s priming in that sample), and
+Akshat accepted its live speed. His subsequent E03 test failed PostgreSQL and punctuation; see
+performance.md for the same-recording offline comparison. That speed report does not apply
+automatically to the newly prepared quality profile or establish numeric p95/insertion reliability.
+
+The quality fork's full Tauri Windows release build passed with embedded production frontend.
+All 14 sibling DLLs matched the deployed runtime; only the executable was replaced. The isolated
+profile enables full-recording recognition and PostgreSQL/Kubernetes/REST API, threshold 0.18.
+Every other pre-existing setting was checked unchanged, including microphone, shortcut and privacy;
+history/recordings were not deleted. Non-overwriting rollback copies are
+`handy-before-english-quality.exe` (SHA-256
+`b09a409df19f66e1de6b343a5240b35d8250a94baaac1ac99fb94856635c375d`) and
+`Data/settings-before-english-quality.json`; prior rollback files remain untouched.
+Updated transcript-free headless inference on the same 8.28-second E03 clip loaded/primed in
+7.886 s, then recognized in 0.780/0.399/0.443 s on the persisted NVIDIA setting (Vulkan0 in this app).
+No microphone, VAD, paste or history insertion was exercised. The updated GUI stays alive for at
+least 60 seconds after NVIDIA load and full-recording priming (0.893 s in the sampled startup).
+Persisted mode/vocabulary and unchanged other profile fields were verified. This is readiness,
+not a new microphone/paste/accuracy test. No cleanup model/server is installed/configured.
 
 ## Local model inputs
 
@@ -89,7 +104,8 @@ SHA-256 `1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69` match
 LFS metadata and Handy's catalog checksum. Stored in the same local models directory, model ID
 `turbo`, retained for explicit comparisons. The active English-only profile selects Parakeet/NVIDIA,
 English, startup preload/synthetic priming on, unload Never, Roman conversion/translation/cleanup
-off, INFO timings and debug off. Custom words remain empty for comparable ASR screening. Backend
+off, INFO timings and debug off. Initial ASR screening used an empty dictionary; the next quality
+profile seeds PostgreSQL/Kubernetes/REST API, threshold 0.18, with full-recording mode. Backend
 indices can change between processes; persist the stable NVIDIA selector and verify bound device name.
 
 The authored converter passes synthetic tests and fails closed on unsupported script symbols.
@@ -143,7 +159,8 @@ the workspace OneDrive archive. Source recovery is not private-data recovery.
 
 ## Required manual checks / things deliberately not configured
 
-- Keep the speed-accepted model/profile; test technical vocabulary with the selected microphone.
+- Retain the speed-accepted Parakeet model; activate then retest the full-recording/vocabulary
+  quality profile with the selected microphone. Natural list commas remain a separate cleanup gate.
 - Verify English meaning/critical words, measured release-to-paste timing, cancellation, focus and clipboard behavior.
 - Spoken self-correction is proposed; no rule engine, cleanup model or previous-insertion edit mode is enabled.
 - OpenWhispr/Meetily meeting runtime preparation after baseline; no capture module selected yet.

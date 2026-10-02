@@ -1,7 +1,8 @@
 # First tests and settings
 
 **Status:** English-only evaluation. Akshat accepts the current Parakeet profile's live speed;
-technical-word accuracy and the broader insertion/reliability suite remain open. Dedicated spoken
+the live E03 test failed technical spelling and punctuation. The quality profile needs a new
+live test; the broader insertion/reliability suite remains open. Dedicated spoken
 self-correction is not implemented; its fixtures specify future behavior, not expected current output.
 See setup.md for deployment evidence and performance.md for measured samples.
 
@@ -22,8 +23,12 @@ The isolated portable settings select:
 - ASR: measured NVIDIA MX450 device with Vulkan. ONNX: CPU (no ONNX dictation model selected).
 - Roman Hinglish: **off**. Warm model on startup: on. Model Unload: Never during latency tests.
   This consumes more RAM/VRAM; close the test app if it causes system pressure.
+- Use full-recording recognition: **on** for the quality test. No live partial preview; the whole
+  clip is recognized after release. Restart after changing this setting so startup warms that path.
+  Short E03 batch inference was fast offline; longer recordings and GUI delay still need tests.
 - Post-processing/AI cleanup and filler removal: off. Use the normal Transcribe shortcut.
-- Custom words: initially empty, then a separate technical-word test.
+- Custom words: PostgreSQL, Kubernetes and REST API; correction threshold 0.18. These are manual
+  spelling entries, not auto-learning, an acoustic prompt or a punctuation engine.
 - Paste: Ctrl+V; clipboard preservation; automatic Enter/submit off.
 - Always-on microphone, launch at login, update checks, hidden startup, debug mode: off.
 - Log level: INFO for content-free phase timings. Do not enable debug logging.
@@ -52,7 +57,15 @@ revealed with Show raw recognition (recovery only). Existing recordings were not
 
 ## 2. Change one variable at a time
 
-First read E03 and E09–E12 with Custom Words empty, the current model and your natural pronunciation.
+The earlier empty-dictionary streaming baseline failed live E03. First retest E03 with the
+prepared full-recording/three-word profile: check PostgreSQL, neighboring words, punctuation and
+release delay separately. A final period is not a pass for natural list commas; these remain open.
+For controlled comparisons, save the profile first, change only the mode (restart to warm it),
+then only the dictionary. Do not erase other settings/history. The saved-clip screening isolated
+raw batch/stream outputs and dictionary effects; a new user-microphone result is still required.
+
+Then read E09–E12 with the current model and your natural pronunciation, without pre-seeding their
+additional terms. For a repeat empty-dictionary baseline, preserve the three prepared entries locally.
 Check each technical spelling/acronym plus numbers, units and negation; minor punctuation differences
 are not meaning errors. Repeat each three times. Then, only for missed terms, add the intended
 spelling under Advanced Settings → Custom Words and repeat the same sentence separately.
@@ -74,7 +87,10 @@ measured p95; correction work must preserve that accepted responsiveness. Latenc
 chosen from measurements; log stop-to-insert time separately from spoken duration.
 
 `scripts/benchmark-asr.ps1` uses the fork's standalone native diagnostic, not the complete GUI.
-It paces 100 ms frames in real time and includes remaining backlog/finalization in `release_ms`.
+In stream mode it paces 100 ms frames in real time and includes remaining backlog/finalization in `release_ms`.
+Batch mode measures complete-clip recognition. Optional `-GoldFile` and `-VocabularyFile` remain
+local; it reports lexical errors before/after vocabulary, comma counts and sentence-ending presence,
+never transcript text. Vocabulary scoring needs a gold file and uses threshold 0.18.
 Use the returned bound device name, not a presumed index. Gold scoring ignores case/punctuation
 but counts valid number formatting as word errors; its limited critical-token checks are not
 full semantic validation. Synthetic offline Windows TTS screens candidates but does not prove

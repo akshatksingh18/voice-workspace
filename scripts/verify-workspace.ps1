@@ -70,5 +70,7 @@ if ($CheckRuntime) {
     }
     Write-Output 'Handy English-only profile/model inputs OK. This is not a physical ASR, hotkey or paste test.'
     Write-Output 'Startup warm-up enabled; translation/Hinglish/cleanup off. Speech accuracy and instant insertion remain unverified.'
+    $voiceModeLabel = if ($voiceSettings.prefer_batch_transcription) { 'full recording' } else { 'streaming when supported' }
+    Write-Output "Recognition mode: $voiceModeLabel; manual vocabulary count: $($voiceSettings.custom_words.Count)."
 }
 Write-Output 'Workspace verification passed; no network requests or recordings were made.'

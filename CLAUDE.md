@@ -6,7 +6,9 @@ This repository owns the product requirements, cross-project research, evaluatio
 integration; sibling Handy and Granola repositories keep their own implementation instructions.
 
 **Status:** English-only dictation evaluation — Akshat accepts the Parakeet profile's live speed;
-technical-word accuracy and broader insertion/reliability gates remain open. Spoken self-correction
+the live E03 technical/punctuation test failed. An opt-in full-recording/vocabulary quality slice
+is implemented in the fork; deployment evidence lives in setup.md and live retest remains open.
+Broader insertion/reliability gates remain open. Spoken self-correction
 is a requested behavior with a proposed design, not implemented. Code lives in the Handy fork.
 Moves to integrated notes/capture after remaining dictation and component/license gates pass.
 No integrated Voice Workspace application exists yet.

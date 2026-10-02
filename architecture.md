@@ -1,7 +1,8 @@
 # Architecture and component selection
 
 **Status:** Accepted ownership and guardrails; broader integration design remains proposed.
-The Handy fork implements preload/warm-up and diagnostics; English-only dictation is active,
+The Handy fork implements preload/warm-up, diagnostics, an opt-in full-recording mode and a
+dictionary prefix-preservation fix; English-only dictation is active,
 with the experimental Hindi converter dormant.
 No notes/meeting module or inter-app bridge is implemented in this repository.
 
@@ -113,9 +114,22 @@ is currently implemented.
 Accepted language scope: English only. Current ASR-only path: English local ASR (batch or streaming
 finalization) → existing deterministic filters → delivery/history. Translation, Roman Hinglish and
 optional LLM cleanup are off. No change to the user's microphone, shortcut or saved audio is implied.
-Handy already feeds streaming-capable native models while recording; preload reconciles runtime
-capabilities and warms the selected native inference path using discarded synthetic silence.
+Handy normally feeds streaming-capable native models while recording. The new opt-in
+`prefer_batch_transcription` setting instead recognizes the full recording on release and chooses
+offline VAD; it defaults false for existing users. The isolated quality profile enables it because
+same-clip E03 batch recognition retained technical terms and sentence ending with low recognition
+delay. Batch has no live partial preview and long clips can cost more after release.
+Preload reconciles capabilities plus this preference and warms the selected path with discarded
+synthetic silence. Restart after mode changes to prime the chosen path.
 Model Unload → Never retains the context between tests. Cold preparation is not release latency.
+
+The profile seeds three manual dictionary terms. Parakeet applies fuzzy post-ASR matching, not
+acoustic prompting. The prefix-preservation fix avoids consuming an ordinary preceding word when
+a better suffix match for the same term exists. It neither deletes unspoken articles nor creates
+list commas. Native Parakeet punctuation toggles are ignored; normalization preserves punctuation.
+Natural list punctuation, contextual grammar and flexible repair need a separate measured cleanup
+stage. OpenWhispr's pinned cleanup prompt/failure fallback is a reference, not a drop-in validated
+processor. No text model or local inference server is configured; new downloads require authority.
 
 The converter remains recoverable code, not an active product requirement: its script fixtures
 passed, but the user's live Hindi result failed meaning/translation expectations. Reintroducing
@@ -155,7 +169,8 @@ untrusted data; they cannot grant permissions, execute commands, or expand agent
 
 G0: pinned sources + safe ASR-only isolated test setup. G1: physical English-only
 accuracy/latency/paste acceptance, superseding the old Hindi/Hinglish gate. Qualitative English
-speed is accepted; technical accuracy, quantitative coverage and insertion safety remain open.
+streaming speed is accepted; live E03 technical/punctuation acceptance failed. The full-recording/
+vocabulary quality slice needs a live retest; quantitative coverage and insertion safety remain open.
 G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
 G3: license-approved minimal notes + transcript integration in Handy. G4: validated correction/
 editing and grounded local intelligence. G5: packaging, privacy/security/recovery and sustained

@@ -8,8 +8,10 @@ support the Handy fork. Updated physical ASR/paste acceptance and fresh-machine 
 
 ## Files
 
-- `start-test.ps1` — launch a selected prepared app without starting microphone recording.
-- `verify-workspace.ps1` — check pinned sources, ignored runtime readiness, and unsafe tracked files.
+- `start-test.ps1` — launch a selected prepared app without starting microphone recording;
+  report recognition mode and manual vocabulary count without profile/text content.
+- `verify-workspace.ps1` — check pinned sources, ignored runtime readiness, and unsafe tracked files;
+  report mode/vocabulary count without claiming live acceptance.
 - `restore-references.ps1` — restore only the explicitly listed top-level reference gitlinks;
   never initialize premium/nested submodules or update pins automatically.
 - `handy-baseline.json` — nonsensitive portable settings template for a fresh test profile;
@@ -18,7 +20,8 @@ support the Handy fork. Updated physical ASR/paste acceptance and fresh-machine 
   the launcher and runtime verifier; no automatic download or redistribution authorization.
 - `model-input.ps1` — read-only model path/size/hash resolver for the isolated Data directory,
   including pinned Hugging Face cache files; dot-sourced by launch and verification tools.
-- `benchmark-asr.ps1` — run the fork's standalone local timing/error diagnostic with explicit
+- `benchmark-asr.ps1` — run the fork's standalone local timing/error/punctuation diagnostic with
+  optional local gold and vocabulary files and explicit
   device selection; no mic/paste/upload. Read performance.md for interpretation and compile prerequisites.
 - `portable` — Handy's supported marker template; copy beside a fresh test executable only.
 

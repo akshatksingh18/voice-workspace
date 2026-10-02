@@ -2,8 +2,9 @@
 
 Use dummy text only. Read naturally; score meaning-critical tokens separately from punctuation.
 Run each fixture three times in quiet conditions and note warm/cold timings. These are proposed
-tests, not completed results. Akshat accepts the current English speed, but has not tried technical
-words. Keep actual outputs/audio in ignored `private-tests/`.
+tests, not completed results. Akshat accepts the earlier streaming profile's English speed; live
+E03 failed PostgreSQL spelling and punctuation. The new quality profile needs retesting.
+Keep actual outputs/audio in ignored `private-tests/`.
 
 ## English
 
@@ -32,8 +33,13 @@ words. Keep actual outputs/audio in ignored `private-tests/`.
 - E12: "The API returned HTTP four twenty-nine. Set the retry timeout to five hundred milliseconds."
   Critical: API, HTTP 429 and 500 milliseconds; number words/digits may differ, values/units cannot.
 
-Use the unchanged English profile with Custom Words empty for E03/E09–E12 first. Repeat three
-times in a blank Notepad document. For missed terms only, add intended spellings in Advanced
+The active quality test uses full-recording recognition and three manual terms: PostgreSQL,
+Kubernetes and REST API. Repeat E03 three times in blank Notepad; score terms, extra/missing words,
+commas, sentence ending and delay separately. Exact desired punctuation remains a cleanup gate,
+not an implemented dictionary feature. Preserve the profile before controlled comparisons;
+change mode and dictionary separately, restarting after mode changes for matched warm-up.
+The initial empty-dictionary streaming baseline was already attempted and failed E03.
+For E09–E12, do not pre-seed additional terms. For missed terms only, add intended spellings in Advanced
 Settings → Custom Words, then repeat the same fixture separately. This Parakeet path performs
 post-ASR fuzzy matching, not acoustic prompting or automatic learning; check nearby ordinary
 words were not incorrectly replaced. Never execute a dictated command or auto-submit these tests.

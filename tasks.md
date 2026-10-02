@@ -1,7 +1,8 @@
 # Current work and transition gates
 
 **Status:** English-only dictation evaluation. Akshat accepts the current Parakeet profile's live
-speed. Technical-word accuracy, broader insertion/reliability and quantitative latency coverage
+speed. Live E03 technical/punctuation acceptance failed; quality-profile retest,
+broader insertion/reliability and quantitative latency coverage
 remain open. Spoken self-correction is requested/planned, not built; notes/meetings are not integrated.
 
 ## G0 — Source and baseline preparation
@@ -24,7 +25,17 @@ remain open. Spoken self-correction is requested/planned, not built; notes/meeti
   release-to-paste. Hindi came out in English despite translation off; failed acceptance.
 - [x] Accept English-only product scope; supersede Hindi/Hinglish requirement and disable converter.
 - [x] Akshat accepts the current Parakeet profile's live English speed; no exact new latency/p95 reported.
-- [ ] Test English E01–E12 with the chosen microphone; technical words have not yet been tried.
+- [x] Attempt live E03: PostgreSQL and punctuation failed; Kubernetes/REST API retained.
+- [x] Compare the same saved E03 recording across downloaded models and batch/stream paths;
+  retain Parakeet, with full-recording mode as the next short-dictation quality candidate.
+- [x] Add opt-in full-recording setting and matching warm-up; fix dictionary prefix swallowing;
+  48 standalone diagnostic/text-filter tests pass. Deployment evidence belongs in setup.md.
+- [x] Build/deploy the full-recording quality fork and three-term profile; preserve rollback/history,
+  verify 14 matching DLLs, unchanged other settings and transcript-free native inference.
+- [x] Verify quality GUI startup/NVIDIA warm-up without recording; live retest still required.
+- [ ] Retest the quality profile's E03 spelling, neighboring words, punctuation and live delay;
+  no list-comma fix or full critical-word acceptance is claimed.
+- [ ] Complete English E01–E12 with the chosen microphone.
 - [ ] Run 20 inserts, silence, Escape, clipboard and focus-change checks; capture aggregate results.
 - [x] Preserve dormant experimental converter and synthetic regression fixtures, not an active P0.
 - [x] Measure CPU/NVIDIA/Intel Small inference; reproduce CPU bottleneck and choose NVIDIA.
@@ -38,7 +49,10 @@ remain open. Spoken self-correction is requested/planned, not built; notes/meeti
 - [x] Verify updated English GUI startup/priming and persisted privacy settings; no automatic recording.
 - [ ] Pass English critical-word accuracy and quantitatively measure warm release-to-paste;
   keep subjective speed acceptance distinct from the proposed numeric/p95 gate and cold/first run.
-- [ ] Try manual vocabulary separately; avoid claiming auto-learning is implemented.
+- [x] Screen three manual terms offline; prepare PostgreSQL/Kubernetes/REST API for live retest.
+- [ ] Test other missed vocabulary one variable at a time; no automatic learning implemented.
+- [ ] Obtain separate download authority and benchmark small local punctuation/technical cleanup
+  plus a Windows runtime before enabling it; keep latency, literal speech and negation intact.
 - [ ] Prepare OpenWhispr offline comparison profile only after reviewing released onboarding/egress.
 - [ ] Compare same model/settings; retain Handy base unless Akshat explicitly accepts a change.
 
@@ -60,7 +74,8 @@ remain open. Spoken self-correction is requested/planned, not built; notes/meeti
 - [ ] Add Raw/Light/Structured cleanup with validation, local failure fallback and undo.
 - [ ] Add explicit selected-text edit preview and stale-target revalidation.
 - [ ] Add approved vocabulary/replacement rules, then bounded opt-in correction learning.
-- [ ] Benchmark a small local/self-hosted text model on available hardware before adoption.
+- [ ] Benchmark local/self-hosted text inference for longer notes/summaries on this hardware;
+  passing short dictation cleanup does not establish long-document capacity.
 - [ ] Grounded summaries/action items/questions with citations and unknown owner/date handling.
 - [ ] Retention/deletion/backup scope, content-redacted logs, egress tests and security review.
 - [ ] Sustained meeting soak tests, signed packaging/update provenance and recovery exercise.

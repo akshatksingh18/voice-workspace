@@ -37,4 +37,6 @@ if ($PSCmdlet.ShouldProcess($voiceExe, 'Open isolated Handy test GUI (does not r
     $voiceProcess = Start-Process -FilePath $voiceExe -WorkingDirectory (Split-Path $voiceExe) -PassThru
     Write-Output "Opened Handy, process $($voiceProcess.Id). Select microphone, focus Notepad, then use the configured Transcribe shortcut."
     Write-Output 'Wait for model preparation to finish. English only; translation, Hinglish and AI cleanup are off. Live accuracy and release-to-paste need acceptance testing.'
+    $voiceModeLabel = if ($voiceSettings.prefer_batch_transcription) { 'full recording (no live partial preview)' } else { 'streaming when supported' }
+    Write-Output "Recognition mode: $voiceModeLabel; manual vocabulary count: $($voiceSettings.custom_words.Count)."
 }

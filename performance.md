@@ -1,18 +1,69 @@
 # Dictation performance and acceptance
 
-**Status:** English-only evaluation. Akshat accepts the current Parakeet profile's live speed.
-Technical-word accuracy, broader insertion/reliability and quantitative p50/p95 remain open.
+**Status:** English-only evaluation. Akshat accepts the earlier Parakeet streaming profile's live speed.
+The live E03 technical/punctuation test failed. Broader insertion/reliability and quantitative
+p50/p95 remain open; the full-recording/vocabulary quality profile needs a fresh live test.
 Turbo's older live test failed latency/Hindi acceptance. The Hindi converter is off, not a solved feature.
 
 ## Current physical acceptance boundary
 
 Akshat reports that the selected English profile's speed is now exactly the experience he wanted.
-Keep this model/profile as the baseline. No exact new release-to-paste duration, sample count or
-p95 was supplied, and technical words have not yet been tried. This is qualitative live speed
+Keep this model as the baseline; preserve the old streaming profile for comparison. No exact new
+release-to-paste duration, sample count or p95 was supplied. This is qualitative live speed
 acceptance, not proof of maximum accuracy, all-editor reliability or a guaranteed sub-second p95.
-Next tests are English critical vocabulary/meaning and insertion safety. Requested spoken
+Akshat then tried E03: PostgreSQL became split phonetic words, an extra article appeared, and
+list commas plus the terminal period were absent. Kubernetes and REST API were retained.
+That is a failed technical/punctuation test, not merely untested accuracy. Next tests repeat E03
+on the quality profile, then English critical vocabulary/meaning and insertion safety. Requested spoken
 self-correction is not implemented; benchmark its additional work before enabling it so it does
-not regress the accepted speed. No runtime/settings change follows from this acceptance report.
+not regress the accepted speed. New mode/profile preparation does not inherit live speed acceptance.
+
+## Same-recording technical/punctuation comparison
+
+Measured 2026-10-02, offline, with Handy closed and no concurrent native compilation. Reused the
+latest synthetic E03 microphone recording locally: 8.28 s, 16 kHz mono PCM. Recordings/transcripts
+remain ignored. Three runs per path, explicit English, actual NVIDIA MX450 bound as Vulkan1 in
+the standalone diagnostic. Each process loaded/primed its selected path; caches and thermal state
+were not controlled. These are recognition/finalization timings, not full GUI release-to-paste.
+
+- Parakeet Q8 streaming: release/finalization 0.333/0.324/0.435 s; 4 lexical word errors and
+  critical-term check failed each run. No commas or sentence-ending punctuation. First partials
+  arrived 2.3–2.6 s into speech. Startup load 6.961 s, discarded-silence prime 5.111 s.
+- Parakeet Q8 full recording: recognition 0.439/0.406/0.378 s; critical terms retained, 1 lexical
+  word error, final period but no list commas. Load 1.033 s, prime 0.189 s (cache-warm sample).
+- Moonshine Small Q8 full recording: 0.531/0.223/0.220 s; critical terms retained, 1 lexical
+  error, final period but no list commas. Load 2.588 s, prime 5.703 s.
+- Moonshine Medium Q8 full recording: 0.416/0.299/0.292 s; critical-term check failed, 3 lexical
+  errors, no commas or sentence ending. Load 2.909 s, prime 0.191 s.
+- Whisper Turbo full recording: 3.358/3.224/3.220 s; 0 lexical errors, technical terms retained,
+  both list commas and sentence ending present. Load 23.988 s, prime 6.059 s. This quality result
+  does not justify replacing the speed-accepted model with a much slower default.
+
+Separate post-ASR dictionary check: PostgreSQL, Kubernetes and REST API, threshold 0.18.
+With the prefix-preservation fix, streaming Parakeet retained critical terms and fell to 1 lexical
+error; Parakeet batch was already correct on those terms and unchanged. Medium Moonshine fell to
+2 errors; Small changed casing only. Dictionary cost was 75–1,083 microseconds in Parakeet
+streaming and 77–95 microseconds in batch. These few samples are not a scaling/p95 guarantee.
+The dictionary preserves ordinary prefixes; it does not remove the article or infer punctuation.
+All 48 standalone diagnostic/text-filter tests passed, including that regression.
+
+Decision: retain Parakeet Q8/NVIDIA and expose opt-in full-recording recognition, warming the
+chosen path. Prepare a three-term manual vocabulary for the next live test. Whole-recording
+recognition improved this one clip, not all accents/utterances; longer speech can cost more after
+release and batch has no live preview. The app's normalizer preserves punctuation; Parakeet's
+native API ignores runtime punctuation toggles. A missing checkbox is not the cause.
+
+After the full native release build, the deployed app's transcript-free headless path loaded/
+primed in 7.886 s and recognized the same clip in 0.780/0.399/0.443 s. INFO confirms NVIDIA MX450
+bound as Vulkan0; the profile has full-recording mode plus the three manual terms. The GUI stays
+alive after load and batch priming (0.893 s in the sampled GUI startup). These verify deployment/
+readiness and native inference, not microphone/VAD/paste latency or a new critical-word pass.
+
+Natural commas, contextual grammar and flexible spoken repair remain a separate cleanup gate.
+OpenWhispr's pinned cleanup workflow is an implementation reference (see research), not tested
+local performance. No cleanup model/runtime has been downloaded or configured for this slice;
+approval for a separate local text-model/runtime comparison is still outstanding. Never synthesize
+hardcoded E03 output, insert commas around every conjunction, or silently use cloud inference.
 
 ## Initial physical result
 
@@ -39,7 +90,8 @@ important; the clip is mixed-language and is only a speed comparison, not an Eng
 The standalone `../handy/src-tauri/examples/asr_latency.rs` diagnostic uses the same installed
 transcribe-cpp 0.2.4/runtime libraries. It warms with one second of discarded silence, then paces
 100 ms frames at real-time speed for streaming. `release_ms` is the time beyond the WAV's duration,
-including feed backlog and finalization. It omits microphone/VAD/IPC/paste/history and app filters.
+including feed backlog and finalization. It omits microphone/VAD/IPC/paste/history; raw recognition
+is scored separately from optional dictionary matching, which was off in the initial screening.
 Default stream/run options and explicit English were used. All following runs verify **NVIDIA MX450**
 as bound device (`Vulkan1` in this diagnostic; indices differ from app processes).
 

@@ -19,8 +19,10 @@ Active scope is **English only**, superseding the earlier Hindi/Hinglish require
 Turbo live test improved speed but still took 3–4 seconds and produced unwanted English from Hindi.
 Hindi work is deferred; the experimental converter is off and existing data is preserved.
 The English test candidate is Parakeet Unified EN Q8 on NVIDIA, with startup warm-up and no AI
-cleanup or translation. Akshat accepts this profile's live English speed; technical words and the
-broader insertion/reliability suite remain untested. See [performance.md](performance.md) for
+cleanup or translation. Akshat accepts the earlier streaming profile's live English speed, but
+its live E03 test missed PostgreSQL and punctuation. A full-recording mode and narrow manual
+dictionary are the next quality-test slice; live retest and the broader insertion/reliability suite
+remain open. Natural list commas and contextual cleanup are not solved. See [performance.md](performance.md) for
 comparisons and verification boundaries. Recognition-only timings are not an insertion guarantee.
 Spoken self-correction is requested but not built; its proposed behavior and tests are in
 [product-framework.md](product-framework.md) and [test-cases.md](test-cases.md).
