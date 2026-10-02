@@ -1,26 +1,25 @@
 # First tests and settings
 
-**Status:** Experimental updated test profile; initial physical dictation failed speed/script/acronym
-acceptance. Converter unit/history checks pass; updated live accuracy, shortcut/paste reliability
-and instant latency still need Akshat's tests. See setup.md for activation/verification state.
+**Status:** English-only evaluation. Turbo's updated live test still took 3–4 seconds and Hindi
+output failed. The faster English candidate needs Akshat's microphone/paste acceptance.
+See setup.md for deployment evidence and performance.md for measured samples.
 
 ## 1. Handy first — no account, server or cleanup model
 
 Close any running Handy/OpenWhispr/other dictation app from its tray; do not run both together.
 Run `scripts/start-test.ps1` from this project, or open `runtime/handy/handy.exe`. This is the
 updated private-fork build, not an installed replacement or the reference source checkout.
-Wait until model preparation/loading finishes; preload primes Whisper with discarded synthetic
+Wait until model preparation/loading finishes; preload primes native batch/streaming inference with discarded synthetic
 silence and never records your microphone. First startup is slower than later dictations.
 
 The isolated portable settings select:
 
-- Model: multilingual **Whisper Turbo** (`turbo`), not an English-only engine. Small is retained
-  only for explicit comparisons. Do not switch to English-only Parakeet for a Hindi test.
-- Language: Automatic. Translate to English: off. Hindi-only failures should be retested with
-  Hindi selected explicitly; mixed Hinglish should return to Automatic for comparison.
+- Model: **Parakeet Unified EN 0.6B Q8_0**, English-only native GGUF, not old ONNX Parakeet V3.
+  Other downloaded models are retained for explicit comparisons, not automatic selection.
+- Language: **English**. Translate to English: off. English models are not expected to recognize Hindi.
 - Activation: hold-to-talk; Ctrl+Shift+F12. Escape: cancel.
 - ASR: measured NVIDIA MX450 device with Vulkan. ONNX: CPU (no ONNX dictation model selected).
-- Roman Hinglish: on. Warm model on startup: on. Model Unload: Never during latency tests.
+- Roman Hinglish: **off**. Warm model on startup: on. Model Unload: Never during latency tests.
   This consumes more RAM/VRAM; close the test app if it causes system pressure.
 - Post-processing/AI cleanup and filler removal: off. Use the normal Transcribe shortcut.
 - Custom words: initially empty, then a separate technical-word test.
@@ -36,12 +35,12 @@ must permit desktop apps; no administrator mode is needed. These device/privacy 
 be honestly completed without selecting/testing your actual microphone.
 
 Focus a blank Notepad document. Hold Ctrl+Shift+F12, say E01, release, and wait for insertion.
-Try E02, H01 and H03. Start speaking after the recording-ready cue and leave focus in place.
-Hindi must appear in natural Roman Hinglish, not Devanagari or English translation. The new toggle
-controls script independently of Automatic/Hindi recognition language; translation must stay off.
-Retest: "Please move the meeting to tomorrow, and aaj deployment mat karna, pehle API test kar lo."
-Check the English opening, API, negation and order—not only the script. The converter cannot
-restore words ASR lost/misheard. Unsupported script produces an error/retry, never raw auto-paste.
+Try E03 and E06. Start speaking after the recording-ready cue and leave focus in place.
+Say: "Please move the meeting to tomorrow, and do not deploy today. First test the API on staging."
+Check tomorrow, API, negation and ordering, then three short utterances and a 30-second paragraph.
+Hindi/Hinglish is deferred, superseding the old requirement; do not re-enable it. Existing audio
+and the dormant converter remain recoverable. The target is warm release-to-paste under one second,
+not a guarantee. A streaming partial can revise; first-partial time is not final insertion time.
 
 Then run cancellation, silence, clipboard and repeated-insertion tests from test-cases.md.
 After a quiet baseline, try a browser textarea and your usual harmless editor. Do not use a real
@@ -52,7 +51,7 @@ revealed with Show raw recognition (recovery only). Existing recordings were not
 
 ## 2. Change one variable at a time
 
-Add only synthetic/domain terms (PostgreSQL/Kubernetes/REST API) to Custom Words and rerun E03/H06.
+Add only synthetic/domain terms (PostgreSQL/Kubernetes/REST API) to Custom Words and rerun E03.
 Keep this distinct from automatic correction learning, which has not been built here.
 CPU/Small and NVIDIA/Intel comparisons are recorded in performance.md; they are not instant.
 Measure at least three warmed-up utterances in the new GUI. INFO `dictation_latency` logs separate
@@ -61,11 +60,20 @@ Do not read a load-only or best-of-two number as p95. Keep vocabulary tests sepa
 Do not load a large text model just because a discrete GPU exists: this machine has 8 GB RAM
 and about 2 GB discrete VRAM. Save aggregate conclusions, not private text, into tracked docs.
 
-Initial proposed gate: 20 inserts without loss/duplication/auto-submit; all negation/number/date
-fixtures preserve meaning; H01-H06 delivered Hindi uses natural Latin-letter Hinglish, with no
-Devanagari or unasked English translation; cancel and failure leave recoverable text. Keep the
+Initial proposed gate: E01–E08 with the user's natural English accent, 20 inserts without loss,
+duplication or auto-submit; all negation/number/date fixtures preserve meaning; cancel and failure
+leave recoverable text. Test quiet and ordinary room conditions. Keep the
 headless ASR-only and full GUI measurements separate. Latency targets should be
 chosen from measurements; log stop-to-insert time separately from spoken duration.
+
+`scripts/benchmark-asr.ps1` uses the fork's standalone native diagnostic, not the complete GUI.
+It paces 100 ms frames in real time and includes remaining backlog/finalization in `release_ms`.
+Use the returned bound device name, not a presumed index. Gold scoring ignores case/punctuation
+but counts valid number formatting as word errors; its limited critical-token checks are not
+full semantic validation. Synthetic offline Windows TTS screens candidates but does not prove
+accuracy for Akshat's voice. Compile prerequisites are in ../handy/windows-local-setup.md.
+Never upload recordings, local diagnostics or gold transcripts. Post-ASR vocabulary correction on
+non-Whisper models is not acoustic prompting or automatic learning.
 
 ## 3. OpenWhispr comparison — not preconfigured or launched
 
@@ -75,7 +83,7 @@ defaults, profile/model locations and offline settings have not been verified ag
 it is **not** a second ready-to-use isolated test profile.
 
 When explicitly starting this comparison, close Handy, review onboarding, choose local/guest mode
-if offered, local Whisper Small, Automatic, translation/cleanup/assistant/screen context off, no
+if offered, a supported local English model, English language, translation/cleanup/assistant/screen context off, no
 cloud keys, sync/calendar/connectors/meeting detection/automatic recording off. Verify the UI can
 actually provide those choices. Do not improvise unsupported localStorage/Chromium-profile flags.
 Use the existing model only through a supported model-location/import setting; otherwise a separate
@@ -87,7 +95,7 @@ an accepted replacement for Handy. No installer/account setup is needed for the 
 
 ## 4. Meeting evaluation and local intelligence — later
 
-After dictation including the Roman-Hinglish output contract passes, prepare a manual, consented dummy call in the actual meeting app with
+After English dictation passes, prepare a manual, consented dummy call in the actual meeting app with
 headphones. Evaluate microphone plus Windows system loopback, silence, overlap, duplicates,
 device switches, pause/resume and crash recovery. Do not call two sources "full diarization".
 If local capture fails, stop and preserve evidence; don't quietly enable a cloud provider.

@@ -1,14 +1,14 @@
 # Current work and transition gates
 
-**Status:** Experimental dictation implementation and evaluation. Notes/meeting integration is
-not built; near-instant speed and updated live language acceptance remain open.
+**Status:** English-only dictation optimization and evaluation. Notes/meeting integration is
+not built; near-instant full insertion and English accuracy acceptance remain open.
 
 ## G0 — Source and baseline preparation
 
 - [x] Create standalone project, canonical CLAUDE chain and parent routing.
 - [x] Move research here; document product framework, nitpicks, architecture and test fixtures.
 - [x] Download local reference sources without executing dependency/install scripts.
-- [x] Download and hash-check multilingual Whisper Small for English and Hindi/Hinglish.
+- [x] Download and hash-check multilingual Whisper Small, retained for comparison/recovery.
 - [x] Copy isolated Handy release runtime; provision safe baseline settings.
 - [x] Validate script syntax, launcher/restore previews, source pins and safe remotes.
 - [x] Validate Handy portable startup and generated setting persistence; startup alone is not ASR evidence.
@@ -19,22 +19,22 @@ not built; near-instant speed and updated live language acceptance remain open.
 
 - [x] Initial user Notepad capture/insertion attempted: failed Roman script, technical acronym and
   speed acceptance (reported release-to-text over 10 seconds).
-- [ ] Akshat selects microphone and performs E01/E02/H01/H03 first.
+- [x] Updated Turbo live test attempted: user reports 3–4 seconds; INFO logs show 4.029–4.527 s
+  release-to-paste. Hindi came out in English despite translation off; failed acceptance.
+- [x] Accept English-only product scope; supersede Hindi/Hinglish requirement and disable converter.
+- [ ] Akshat retests English E01–E08 with the faster candidate and chosen microphone.
 - [ ] Run 20 inserts, silence, Escape, clipboard and focus-change checks; capture aggregate results.
-- [x] Decide Hindi output policy: natural Roman Hinglish, not Devanagari or English translation.
-- [x] P0 implementation: experimental local Hindi-to-Roman-Hinglish conversion before display/paste,
-  independent of cleanup; preserve English, meaning and raw provenance; no silent script fallback.
-- [x] Eight native converter test groups and six history-delivery regression checks pass; this
-  is synthetic coverage, not general spoken accuracy.
+- [x] Preserve dormant experimental converter and synthetic regression fixtures, not an active P0.
 - [x] Measure CPU/NVIDIA/Intel Small inference; reproduce CPU bottleneck and choose NVIDIA.
 - [x] Add opt-in startup model preload and content-free latency diagnostics.
 - [x] Download and hash-check the approved Whisper Turbo model for a local comparison.
-- [x] Build/deploy the updated native Windows fork, preserve rollback/profile/history, select
-  Turbo/NVIDIA and verify real headless inference/conversion (3.3–3.8 s samples, not instant).
-- [x] Verify updated GUI startup/priming, safe persisted settings and transcript-free timing mode;
-  leave app idle for Akshat's live test, without automatically recording.
-- [ ] Pass H01-H06 script/meaning checks with cleanup off before calling language setup ready.
-- [ ] Measure and choose acceptable warm/cold latency, including Romanization overhead.
+- [x] Build/deploy the native Windows fork with embedded frontend and matching libraries;
+  preserve rollback/profile/history and verify transcript-free headless inference.
+- [x] Screen cached Parakeet Unified EN and authorized Moonshine Small/Medium Q8 models locally;
+  integrity, device identity, batch and streaming evidence belong in performance.md.
+- [x] Deploy and verify English streaming priming in the rebuilt fork's headless native path.
+- [x] Verify updated English GUI startup/priming and persisted privacy settings; no automatic recording.
+- [ ] Pass English critical-word accuracy and warm release-to-paste target; report cold/first run separately.
 - [ ] Try manual vocabulary separately; avoid claiming auto-learning is implemented.
 - [ ] Prepare OpenWhispr offline comparison profile only after reviewing released onboarding/egress.
 - [ ] Compare same model/settings; retain Handy base unless Akshat explicitly accepts a change.
@@ -61,6 +61,7 @@ not built; near-instant speed and updated live language acceptance remain open.
 ## Deferred / requires another decision
 
 iPhone/keyboard/share extension device spike; macOS/Linux physical tests; calendar behavior;
+Hindi/Hinglish (requires a new user decision, not silent reactivation);
 LAN inference/auth/TLS; MCP/export integrations; encrypted-at-rest design; private-data backup
 destination; cross-session voice identity; connectors/public sharing. No live coaching and no
 automatic recording remain boundaries. Do not tick runtime/feature boxes from source research.

@@ -13,15 +13,16 @@ Published documentation can describe newer code than the shipped release. No fea
 performance, privacy guarantee, or cross-platform runtime verification is implied by this review.
 An isolated Handy runtime/models and dictation changes are prepared in this project; `setup.md`
 and `performance.md` own actual verification evidence. The external comparison apps remain untested.
-Akshat requires natural Roman Hinglish for Hindi transcripts, not Devanagari or English translation.
-This is a P0 delivery requirement; the Handy fork implements an experimental local converter,
-but spoken accuracy and updated live acceptance remain open.
+Akshat now requires English only, prioritizing speed and accuracy. This explicitly supersedes the
+previous Roman-Hinglish requirement after a failed live test. The dormant converter is preserved;
+setup.md/performance.md own the current English profile and measurements, not this research snapshot.
 
 ## Current workspace evidence
 
 - Handy is a Rust/Tauri + React desktop fork. Its Windows source build/startup and initial Notepad
   capture/insertion worked, but speed/script/acronym acceptance failed. Local CPU/GPU model
-  inference is measured; updated live acceptance and signed installer behavior remain open. See
+  inference is measured; Turbo's updated live latency was still about 4 seconds and Hindi output
+  failed. English-only acceptance and signed installer behavior remain open. See
   `../handy/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
   and SQLite dictation history already provide useful integration points.
 - `../granola-alt/` is a specification on an imported Electron/Natively base, not a completed
@@ -136,6 +137,34 @@ Windows desktop base. [Repository](https://github.com/jamespember/omascribe).
 
 ## Recommended product design
 
+### English ASR shortlist
+
+The active language decision is English only. Refresh/reviewed primary cards on 2026-10-02:
+
+- **Parakeet Unified EN 0.6B Q8**: English, punctuation/capitalization, native port supports batch
+  and buffered streaming. Reuses the already cached model; local measurements in performance.md
+  support it as the first test candidate, not a universal accuracy winner.
+  [NVIDIA base](https://huggingface.co/nvidia/parakeet-unified-en-0.6b),
+  [Handy GGUF port](https://huggingface.co/handy-computer/parakeet-unified-en-0.6b-gguf).
+- **Moonshine Streaming Small/Medium Q8**: English-only compact models; downloaded and screened
+  locally. Batch is fast, but default streaming fell behind on this machine. Decode cadence/native
+  backend matters; an optimized vendor benchmark does not describe Handy's exact default path.
+  [Small port](https://huggingface.co/handy-computer/moonshine-streaming-small-gguf),
+  [Medium port](https://huggingface.co/handy-computer/moonshine-streaming-medium-gguf),
+  [upstream Medium](https://huggingface.co/moonshine-ai/moonshine-streaming-medium).
+- **Whisper Turbo**: retained measured reference, not the preferred English latency profile.
+  Handy's current native Whisper path is batch-only; changing recognition language alone does not
+  process speech in advance. No cloud ASR or heavier LLM is introduced for this comparison.
+
+No model has both globally maximum speed and accuracy across hardware, accents and noise. Test
+critical words and warm/cold delivery, then choose the Pareto tradeoff appropriate to this laptop.
+Published WER is not an accented-microphone acceptance result. Parakeet's GGUF card says CC-BY-4.0
+but the current NVIDIA base says NVIDIA Open Model License: packaging must reconcile provenance/
+terms before redistributing weights. Moonshine English cards list MIT. Local testing permission
+does not settle redistribution, and all weights/recordings remain out of GitHub.
+
+### Integration direction
+
 One eventual desktop product, four explicit modes: Dictate into another app; Edit selected text;
 Notes for drafts/voice memos; Meetings for long-running mic plus call audio. Share vocabulary,
 provider settings, library/search, and export. Keep recording destinations and state separate:
@@ -176,8 +205,8 @@ editable, exportable, reversible, and removable. Do not learn new facts from unv
 Use conservative cleanup by default, optional stronger polish, per-app styles, and raw-text
 recovery. Protect names, numbers, dates, amounts, negations, and mixed-language text. A timeout
 should return the available validated delivery text without prose cleanup, not lose it or silently
-call a cloud provider. For Hindi this still means Roman Hinglish; failed script conversion gives
-an explicit error and opt-in original-ASR recovery, never automatic Devanagari insertion. User
+call a cloud provider. English is the active scope; the earlier Hindi converter is off and its
+acoustic/meaning acceptance failed. User
 dictation and imported transcripts are data, not executable instructions for agents.
 
 Meeting labels start provisional, with manual naming and locking. Two audio tracks distinguish
@@ -194,8 +223,7 @@ a suggestion is not a promise. No automatic email, task creation, coaching, or b
 
 ## Phases and decision gates
 
-1. Establish a physical Handy English/Hindi/Hinglish ASR baseline and add/test required local
-   Roman-Hinglish delivery (English spans unchanged), then evaluate a pinned OpenWhispr
+1. Pass a physical Handy English-only ASR accuracy/latency/paste baseline, then evaluate a pinned OpenWhispr
    release on Windows using consented test audio: dictation/paste in actual editors, local-only
    operation and resource use. Later compare Teams/Zoom/browser capture, labels and export.
    This is the build-versus-adapt gate, not a base switch; use the current testing-guide.md.
@@ -214,7 +242,7 @@ a suggestion is not a promise. No automatic email, task creation, coaching, or b
    [Apple keyboard limitations](https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html).
 
 Acceptance tests must include headset/output switches, Bluetooth routing, mute, overlap, silence,
-sleep/resume, crashes, long calls, unavailable models, blocked network, multilingual speech, and
+sleep/resume, crashes, long calls, unavailable models, blocked network, accented English, and
 clipboard/focus races. Measure word errors, correction learning mistakes, speaker attribution,
 stop-to-paste latency, transcript lag, memory/CPU/GPU, and recovery completeness on stated hardware.
 Targets are to be set from those measurements, not copied from marketing pages.

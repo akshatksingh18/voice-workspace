@@ -8,11 +8,11 @@
       "path": "references/handy",
       "url": "https://github.com/akshatksingh18/handy.git",
       "upstream": "https://github.com/cjpais/Handy.git",
-      "revision": "2211059c0e79c97ae9916d4113a2be2e0295e6e9",
+      "revision": "a541a3551d6d73479ac2588e6e0ebbd9767af860",
       "sourceBranch": "main",
       "license": "MIT",
       "licenseFile": "LICENSE",
-      "boundary": "Accepted desktop base; private fork with experimental offline Roman-Hinglish delivery, startup priming and latency diagnostics. Windows runtime rebuilt/tested locally; updated live acceptance and other platforms remain open. Model, asset and dependency terms require separate review."
+      "boundary": "Accepted desktop base; private fork with English-first local dictation, native batch/streaming startup priming and content-free latency diagnostics. Hindi converter dormant. Windows runtime rebuilt and GUI priming verified; English live accuracy/insertion, signed packaging and other platforms remain open. Model, asset and dependency terms require separate review."
     },
     {
       "name": "granola-alt",

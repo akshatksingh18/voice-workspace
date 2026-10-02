@@ -1,7 +1,8 @@
 # Architecture and component selection
 
 **Status:** Accepted ownership and guardrails; broader integration design remains proposed.
-The Handy fork implements experimental dictation script conversion, preload and diagnostics.
+The Handy fork implements preload/warm-up and diagnostics; English-only dictation is active,
+with the experimental Hindi converter dormant.
 No notes/meeting module or inter-app bridge is implemented in this repository.
 
 ## Ownership and first decision
@@ -45,14 +46,14 @@ One desktop shell; distinct Dictate, Edit, Note and Meeting modes. Share service
 
 1. Audio capture: native mic plus Windows WASAPI loopback adapter. Emits bounded PCM chunks with
    session/source/sequence/sample rate/channels/timebase. Keeps sources distinct and reports gaps.
-2. ASR service: multilingual model registry, checksum/version, capability flags and cancellation.
+2. ASR service: English-first selection over Handy's existing model registry, checksum/version,
+   capability flags and cancellation; keep batch and streaming capabilities distinct.
    Dictation has priority; meeting chunks queue with bounded backlog and persistence/recovery.
 3. Delivery service: target/selection token, stale-target revalidation, clipboard transaction,
    exactly-once paste receipt, fallback and undo. Meeting transcripts cannot reach auto-paste.
 4. Language/correction service: explicit transformations, vocabulary hints, scoped replacement
-   rules and opt-in correction candidates. Mandatory local Hindi-to-Roman-Hinglish conversion
-   precedes final delivery, independent of optional cleanup. Keep raw ASR, script-normalized text,
-   deterministic corrections and LLM output separate; bypass conversion for already English/Roman spans.
+   rules and opt-in correction candidates. Active English dictation bypasses the dormant Hindi
+   converter. Keep raw ASR, deterministic corrections and LLM output separate; preserve provenance.
 5. Note/meeting service: user notes, segment stream, recording state, transcript versions, speaker
    labels and explicit export. Human text and locked labels survive AI reruns.
 6. Intelligence service: independent local/self-hosted text adapter, constrained schemas, grounded
@@ -83,18 +84,17 @@ session identity and embeddings require an explicit separate privacy decision an
 
 ## Inference and deployment
 
-Accepted Hindi output contract: natural Roman Hinglish, never Devanagari or English translation.
-Implemented dictation order in the Handy fork: ASR → local Hindi script normalization → optional
-cleanup → script revalidation/conversion → delivery. Meaning-validation around future AI cleanup
-is still planned, not implied by script validation.
-Keep English spans intact and validate script plus names/numbers/negation before insertion. A
-conversion failure produces an error/retry with explicit raw recovery, not blind Devanagari
-paste. Default transcript display, dictated notes and exports use the validated Roman form;
-retain original-script ASR internally for provenance. The fork uses an authored dependency-free
-Rust converter with common chat spellings/exact loanwords and conservative fallback. Unit fixtures
-pass, but unfamiliar-word spellings and speech recognition require further tests. History defaults
-to delivered text and exposes raw ASR only by explicit recovery. Notes/export integration is not
-built yet. Any later contextual model needs separate memory/license/meaning-preservation checks.
+Accepted language scope: English only. Current ASR-only path: English local ASR (batch or streaming
+finalization) → existing deterministic filters → delivery/history. Translation, Roman Hinglish and
+optional LLM cleanup are off. No change to the user's microphone, shortcut or saved audio is implied.
+Handy already feeds streaming-capable native models while recording; preload reconciles runtime
+capabilities and warms the selected native inference path using discarded synthetic silence.
+Model Unload → Never retains the context between tests. Cold preparation is not release latency.
+
+The converter remains recoverable code, not an active product requirement: its script fixtures
+passed, but the user's live Hindi result failed meaning/translation expectations. Reintroducing
+Hindi requires a new decision and acoustic tests. Existing history/audio is not deleted. Future
+cleanup/notes/export need independent meaning-preservation and privacy gates; none is built here.
 
 The CPU Whisper Small baseline reproduced excessive delay; measured NVIDIA Vulkan acceleration
 is faster. See performance.md for device/model evidence and setup.md for the active profile.
@@ -127,8 +127,8 @@ untrusted data; they cannot grant permissions, execute commands, or expand agent
 
 ## Implementation gates
 
-G0: pinned sources + safe ASR-only isolated test setup. G1: physical English/Hindi/Hinglish ASR and
-paste comparison plus mandatory local Roman-Hinglish output before declaring language readiness.
+G0: pinned sources + safe ASR-only isolated test setup. G1: physical English-only
+accuracy/latency/paste acceptance, superseding the old Hindi/Hinglish gate.
 G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
 G3: license-approved minimal notes + transcript integration in Handy. G4: validated correction/
 editing and grounded local intelligence. G5: packaging, privacy/security/recovery and sustained

@@ -16,12 +16,18 @@ tests, not completed results. Keep actual outputs/audio in ignored `private-test
   Raw baseline retains intent; cleanup must not turn a proposal into an approved change.
 - E05: "Can you send the draft? I am dictating a question, not asking this app to send anything."
   Must produce text, not use tools or submit a message.
+- E06: "Please move the meeting to tomorrow, and do not deploy today. First test the API on staging."
+  Critical: tomorrow, do NOT deploy today, API and ordering; replaces the failed mixed-language test.
+- E07: "Use version two point one, not two point ten. The timeout is fifteen milliseconds."
+  Critical: 2.1 versus 2.10, 15 ms; don't infer a different version or unit.
+- E08: "Akshat will review the pull request after the integration tests pass."
+  Critical: name, conditional timing; test the user's natural accent and chosen microphone.
 
-## Hindi and Hinglish
+## Hindi and Hinglish — deferred reference only
 
-Required delivered output is ordinary Latin-letter Hinglish for Hindi and English spans, not
-Devanagari or a full English translation. The current ASR-only build has a known script gap;
-do not mark these product acceptance tests passed from meaning alone. Minor Roman spelling
+These fixtures preserve the superseded requirement, not active acceptance. Hindi/Hinglish was
+removed after the user reported unwanted English from Hindi. The old desired output was Latin
+Hinglish, not Devanagari or full English. Do not re-enable it for current tests. Minor Roman spelling
 variants are acceptable; formal diacritics, script leakage and meaning changes are not.
 
 - H01: "Kal ki meeting teen baje rakho, chaar baje nahi."
@@ -73,7 +79,7 @@ Language/script / cleanup level / vocabulary:
 Fixture ID / spoken seconds / stop-to-text seconds:
 Critical token errors / meaning errors:
 Paste lost/doubled/stale? Clipboard preserved? Cancel safe?
-Required Roman-Hinglish output / any Devanagari leakage or unexpected translation:
+English only / unexpected language or translation:
 Notes and reproducibility:
 ```
 

@@ -5,8 +5,8 @@ editing, personal notes, and bot-free meeting notes. Handy is the accepted deskt
 This repository owns the product requirements, cross-project research, evaluation, and future
 integration; sibling Handy and Granola repositories keep their own implementation instructions.
 
-**Status:** Dictation implementation and evaluation — the initial live test failed speed/script
-acceptance; experimental Roman-Hinglish delivery and performance work live in the Handy fork.
+**Status:** English-only dictation implementation and evaluation — Turbo's live test still took
+3–4 seconds and Hindi output failed acceptance. English model/warm-up work lives in the Handy fork.
 Moves to integrated notes/capture after updated dictation and component/license gates pass.
 No integrated Voice Workspace application exists yet.
 
@@ -30,7 +30,7 @@ No integrated Voice Workspace application exists yet.
 - `.gitignore` — excludes runtimes, private audio/text, credentials, models, and build output.
 - `references/` — read-only source checkouts; read `references/CLAUDE.md` before inspecting them.
 - `scripts/` — project-owned setup, launcher, and verification tools; read `scripts/CLAUDE.md`.
-- `test-cases.md` — synthetic English/Hindi/Hinglish fixtures; never put real meeting content here.
+- `test-cases.md` — active English fixtures and deferred Hindi regression references; never put real meeting content here.
 
 ## Working agreement
 
@@ -46,12 +46,11 @@ No integrated Voice Workspace application exists yet.
   code into the product; component provenance and model/asset rights are separate gates.
 - Windows is the first physical-test target. Preserve Handy's macOS/Linux boundaries; do not
   claim another platform or iPhone works from a Windows source review or build.
-- Start with English plus Hindi/Hinglish and local ASR; translation and AI cleanup are off for
-  ASR-only baseline testing. Akshat requires Hindi speech to be delivered in natural Roman
-  Hinglish (English letters), never Devanagari or an English translation; preserve English spans.
-  The fork now implements an experimental local converter; spoken accuracy and updated delivery
-  still require acceptance tests. This is a P0 output contract. Raw
-  ASR may retain original script internally; it must not silently become final delivered text.
+- English only is the active product/test scope, explicitly superseding Hindi/Hinglish requirements.
+  Prioritize English acoustic accuracy and warm release-to-paste latency. Select English explicitly;
+  translation, Roman Hinglish and AI cleanup stay off. Preserve the dormant converter and existing
+  recordings for recovery, but do not spend feature work on Hindi or claim Hindi acceptance.
+  Reintroducing another language requires Akshat's explicit decision and new tests.
   Never silently fall back to cloud or start recording automatically.
 - Manual meeting start and no live coaching remain standing boundaries. Optional future calendar
   behavior needs an explicit decision; do not change the sibling Granola implementation plan here.

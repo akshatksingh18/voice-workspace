@@ -11,17 +11,16 @@ Source home: [Akshat's private voice-workspace repository](https://github.com/ak
 ## Start here
 
 This Windows machine has a separate Handy test runtime under ignored `runtime/handy/`, with a
-multilingual Whisper models for English and Hindi/Hinglish. No cloud key is needed. Read
+English-first local model profile. No cloud key is needed. Read
 [setup.md](setup.md) for exact verification boundaries and [testing-guide.md](testing-guide.md)
 for microphone selection and the first test. Runtimes/models are not included in GitHub.
 
-Required product output: Hindi in natural **Roman Hinglish**, with English words unchanged.
-Example: "Kal ki meeting teen baje rakho, chaar baje nahi." No Devanagari or English translation
-in the delivered transcript. The Handy fork now has an experimental, fast offline Roman-Hinglish
-converter and model preload. Synthetic converter/history checks pass; spoken accuracy and updated
-live insertion still need acceptance. Initial CPU dictation exceeded 10 seconds and failed this
-script contract. See [performance.md](performance.md) for measurements; instant delivery is not
-yet achieved. Model selection and script conversion are separate from recognizing words correctly.
+Active scope is **English only**, superseding the earlier Hindi/Hinglish requirement. The updated
+Turbo live test improved speed but still took 3–4 seconds and produced unwanted English from Hindi.
+Hindi work is deferred; the experimental converter is off and existing data is preserved.
+The English test candidate is Parakeet Unified EN Q8 on NVIDIA, with startup warm-up and no AI
+cleanup or translation. See [performance.md](performance.md) for comparisons and the live acceptance
+gate. Recognition-only or streaming-finalization timings are not a promise of instant insertion.
 
 From PowerShell:
 

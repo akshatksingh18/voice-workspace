@@ -57,23 +57,18 @@ if ($CheckRuntime) {
     }
     if (-not (Get-Content -LiteralPath $voiceMarker -Raw).StartsWith('Handy Portable Mode')) { throw 'Invalid portable marker.' }
     $voiceSettings = (Get-Content -LiteralPath $voiceStore -Raw | ConvertFrom-Json).settings
-    $voiceModels = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'local-models.json') -Raw | ConvertFrom-Json
-    $voiceModelInfo = $voiceModels.PSObject.Properties[$voiceSettings.selected_model].Value
-    if (-not $voiceModelInfo) { throw 'Unsupported model in test profile.' }
-    $voiceModel = Join-Path $voiceRoot "runtime\handy\Data\models\$($voiceModelInfo.filename)"
-    if (-not (Test-Path -LiteralPath $voiceModel) -or (Get-Item -LiteralPath $voiceModel).Length -ne $voiceModelInfo.bytes) { throw 'Model missing or size mismatch.' }
-    if ($HashModel -and (Get-FileHash -LiteralPath $voiceModel -Algorithm SHA256).Hash.ToLowerInvariant() -ne
-        $voiceModelInfo.sha256) { throw 'Model checksum mismatch.' }
-    if ($voiceSettings.selected_language -notin @('auto','hi') -or
+    . (Join-Path $PSScriptRoot 'model-input.ps1')
+    $null = Get-VoiceModelInput -Root $voiceRoot -ModelId $voiceSettings.selected_model -HashModel:$HashModel
+    if ($voiceSettings.selected_language -ne 'en' -or
         $voiceSettings.translate_to_english -or $voiceSettings.post_process_enabled -or
-        -not $voiceSettings.roman_hinglish_enabled -or -not $voiceSettings.preload_model -or
+        $voiceSettings.roman_hinglish_enabled -or -not $voiceSettings.preload_model -or
         $voiceSettings.always_on_microphone -or $voiceSettings.auto_submit -or
         $voiceSettings.update_checks_enabled -or $voiceSettings.autostart_enabled -or
         $voiceSettings.transcribe_accelerator -notin @('auto','gpu') -or
         $voiceSettings.model_unload_timeout -ne 'never' -or $voiceSettings.ort_accelerator -ne 'cpu') {
         throw 'Baseline settings mismatch; inspect local profile and testing-guide.md.'
     }
-    Write-Output 'Handy experimental profile/model inputs OK. This is not a physical ASR, hotkey or paste test.'
-    Write-Output 'Roman-Hinglish and startup warm-up enabled; speech accuracy and instant insertion remain unverified.'
+    Write-Output 'Handy English-only profile/model inputs OK. This is not a physical ASR, hotkey or paste test.'
+    Write-Output 'Startup warm-up enabled; translation/Hinglish/cleanup off. Speech accuracy and instant insertion remain unverified.'
 }
 Write-Output 'Workspace verification passed; no network requests or recordings were made.'

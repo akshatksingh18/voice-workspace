@@ -14,8 +14,12 @@ support the Handy fork. Updated physical ASR/paste acceptance and fresh-machine 
   never initialize premium/nested submodules or update pins automatically.
 - `handy-baseline.json` — nonsensitive portable settings template for a fresh test profile;
   not the user's live settings, and not proof of microphone or inference success.
-- `local-models.json` — allowed downloaded model filenames, sizes and verified checksums shared by
+- `local-models.json` — allowed downloaded model paths, sizes and verified checksums shared by
   the launcher and runtime verifier; no automatic download or redistribution authorization.
+- `model-input.ps1` — read-only model path/size/hash resolver for the isolated Data directory,
+  including pinned Hugging Face cache files; dot-sourced by launch and verification tools.
+- `benchmark-asr.ps1` — run the fork's standalone local timing/error diagnostic with explicit
+  device selection; no mic/paste/upload. Read performance.md for interpretation and compile prerequisites.
 - `portable` — Handy's supported marker template; copy beside a fresh test executable only.
 
 ## Working agreement

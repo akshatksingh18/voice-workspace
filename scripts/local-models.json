@@ -1,12 +1,33 @@
 {
   "small": {
-    "filename": "ggml-small.bin",
+    "relativePath": "models/ggml-small.bin",
     "bytes": 487601967,
     "sha256": "1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b"
   },
   "turbo": {
-    "filename": "ggml-large-v3-turbo.bin",
+    "relativePath": "models/ggml-large-v3-turbo.bin",
     "bytes": 1624555275,
     "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+  },
+  "handy-computer/parakeet-unified-en-0.6b-gguf/parakeet-unified-en-0.6b-Q8_0.gguf": {
+    "relativePath": "huggingface/hub/models--handy-computer--parakeet-unified-en-0.6b-gguf/snapshots/7e948f21b7bdbac698d3318db9d350f1096f3b6c/parakeet-unified-en-0.6b-Q8_0.gguf",
+    "bytes": 731357568,
+    "sha256": "4b50b6dd862bf6e346929aaf4f5eaacec003bfa3f56462d6c874b41ef2f38795",
+    "source": "https://huggingface.co/handy-computer/parakeet-unified-en-0.6b-gguf",
+    "revision": "7e948f21b7bdbac698d3318db9d350f1096f3b6c"
+  },
+  "handy-computer/moonshine-streaming-small-gguf/moonshine-streaming-small-Q8_0.gguf": {
+    "relativePath": "models/moonshine-streaming-small-Q8_0.gguf",
+    "bytes": 198506848,
+    "sha256": "d03670f69629b649085d0f44a63d97668b4119117cc9611a4e4ad94341713dfc",
+    "source": "https://huggingface.co/handy-computer/moonshine-streaming-small-gguf",
+    "revision": "7e32b1b3dfce5d3a38dad59630ffce608f15c4aa"
+  },
+  "handy-computer/moonshine-streaming-medium-gguf/moonshine-streaming-medium-Q8_0.gguf": {
+    "relativePath": "models/moonshine-streaming-medium-Q8_0.gguf",
+    "bytes": 295793568,
+    "sha256": "f7c9564249b508f6012927ec4f9e536087da53a7047f858ca9975bea5f75299e",
+    "source": "https://huggingface.co/handy-computer/moonshine-streaming-medium-gguf",
+    "revision": "0f99e956a9e63d591ddd7f2a20dfead255e96c68"
   }
 }
