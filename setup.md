@@ -1,8 +1,9 @@
 # Local setup and verification boundaries
 
 **Status:** English-only runtime/profile evaluation; local GPU inference and model integrity are
-verified. Turbo's updated live test failed latency and Hindi output; Hindi work is deferred.
-English full insertion/accuracy acceptance and signed packaging remain unverified.
+verified, and Akshat accepts the current Parakeet profile's live English speed. Technical-word
+accuracy, broader insertion/reliability coverage and signed packaging remain unverified.
+Hindi work is deferred; dedicated spoken self-correction is not implemented or enabled.
 
 ## Machine and prerequisite boundary
 
@@ -48,7 +49,9 @@ and standalone diagnostic omit transcript text. `settings-before-english-model.j
 the prior Turbo model selection locally; earlier rollback files remain untouched.
 The rebuilt English GUI remains alive after verified Parakeet/NVIDIA load and synthetic streaming
 priming (2.251 s priming in the GUI startup sample). Persisted English/model/device/privacy settings
-match the intended profile. This is startup/readiness verification, not a microphone/paste pass.
+match the intended profile. That automated check is startup/readiness verification. Akshat's
+subsequent live test accepts English speed only; it does not establish technical-word accuracy,
+numeric p95 or the complete insertion/reliability suite. No runtime/settings change is implied.
 
 ## Local model inputs
 
@@ -92,7 +95,8 @@ indices can change between processes; persist the stable NVIDIA selector and ver
 The authored converter passes synthetic tests and fails closed on unsupported script symbols.
 It does not repair acoustic recognition errors, and unfamiliar-word spelling can be imperfect.
 Hindi's live acoustic/meaning test failed and its requirement was removed; the converter is off.
-English spoken fixtures and full release-to-paste measurements remain required.
+English technical-word/meaning fixtures, reliability checks and quantitative release-to-paste
+measurements remain required despite the user's qualitative speed acceptance.
 See ../handy/voice-workspace-features.md for implementation.
 
 On another machine, rebuild/copy the updated private Handy fork's release executable, its top-level runtime DLLs and
@@ -139,8 +143,9 @@ the workspace OneDrive archive. Source recovery is not private-data recovery.
 
 ## Required manual checks / things deliberately not configured
 
-- Retest the updated build with the selected physical microphone after startup preparation finishes.
-- Verify English meaning/critical words, release-to-paste timing, cancellation, focus and clipboard behavior.
+- Keep the speed-accepted model/profile; test technical vocabulary with the selected microphone.
+- Verify English meaning/critical words, measured release-to-paste timing, cancellation, focus and clipboard behavior.
+- Spoken self-correction is proposed; no rule engine, cleanup model or previous-insertion edit mode is enabled.
 - OpenWhispr/Meetily meeting runtime preparation after baseline; no capture module selected yet.
 - No local cleanup/summary LLM installed, no LAN service/Docker, no cloud API keys or account login.
 - No calendar integrations, automatic meeting recording, external MCP, sync or biometric profiles.

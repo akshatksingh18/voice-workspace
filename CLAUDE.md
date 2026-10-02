@@ -5,9 +5,10 @@ editing, personal notes, and bot-free meeting notes. Handy is the accepted deskt
 This repository owns the product requirements, cross-project research, evaluation, and future
 integration; sibling Handy and Granola repositories keep their own implementation instructions.
 
-**Status:** English-only dictation implementation and evaluation — Turbo's live test still took
-3–4 seconds and Hindi output failed acceptance. English model/warm-up work lives in the Handy fork.
-Moves to integrated notes/capture after updated dictation and component/license gates pass.
+**Status:** English-only dictation evaluation — Akshat accepts the Parakeet profile's live speed;
+technical-word accuracy and broader insertion/reliability gates remain open. Spoken self-correction
+is a requested behavior with a proposed design, not implemented. Code lives in the Handy fork.
+Moves to integrated notes/capture after remaining dictation and component/license gates pass.
 No integrated Voice Workspace application exists yet.
 
 ## Files

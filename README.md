@@ -19,8 +19,11 @@ Active scope is **English only**, superseding the earlier Hindi/Hinglish require
 Turbo live test improved speed but still took 3–4 seconds and produced unwanted English from Hindi.
 Hindi work is deferred; the experimental converter is off and existing data is preserved.
 The English test candidate is Parakeet Unified EN Q8 on NVIDIA, with startup warm-up and no AI
-cleanup or translation. See [performance.md](performance.md) for comparisons and the live acceptance
-gate. Recognition-only or streaming-finalization timings are not a promise of instant insertion.
+cleanup or translation. Akshat accepts this profile's live English speed; technical words and the
+broader insertion/reliability suite remain untested. See [performance.md](performance.md) for
+comparisons and verification boundaries. Recognition-only timings are not an insertion guarantee.
+Spoken self-correction is requested but not built; its proposed behavior and tests are in
+[product-framework.md](product-framework.md) and [test-cases.md](test-cases.md).
 
 From PowerShell:
 
@@ -43,7 +46,7 @@ terminal command line, password field, chat send box, or confidential meeting fi
 - [voice-workspace-research.md](voice-workspace-research.md): detailed source-backed research.
 - [testing-guide.md](testing-guide.md) and [test-cases.md](test-cases.md): settings and synthetic tests.
 - [setup.md](setup.md): actual local readiness, not advertised capabilities.
-- [performance.md](performance.md): measured latency, reported failures and remaining speed gates.
+- [performance.md](performance.md): measured latency, user speed acceptance and remaining accuracy/reliability gates.
 - [tasks.md](tasks.md): remaining decisions and implementation gates.
 - [repositories.json](repositories.json): exact reference revisions and license qualifications.
 - [CLAUDE.md](CLAUDE.md): canonical instructions for any coding agent.

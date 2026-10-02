@@ -1,8 +1,18 @@
 # Dictation performance and acceptance
 
-**Status:** English-only optimization. Turbo's live latency is still unacceptable and Hindi
-meaning/translation failed. Parakeet is the faster candidate; instant full insertion and accuracy
-for Akshat's voice have not passed. The older Hindi converter is off, not a solved language feature.
+**Status:** English-only evaluation. Akshat accepts the current Parakeet profile's live speed.
+Technical-word accuracy, broader insertion/reliability and quantitative p50/p95 remain open.
+Turbo's older live test failed latency/Hindi acceptance. The Hindi converter is off, not a solved feature.
+
+## Current physical acceptance boundary
+
+Akshat reports that the selected English profile's speed is now exactly the experience he wanted.
+Keep this model/profile as the baseline. No exact new release-to-paste duration, sample count or
+p95 was supplied, and technical words have not yet been tried. This is qualitative live speed
+acceptance, not proof of maximum accuracy, all-editor reliability or a guaranteed sub-second p95.
+Next tests are English critical vocabulary/meaning and insertion safety. Requested spoken
+self-correction is not implemented; benchmark its additional work before enabling it so it does
+not regress the accepted speed. No runtime/settings change follows from this acceptance report.
 
 ## Initial physical result
 
@@ -62,7 +72,7 @@ a change; do not introduce a smaller quant solely on advertised speed.
 The fork now warms native streaming paths before loading completes, instead of priming Whisper
 alone. This moves cold shader/decoder work to explicit preparation; synthetic warm-up may not cover
 all audio shapes. First real dictation can still be slower. Later activation/GUI evidence belongs
-in setup.md, and the final physical gate remains E01–E08/R01–R06 with Akshat's microphone.
+in setup.md, and the final physical gate remains E01–E12/R01–R06 with Akshat's microphone.
 
 Updated app headless verification after the native build finished: Parakeet bound to the stable
 NVIDIA selector, supports streaming and does not support translation. Load plus streaming priming
@@ -130,8 +140,9 @@ this excludes GPU/shared memory, other processes and unsampled peaks, not total 
 Keep startup cost separate from release-to-text time; the new build pays it before dictation.
 
 The target experience is near-immediate delivery for short speech; a proposed measurable target
-is warm release-to-paste under one second, with p95 and cold-start reported separately. This is
-not achieved or accepted as a guarantee on the 8 GB / 2 GB VRAM laptop. Test the same public
+is warm release-to-paste under one second, with p95 and cold-start reported separately. Akshat
+accepts the current English speed qualitatively, but this numeric guarantee has not been established
+on the 8 GB / 2 GB VRAM laptop. Test the same public
 English fixtures in the updated GUI. English-only models are now explicitly authorized by the
 changed product scope; Hindi preservation is not an active gate. If latency still fails, measure
 remaining queue/finalization/paste phases before choosing another model or streaming operating point.

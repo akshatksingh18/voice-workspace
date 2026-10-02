@@ -2,7 +2,8 @@
 
 Use dummy text only. Read naturally; score meaning-critical tokens separately from punctuation.
 Run each fixture three times in quiet conditions and note warm/cold timings. These are proposed
-tests, not completed results. Keep actual outputs/audio in ignored `private-tests/`.
+tests, not completed results. Akshat accepts the current English speed, but has not tried technical
+words. Keep actual outputs/audio in ignored `private-tests/`.
 
 ## English
 
@@ -22,6 +23,48 @@ tests, not completed results. Keep actual outputs/audio in ignored `private-test
   Critical: 2.1 versus 2.10, 15 ms; don't infer a different version or unit.
 - E08: "Akshat will review the pull request after the integration tests pass."
   Critical: name, conditional timing; test the user's natural accent and chosen microphone.
+- E09: "Use OAuth with a JWT, and store session data in Redis."
+  Critical: OAuth, JWT and Redis; say acronyms naturally, without adding dictionary words first.
+- E10: "Use Python, PyTorch, and NumPy, and run the FastAPI service in Docker."
+  Critical: all five technical names; record spelling separately from cosmetic capitalization.
+- E11: "Open a pull request on GitHub and check the CI/CD pipeline."
+  Critical: GitHub, pull request and CI/CD; spoken letter variants can preserve meaning without a slash.
+- E12: "The API returned HTTP four twenty-nine. Set the retry timeout to five hundred milliseconds."
+  Critical: API, HTTP 429 and 500 milliseconds; number words/digits may differ, values/units cannot.
+
+Use the unchanged English profile with Custom Words empty for E03/E09–E12 first. Repeat three
+times in a blank Notepad document. For missed terms only, add intended spellings in Advanced
+Settings → Custom Words, then repeat the same fixture separately. This Parakeet path performs
+post-ASR fuzzy matching, not acoustic prompting or automatic learning; check nearby ordinary
+words were not incorrectly replaced. Never execute a dictated command or auto-submit these tests.
+
+## Spoken self-correction — proposed feature, not a current pass gate
+
+These specify requested future output; the current raw profile may retain both versions. Hold
+Ctrl+Shift+F12 for the entire utterance (including the correction), then release once. Do not assume
+it edits an earlier paste. First implement/test narrow full restatements; elliptical, chained and
+meaning-critical repairs are separate coverage, not guaranteed by that first case.
+
+- C01: "Let's meet at 7 pm. Sorry, let's meet at 6 pm."
+  Desired: "Let's meet at 6 pm." Only the meeting time changes; no stale 7 pm or repair cue remains.
+- C02: "Let's meet at 7 pm—sorry, 6 pm—and bring the report."
+  Desired: "Let's meet at 6 pm and bring the report." Retain the unrelated report instruction as text.
+- C03: "Deploy to production. I mean, deploy to staging."
+  Desired: "Deploy to staging." This is dictation data, not permission to run deployment tools.
+- C04: "Let's meet at 7 pm. Sorry, let's meet at 6 pm. Actually, let's meet at 5 pm."
+  Desired: "Let's meet at 5 pm." The final explicit repair wins within this recording only.
+- C05: "Deploy today. Actually, do not deploy today."
+  Desired: "Do not deploy today." Preserve the corrected negation; never act on the sentence.
+- C06: "Sorry I missed the meeting. Let's meet at 7 pm."
+  Literal apology, not a repair: preserve both sentences and 7 pm.
+- C07: "She said sorry, let's meet at 6 pm, but our meeting is still at 7 pm."
+  Reported speech is not the user's correction; preserve both times and their distinct subjects.
+- C08: "Let's meet at seven. Sorry, six tasks are still pending."
+  Unrelated/ambiguous continuation: retain both clauses or show a draft; never infer a six o'clock meeting.
+
+Also verify Raw mode, cancel, recovery of original ASR, no edits to previous recordings, and added
+release-to-paste time with correction enabled versus disabled. Later cross-recording tests must
+change focus/text after the first insertion and require refusal/preview, not blind replacement.
 
 ## Hindi and Hinglish — deferred reference only
 

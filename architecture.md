@@ -54,6 +54,8 @@ One desktop shell; distinct Dictate, Edit, Note and Meeting modes. Share service
 4. Language/correction service: explicit transformations, vocabulary hints, scoped replacement
    rules and opt-in correction candidates. Active English dictation bypasses the dormant Hindi
    converter. Keep raw ASR, deterministic corrections and LLM output separate; preserve provenance.
+   Proposed spoken-repair stage resolves only explicit current-recording backtracking before the
+   final delivery. It does not watch external typing or edit a prior paste; see the boundary below.
 5. Note/meeting service: user notes, segment stream, recording state, transcript versions, speaker
    labels and explicit export. Human text and locked labels survive AI reruns.
 6. Intelligence service: independent local/self-hosted text adapter, constrained schemas, grounded
@@ -83,6 +85,30 @@ source label; system audio can contain multiple speakers. Manual labels take pre
 session identity and embeddings require an explicit separate privacy decision and deletion tests.
 
 ## Inference and deployment
+
+### Proposed spoken self-correction slice — not implemented
+
+Retain the speed-accepted English ASR model. Streaming partials may revise, so repair candidates
+are provisional and tied to the current session/revision; cancellation or a newer revision invalidates
+them. On release, finalized ASR → bounded spoken-repair matcher → validated delivery text → one paste.
+The insertion point in Handy is output handling after recognition and before history/delivery;
+no ASR-model replacement is needed for this proposed narrow full-restatement case.
+
+Keep original ASR, repaired text and changed span/rule provenance distinct. Plain Raw mode skips
+repair. The initial matcher requires both an explicit cue and a matching nearby clause/replacement;
+"sorry" alone is not a command. Preserve uncorrected clauses, identifiers and negation. Ambiguous,
+quoted or incomplete repairs remain raw/a draft rather than guessed deletions. Measure output
+overhead and full release latency before enabling; no LLM or new service is configured by this plan.
+General free-form/elliptical repair may need a small local text model, but must pass accuracy and
+memory/latency gates on this machine before adoption. Fixture goals are in test-cases.md C01–C08.
+
+Across-recording correction is a later explicit edit operation over a saved insertion receipt,
+with target/text/selection revalidation, preview fallback and exact undo. A receipt alone cannot
+prove external text is unchanged. Unsupported editors fail closed to a copyable draft; blind
+backspaces and global keystroke observation are excluded. No continuous external-editor rewriting
+is currently implemented.
+
+### Current ASR path and model policy
 
 Accepted language scope: English only. Current ASR-only path: English local ASR (batch or streaming
 finalization) → existing deterministic filters → delivery/history. Translation, Roman Hinglish and
@@ -128,7 +154,8 @@ untrusted data; they cannot grant permissions, execute commands, or expand agent
 ## Implementation gates
 
 G0: pinned sources + safe ASR-only isolated test setup. G1: physical English-only
-accuracy/latency/paste acceptance, superseding the old Hindi/Hinglish gate.
+accuracy/latency/paste acceptance, superseding the old Hindi/Hinglish gate. Qualitative English
+speed is accepted; technical accuracy, quantitative coverage and insertion safety remain open.
 G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
 G3: license-approved minimal notes + transcript integration in Handy. G4: validated correction/
 editing and grounded local intelligence. G5: packaging, privacy/security/recovery and sustained

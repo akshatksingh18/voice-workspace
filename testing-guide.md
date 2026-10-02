@@ -1,7 +1,8 @@
 # First tests and settings
 
-**Status:** English-only evaluation. Turbo's updated live test still took 3–4 seconds and Hindi
-output failed. The faster English candidate needs Akshat's microphone/paste acceptance.
+**Status:** English-only evaluation. Akshat accepts the current Parakeet profile's live speed;
+technical-word accuracy and the broader insertion/reliability suite remain open. Dedicated spoken
+self-correction is not implemented; its fixtures specify future behavior, not expected current output.
 See setup.md for deployment evidence and performance.md for measured samples.
 
 ## 1. Handy first — no account, server or cleanup model
@@ -51,8 +52,13 @@ revealed with Show raw recognition (recovery only). Existing recordings were not
 
 ## 2. Change one variable at a time
 
-Add only synthetic/domain terms (PostgreSQL/Kubernetes/REST API) to Custom Words and rerun E03.
-Keep this distinct from automatic correction learning, which has not been built here.
+First read E03 and E09–E12 with Custom Words empty, the current model and your natural pronunciation.
+Check each technical spelling/acronym plus numbers, units and negation; minor punctuation differences
+are not meaning errors. Repeat each three times. Then, only for missed terms, add the intended
+spelling under Advanced Settings → Custom Words and repeat the same sentence separately.
+Parakeet uses post-ASR fuzzy matching here, not acoustic prompting; a dictionary entry is not a
+guarantee and must not corrupt neighboring ordinary words. Keep this distinct from automatic
+correction learning and spoken self-correction, neither of which has been built here.
 CPU/Small and NVIDIA/Intel comparisons are recorded in performance.md; they are not instant.
 Measure at least three warmed-up utterances in the new GUI. INFO `dictation_latency` logs separate
 capture, recognition, output, paste and total release-to-paste time. CLI timings omit insertion.
@@ -60,10 +66,11 @@ Do not read a load-only or best-of-two number as p95. Keep vocabulary tests sepa
 Do not load a large text model just because a discrete GPU exists: this machine has 8 GB RAM
 and about 2 GB discrete VRAM. Save aggregate conclusions, not private text, into tracked docs.
 
-Initial proposed gate: E01–E08 with the user's natural English accent, 20 inserts without loss,
+Initial proposed gate: E01–E12 with the user's natural English accent, 20 inserts without loss,
 duplication or auto-submit; all negation/number/date fixtures preserve meaning; cancel and failure
 leave recoverable text. Test quiet and ordinary room conditions. Keep the
-headless ASR-only and full GUI measurements separate. Latency targets should be
+headless ASR-only and full GUI measurements separate. Speed is qualitatively accepted, not a new
+measured p95; correction work must preserve that accepted responsiveness. Latency targets should be
 chosen from measurements; log stop-to-insert time separately from spoken duration.
 
 `scripts/benchmark-asr.ps1` uses the fork's standalone native diagnostic, not the complete GUI.

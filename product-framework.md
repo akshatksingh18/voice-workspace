@@ -9,6 +9,8 @@ see the research document's official links and source caveats before refreshing 
 
 - A self-hosted Wispr Flow alternative, not just a microphone-to-text demo.
 - Reliable desktop dictation, personal notes, meeting notes, and learning from corrected words.
+- Spoken self-correction: "Let's meet at 7 pm. Sorry, let's meet at 6 pm." should deliver only
+  "Let's meet at 6 pm." This is distinct from learning a preferred spelling from later typed edits.
 - English only: prioritize speed and accuracy. Hindi/Hinglish is explicitly removed from active scope
   after the live test failed; the previous Roman-Hinglish requirement is superseded.
 - Use Handy as the production desktop foundation; evaluate the best ideas from multiple projects.
@@ -44,8 +46,10 @@ order. Compare streaming finalization and batch recognition on this laptop, not 
 Streaming can move computation into speaking time; it can also increase work or reduce accuracy.
 Choose from measured results, with no automatic cloud fallback or silent model change.
 
-Proposed warm target: release-to-paste below one second for short dictations, with cold preparation,
-p50/p95, speech duration and resource use reported separately. Measure E01–E08 with Akshat's accent,
+Akshat accepts the current Parakeet profile's live speed; technical vocabulary is not yet tested.
+This qualitative result is not a measured numeric/p95 pass. Proposed warm target: release-to-paste
+below one second for short dictations, with cold preparation,
+p50/p95, speech duration and resource use reported separately. Measure E01–E12 with Akshat's accent,
 both quiet and ordinary room conditions; all meaning-critical tokens must survive. Synthetic TTS
 and published WER are screening evidence, not proof of maximum accuracy for his voice.
 
@@ -58,11 +62,31 @@ off; script-only tests did not solve acoustic/meaning accuracy. Do not re-enable
 Wispr: filler removal, punctuation and cleanup levels; some style features are English-limited.
 Handy has filler handling and optional post-processing, but not verified complete contextual
 rewrite parity. Add Raw/Light/Structured modes, with raw text always recoverable. Cleanup must
-not answer a question in dictated text, add facts, reverse a negation, or translate unasked.
-Changing a number/date/name is a failure even if prose sounds better. Raw mode and cleanup-timeout
+not answer a question in dictated text, add facts, reverse a negation without an explicit spoken
+repair, or translate unasked. Changing a number/date/name without a clear spoken correction is a
+failure even if prose sounds better. Raw mode and cleanup-timeout
 fallback both retain English source meaning. Raw mode skips prose rewriting; original ASR remains
 recoverable explicitly. The dormant Hindi converter is not part of this active pipeline. Every rewrite should be undoable;
 no silent cloud fallback.
+
+Spoken self-correction is a requested behavior, not currently implemented. Proposed first slice:
+while the user holds the recording shortcut, keep ASR text provisional, recognize explicit
+backtracking and replace only the clearly superseded clause before the one final paste. Full
+restatements ("7 pm. Sorry, let's meet at 6 pm") are the first narrow case; elliptical repairs
+("7 pm—sorry, 6 pm") and chained corrections need separate tests. Only the explicitly corrected
+time/name/number/negation may change; retain unrelated clauses and the original ASR for recovery.
+
+Use a small, local deterministic matcher first, bounded to the current recording and nearby
+clause. A cue such as "sorry", "I mean" or "actually" is not sufficient by itself: literal apologies,
+quoted speech, unrelated later sentences and uncertain references must not silently delete text.
+Raw mode preserves the unrewritten ASR. Ambiguity retains it or presents a draft; no guessed repair.
+Benchmark added output time and the full release-to-paste distribution against the speed-accepted
+profile. No default LLM load, cloud call, or slower whole-paragraph rewrite is authorized here.
+More flexible local-model repair remains a separately measured later option, not a promised result.
+
+The external editor still receives one final insertion on release. Provisional corrections in the
+overlay are not permission to continuously rewrite arbitrary text in another application.
+Corrections after release/paste are the separate D6 editing boundary, not this first slice.
 
 ### D4 — Vocabulary and correction learning (P1)
 
@@ -88,6 +112,12 @@ is not equivalent. Proposed command mode has a separate shortcut, captures the s
 target, previews a diff, and revalidates both before replacing. If focus/text changes, show a
 draft instead of overwriting. "Make this shorter" must not replace a whole page when no selection
 exists. Undo returns the exact previous text. Ordinary dictation never invokes tools/actions.
+
+A later "correct last dictation" mode may use the last insertion receipt and exact original span,
+not a global typing history. Require explicit activation and revalidate app, field/selection and
+unchanged text before replacing; unsupported editors or an intervening user edit get a preview/
+copyable draft instead. Never send a guessed number of Backspace keys. Correcting after paste
+needs this independent implementation/test gate; a same-recording repair does not establish it.
 
 ### D7 — Snippets and spoken formatting (P1)
 
@@ -195,11 +225,14 @@ secure text fields and keyboard-extension microphone limits must be respected.
 
 ## Order and decisions
 
-First pass English ASR accuracy, latency and insertion gates. Then build notes + manual meeting
+Keep the speed-accepted English profile and test technical accuracy/insertion. Proposed next
+dictation slice is same-recording spoken self-correction, preserving speed and raw recovery;
+it is not an implemented or enabled feature. Then build notes + manual meeting
 capture. Add explicit editing/cleanup, correction learning and grounded summaries in small tested
 slices. Defer mobile, calendar automation, biometric identity, connectors and cloud sync.
 
 Decided: English only; Hindi/Hinglish development and its old acceptance gate are deferred.
 Open decisions: preferred hold vs toggle after testing;
 allowed data retention; minimal note editor needs; first meeting app/headset; which local text
-model fits this 8 GB machine; acceptable latency. None justifies silently enabling a service.
+model fits this 8 GB machine; quantitative latency coverage and whether corrections must also work
+across separate recordings/after paste. None justifies silently enabling a service.

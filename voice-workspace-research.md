@@ -22,7 +22,8 @@ setup.md/performance.md own the current English profile and measurements, not th
 - Handy is a Rust/Tauri + React desktop fork. Its Windows source build/startup and initial Notepad
   capture/insertion worked, but speed/script/acronym acceptance failed. Local CPU/GPU model
   inference is measured; Turbo's updated live latency was still about 4 seconds and Hindi output
-  failed. English-only acceptance and signed installer behavior remain open. See
+  failed. Akshat accepts the current English profile's live speed; technical accuracy, broader
+  insertion/reliability and signed installer behavior remain open. See
   `../handy/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
   and SQLite dictation history already provide useful integration points.
 - `../granola-alt/` is a specification on an imported Electron/Natively base, not a completed

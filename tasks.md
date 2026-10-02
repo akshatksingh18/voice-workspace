@@ -1,7 +1,8 @@
 # Current work and transition gates
 
-**Status:** English-only dictation optimization and evaluation. Notes/meeting integration is
-not built; near-instant full insertion and English accuracy acceptance remain open.
+**Status:** English-only dictation evaluation. Akshat accepts the current Parakeet profile's live
+speed. Technical-word accuracy, broader insertion/reliability and quantitative latency coverage
+remain open. Spoken self-correction is requested/planned, not built; notes/meetings are not integrated.
 
 ## G0 — Source and baseline preparation
 
@@ -22,7 +23,8 @@ not built; near-instant full insertion and English accuracy acceptance remain op
 - [x] Updated Turbo live test attempted: user reports 3–4 seconds; INFO logs show 4.029–4.527 s
   release-to-paste. Hindi came out in English despite translation off; failed acceptance.
 - [x] Accept English-only product scope; supersede Hindi/Hinglish requirement and disable converter.
-- [ ] Akshat retests English E01–E08 with the faster candidate and chosen microphone.
+- [x] Akshat accepts the current Parakeet profile's live English speed; no exact new latency/p95 reported.
+- [ ] Test English E01–E12 with the chosen microphone; technical words have not yet been tried.
 - [ ] Run 20 inserts, silence, Escape, clipboard and focus-change checks; capture aggregate results.
 - [x] Preserve dormant experimental converter and synthetic regression fixtures, not an active P0.
 - [x] Measure CPU/NVIDIA/Intel Small inference; reproduce CPU bottleneck and choose NVIDIA.
@@ -34,7 +36,8 @@ not built; near-instant full insertion and English accuracy acceptance remain op
   integrity, device identity, batch and streaming evidence belong in performance.md.
 - [x] Deploy and verify English streaming priming in the rebuilt fork's headless native path.
 - [x] Verify updated English GUI startup/priming and persisted privacy settings; no automatic recording.
-- [ ] Pass English critical-word accuracy and warm release-to-paste target; report cold/first run separately.
+- [ ] Pass English critical-word accuracy and quantitatively measure warm release-to-paste;
+  keep subjective speed acceptance distinct from the proposed numeric/p95 gate and cold/first run.
 - [ ] Try manual vocabulary separately; avoid claiming auto-learning is implemented.
 - [ ] Prepare OpenWhispr offline comparison profile only after reviewing released onboarding/egress.
 - [ ] Compare same model/settings; retain Handy base unless Akshat explicitly accepts a change.
@@ -50,6 +53,10 @@ not built; near-instant full insertion and English accuracy acceptance remain op
 
 ## G4/G5 — Intelligence and release quality
 
+- [ ] Proposed next correction slice: same-recording English backtracking before paste; test C01–C08,
+  literal apologies/quoted speech, numbers/negation, raw recovery and added latency. No implementation yet.
+- [ ] Later explicit previous-insertion correction: verify target and unchanged text, preview/fallback
+  and exact undo; never blind backspaces or global typing surveillance.
 - [ ] Add Raw/Light/Structured cleanup with validation, local failure fallback and undo.
 - [ ] Add explicit selected-text edit preview and stale-target revalidation.
 - [ ] Add approved vocabulary/replacement rules, then bounded opt-in correction learning.
