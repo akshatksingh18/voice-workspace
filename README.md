@@ -10,7 +10,7 @@ Source home: [Akshat's private voice-workspace repository](https://github.com/ak
 
 ## Start here
 
-This Windows machine has a separate Handy test runtime under ignored `runtime/handy/`, with a
+This Windows machine has a separate Handy test runtime under ignored `runtime/handy/`, with an
 English-first local model profile. No cloud key is needed. Read
 [setup.md](setup.md) for exact verification boundaries and [testing-guide.md](testing-guide.md)
 for microphone selection and the first test. Runtimes/models are not included in GitHub.
