@@ -32,4 +32,5 @@ if ($voiceConflicts.Count -gt 0) {
 if ($PSCmdlet.ShouldProcess($voiceExe, 'Open isolated Handy test GUI (does not record)')) {
     $voiceProcess = Start-Process -FilePath $voiceExe -WorkingDirectory (Split-Path $voiceExe) -PassThru
     Write-Output "Opened Handy, process $($voiceProcess.Id). Select microphone, focus Notepad, then use the configured Transcribe shortcut."
+    Write-Warning 'This is raw ASR only; the required Roman-Hinglish output conversion is not implemented yet.'
 }

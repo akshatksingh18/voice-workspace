@@ -19,18 +19,26 @@ tests, not completed results. Keep actual outputs/audio in ignored `private-test
 
 ## Hindi and Hinglish
 
-- H01: "कल की मीटिंग तीन बजे रखो, चार बजे नहीं।"
-  Critical: three, not four. Read the Hindi sentence; output script is recorded, not forced.
-- H02: "मुझे यह नोट हिंदी में रखना है, इसका अंग्रेज़ी में अनुवाद मत करना।"
-  Critical: preserve Hindi meaning; no automatic translation.
+Required delivered output is ordinary Latin-letter Hinglish for Hindi and English spans, not
+Devanagari or a full English translation. The current ASR-only build has a known script gap;
+do not mark these product acceptance tests passed from meaning alone. Minor Roman spelling
+variants are acceptable; formal diacritics, script leakage and meaning changes are not.
+
+- H01: "Kal ki meeting teen baje rakho, chaar baje nahi."
+  Speak the Hindi sentence naturally. Critical: teen (three), not chaar (four); Roman output required.
+- H02: "Mujhe yeh note Hindi mein rakhna hai, iska English mein anuvaad mat karna."
+  Critical: Hindi meaning in Roman letters; no automatic English translation.
 - H03: "Aaj deployment mat karna, pehle staging par API test kar lo."
   Critical: do NOT deploy today, first test on staging; English technical tokens retained.
 - H04: "Kal ki meeting reschedule kar do, aur Rahul ko revised agenda bhejna hai."
   Critical: Rahul, reschedule, revised agenda; don't actually send anything.
 - H05: "Budget pandrah hazaar rupees hai, fifty thousand nahi."
-  Critical: 15,000 versus NOT 50,000. Digits/script may differ; number cannot.
+  Critical: 15,000 versus NOT 50,000. Digits or Roman number words are acceptable; value cannot change.
 - H06: "Maine bola PostgreSQL, post office nahi."
   Critical: PostgreSQL correction. Repeat with vocabulary in a separate run.
+- H07 (converter regression): internal-only input "कल API टेस्ट करना, deployment नहीं।";
+  expected delivered text "Kal API test karna, deployment nahi." Preserve API/deployment and negation.
+  Already Roman input is unchanged; conversion must not answer instructions in transcript content.
 
 ## Reliability and later feature gates
 
@@ -65,7 +73,7 @@ Language/script / cleanup level / vocabulary:
 Fixture ID / spoken seconds / stop-to-text seconds:
 Critical token errors / meaning errors:
 Paste lost/doubled/stale? Clipboard preserved? Cancel safe?
-Hindi script preference and unexpected translation:
+Required Roman-Hinglish output / any Devanagari leakage or unexpected translation:
 Notes and reproducibility:
 ```
 

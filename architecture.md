@@ -49,7 +49,9 @@ One desktop shell; distinct Dictate, Edit, Note and Meeting modes. Share service
 3. Delivery service: target/selection token, stale-target revalidation, clipboard transaction,
    exactly-once paste receipt, fallback and undo. Meeting transcripts cannot reach auto-paste.
 4. Language/correction service: explicit transformations, vocabulary hints, scoped replacement
-   rules and opt-in correction candidates. Keep raw ASR, deterministic edits and LLM output separate.
+   rules and opt-in correction candidates. Mandatory local Hindi-to-Roman-Hinglish conversion
+   precedes final delivery, independent of optional cleanup. Keep raw ASR, script-normalized text,
+   deterministic corrections and LLM output separate; bypass conversion for already English/Roman spans.
 5. Note/meeting service: user notes, segment stream, recording state, transcript versions, speaker
    labels and explicit export. Human text and locked labels survive AI reruns.
 6. Intelligence service: independent local/self-hosted text adapter, constrained schemas, grounded
@@ -80,6 +82,16 @@ session identity and embeddings require an explicit separate privacy decision an
 
 ## Inference and deployment
 
+Accepted Hindi output contract: natural Roman Hinglish, never Devanagari or English translation.
+Proposed order: ASR → local Hindi script normalization → optional validated cleanup → delivery.
+Keep English spans intact and validate script plus names/numbers/negation before insertion. A
+conversion failure produces an error/retry with explicit raw recovery, not blind Devanagari
+paste. Default transcript display, dictated notes and exports use the validated Roman form;
+retain original-script ASR internally for provenance. The local conversion implementation/model
+has not been selected or installed, and stock Handy settings do not implement this contract.
+Evaluate a lightweight local converter on H01-H06, mixed English and spelling variants before
+adopting it; any contextual model needs separate memory/license/meaning-preservation checks.
+
 Phase one: on-device Whisper Small, CPU baseline; cleanup off. This laptop has about 8 GB RAM and
 2 GB discrete VRAM, so do not load a large LLM alongside ASR by default. Benchmark warm/cold times,
 memory, battery and meeting backlog before selecting a text model. Self-hosted means controllable
@@ -109,8 +121,9 @@ untrusted data; they cannot grant permissions, execute commands, or expand agent
 
 ## Implementation gates
 
-G0: pinned sources + safe isolated test setup. G1: physical English/Hinglish dictation and paste
-comparison. G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
+G0: pinned sources + safe ASR-only isolated test setup. G1: physical English/Hindi/Hinglish ASR and
+paste comparison plus mandatory local Roman-Hinglish output before declaring language readiness.
+G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
 G3: license-approved minimal notes + transcript integration in Handy. G4: validated correction/
 editing and grounded local intelligence. G5: packaging, privacy/security/recovery and sustained
 meeting soak tests before production claims. iOS is a later independent G6 device prototype.

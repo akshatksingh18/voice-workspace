@@ -1,7 +1,8 @@
 # First tests and settings
 
 **Status:** Prepared baseline configuration; physical microphone recognition, shortcut registration
-and insertion still require Akshat's tests. See setup.md for actual machine verification.
+and insertion still require Akshat's tests. Required Roman-Hinglish output is not implemented;
+this profile measures raw ASR only. See setup.md for actual machine verification.
 
 ## 1. Handy first — no account, server or cleanup model
 
@@ -29,8 +30,11 @@ must permit desktop apps; no administrator mode is needed. These device/privacy 
 be honestly completed without selecting/testing your actual microphone.
 
 Focus a blank Notepad document. Hold Ctrl+Shift+F12, say E01, release, and wait for insertion.
-Try E02, H01 and H03. Leave focus in place for initial tests. Record whether Hindi appears in
-Devanagari or Roman text; neither proves that mixed-language normalization is implemented.
+Try E02, H01 and H03. Leave focus in place for initial tests. Hindi must ultimately appear in
+natural Roman Hinglish, not Devanagari or English translation. The unchanged Handy build may
+still produce Devanagari; record that as a known output-policy gap, not acceptable product output.
+Language Automatic/Hindi controls recognition, not script. Translation to English must stay off.
+Do not use the current profile expecting Roman Hinglish to be enforced.
 
 Then run cancellation, silence, clipboard and repeated-insertion tests from test-cases.md.
 After a quiet baseline, try a browser textarea and your usual harmless editor. Do not use a real
@@ -46,7 +50,9 @@ Do not load a large text model just because a discrete GPU exists: this machine 
 and about 2 GB discrete VRAM. Save aggregate conclusions, not private text, into tracked docs.
 
 Initial proposed gate: 20 inserts without loss/duplication/auto-submit; all negation/number/date
-fixtures preserve meaning; cancel and failure leave recoverable text. Latency targets should be
+fixtures preserve meaning; H01-H06 delivered Hindi uses natural Latin-letter Hinglish, with no
+Devanagari or unasked English translation; cancel and failure leave recoverable text. Keep the
+ASR-only measurements separate until the local Romanization stage passes. Latency targets should be
 chosen from measurements; log stop-to-insert time separately from spoken duration.
 
 ## 3. OpenWhispr comparison — not preconfigured or launched
@@ -69,7 +75,7 @@ an accepted replacement for Handy. No installer/account setup is needed for the 
 
 ## 4. Meeting evaluation and local intelligence — later
 
-After dictation passes, prepare a manual, consented dummy call in the actual meeting app with
+After dictation including the Roman-Hinglish output contract passes, prepare a manual, consented dummy call in the actual meeting app with
 headphones. Evaluate microphone plus Windows system loopback, silence, overlap, duplicates,
 device switches, pause/resume and crash recovery. Do not call two sources "full diarization".
 If local capture fails, stop and preserve evidence; don't quietly enable a cloud provider.

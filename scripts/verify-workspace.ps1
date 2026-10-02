@@ -69,5 +69,6 @@ if ($CheckRuntime) {
         throw 'Baseline settings mismatch; inspect local profile and testing-guide.md.'
     }
     Write-Output 'Handy baseline inputs/settings OK. This is not a physical ASR, hotkey or paste test.'
+    Write-Output 'ASR-only profile: required Roman-Hinglish conversion is not implemented or validated.'
 }
 Write-Output 'Workspace verification passed; no network requests or recordings were made.'

@@ -9,7 +9,8 @@ see the research document's official links and source caveats before refreshing 
 
 - A self-hosted Wispr Flow alternative, not just a microphone-to-text demo.
 - Reliable desktop dictation, personal notes, meeting notes, and learning from corrected words.
-- English and Hindi/Hinglish; preserve meaning across code-switching.
+- English and Hindi/Hinglish; Hindi must appear in natural Roman Hinglish (English letters),
+  not Devanagari or English translation. Preserve English words and meaning across code-switching.
 - Use Handy as the production desktop foundation; evaluate the best ideas from multiple projects.
 - Bring the existing Granola alternative into the analysis without losing its separate context.
 - Keep source copies, research, requirements, setup, and agent instructions in this new project.
@@ -36,12 +37,25 @@ transcript on failure. Test terminal-like editors separately, never execute dict
 
 ### D2 — English, Hindi and Hinglish (P0)
 
+Akshat's accepted output policy is natural Roman Hinglish for every Hindi span, including pure
+Hindi speech; existing English spans stay English. Use ordinary chat spelling, not scholarly
+transliteration with diacritics. Example: "Kal ki meeting teen baje rakho, chaar baje nahi."
+This is transliteration/script normalization, not translation or prose rewriting.
+
 Wispr advertises broad dictation language coverage; our exact mix must be measured. Handy's
-multilingual Whisper path is the first baseline. Use automatic language, translation off, and
-no cleanup for initial tests. Hindi output may be Devanagari; mixed speech is not guaranteed to
-be Roman Hinglish. Keep original-language ASR separate from an optional transliteration stage.
-Gate: synthetic fixtures preserve negation, names, quantities and technical English tokens;
-document script preference before promising normalized Hinglish output.
+multilingual Whisper path is the ASR-only baseline. Automatic/Hindi language settings do not
+select a Latin output script. Add an independent local Romanization stage before delivery;
+do not claim that changing the recognition language or an ASR prompt guarantees Roman Hinglish.
+Preserve original ASR internally for provenance/recovery, not as the default delivered transcript.
+Keep English identifiers/URLs/acronyms, names, numbers, dates, negation and word order intact.
+Already Roman text must not be translated or rewritten. Accept understandable spelling variants
+("nahi"/"nahin") and learn explicit spelling preferences later.
+
+P0 gate: H01-H06 delivered output contains no Devanagari letters/marks, retains the Hindi meaning
+and English tokens, and works with optional AI cleanup off. Check script and meaning separately;
+Latin-only gibberish is not a pass. On Romanization failure, give an explicit error/retry and
+opt-in raw recovery; never auto-paste Devanagari, silently translate, or call a cloud provider.
+This stage is required before the test app can be called ready for Akshat's language needs.
 
 ### D3 — Clean speech without changing intent (P1)
 
@@ -49,8 +63,11 @@ Wispr: filler removal, punctuation and cleanup levels; some style features are E
 Handy has filler handling and optional post-processing, but not verified complete contextual
 rewrite parity. Add Raw/Light/Structured modes, with raw text always recoverable. Cleanup must
 not answer a question in dictated text, add facts, reverse a negation, or translate unasked.
-Changing a number/date/name is a failure even if prose sounds better. Timeout returns raw text
-with an explicit notice. Every rewrite should be undoable; no silent cloud fallback.
+Changing a number/date/name is a failure even if prose sounds better. Raw mode and cleanup-timeout
+fallback both retain the selected output-script policy: Hindi stays validated Roman Hinglish from
+the independent script stage, not Devanagari ASR. Raw mode skips prose rewriting, not required
+script conversion. Original ASR remains recoverable explicitly. Every rewrite should be undoable;
+no silent cloud fallback.
 
 ### D4 — Vocabulary and correction learning (P1)
 
@@ -163,7 +180,8 @@ secure text fields and keyboard-extension microphone limits must be respected.
   correction belonging to another person's quoted speech as a permanent spelling rule.
 - Unicode-normalized matching with word boundaries, case preservation and scoped replacements;
   no replacing a short name inside a longer word. Hindi combining marks must remain valid.
-- No automatic translation, Romanization or deletion of Hindi words from a Hinglish sentence.
+- Apply Akshat's selected Roman-Hinglish output policy automatically to Hindi spans; never
+  translate or delete Hindi words, rewrite English spans, or return Devanagari as final output.
 - Show which rule changed a word; support per-app/session disable and reset with confirmation.
 - Include numbers, currencies, negation, dates, abbreviations and uncommon names in regression tests.
 
@@ -183,10 +201,11 @@ secure text fields and keyboard-extension microphone limits must be respected.
 
 ## Order and decisions
 
-First measure dictation reliability and language quality. Then build notes + manual meeting
+First measure ASR reliability and add/test mandatory local Roman-Hinglish delivery. Then build notes + manual meeting
 capture. Add explicit editing/cleanup, correction learning and grounded summaries in small tested
 slices. Defer mobile, calendar automation, biometric identity, connectors and cloud sync.
 
-Open decisions: desired Hindi script/Roman Hinglish policy; preferred hold vs toggle after testing;
+Decided: Hindi is delivered in natural Roman Hinglish. Optional exact spellings can be customized later.
+Open decisions: preferred hold vs toggle after testing;
 allowed data retention; minimal note editor needs; first meeting app/headset; which local text
 model fits this 8 GB machine; acceptable latency. None justifies silently enabling a service.

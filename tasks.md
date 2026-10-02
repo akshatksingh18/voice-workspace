@@ -18,7 +18,11 @@
 
 - [ ] Akshat selects microphone and performs E01/E02/H01/H03 first.
 - [ ] Run 20 inserts, silence, Escape, clipboard and focus-change checks; capture aggregate results.
-- [ ] Decide desired Hindi script/Roman Hinglish policy and acceptable warm/cold latency.
+- [x] Decide Hindi output policy: natural Roman Hinglish, not Devanagari or English translation.
+- [ ] Next P0 implementation: local Hindi-to-Roman-Hinglish conversion before display/paste,
+  independent of cleanup; preserve English, meaning and raw provenance; no silent script fallback.
+- [ ] Pass H01-H06 script/meaning checks with cleanup off before calling language setup ready.
+- [ ] Measure and choose acceptable warm/cold latency, including Romanization overhead.
 - [ ] Try manual vocabulary separately; avoid claiming auto-learning is implemented.
 - [ ] Prepare OpenWhispr offline comparison profile only after reviewing released onboarding/egress.
 - [ ] Compare same model/settings; retain Handy base unless Akshat explicitly accepts a change.

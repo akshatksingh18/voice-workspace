@@ -44,7 +44,11 @@ and component/license gates pass. No integrated Voice Workspace application exis
 - Windows is the first physical-test target. Preserve Handy's macOS/Linux boundaries; do not
   claim another platform or iPhone works from a Windows source review or build.
 - Start with English plus Hindi/Hinglish and local ASR; translation and AI cleanup are off for
-  baseline testing. Never silently fall back to cloud or start recording automatically.
+  ASR-only baseline testing. Akshat requires Hindi speech to be delivered in natural Roman
+  Hinglish (English letters), never Devanagari or an English translation; preserve English spans.
+  This is a P0 output contract, not implemented in the current stock Handy test profile. Raw
+  ASR may retain original script internally; it must not silently become final delivered text.
+  Never silently fall back to cloud or start recording automatically.
 - Manual meeting start and no live coaching remain standing boundaries. Optional future calendar
   behavior needs an explicit decision; do not change the sibling Granola implementation plan here.
 - Runtime/test data belongs in ignored `runtime/` and `private-tests/`, not reference source trees.

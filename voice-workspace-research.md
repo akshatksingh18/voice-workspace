@@ -13,6 +13,8 @@ Published documentation can describe newer code than the shipped release. No fea
 performance, privacy guarantee, or cross-platform runtime verification is implied by this review.
 An isolated Handy runtime/model has subsequently been prepared in this project; `setup.md` owns
 that startup evidence. The external comparison apps remain untested.
+Akshat requires natural Roman Hinglish for Hindi transcripts, not Devanagari or English translation.
+This is a P0 delivery requirement; the prepared raw-ASR profile has no implemented script conversion.
 
 ## Current workspace evidence
 
@@ -171,7 +173,9 @@ editable, exportable, reversible, and removable. Do not learn new facts from unv
 
 Use conservative cleanup by default, optional stronger polish, per-app styles, and raw-text
 recovery. Protect names, numbers, dates, amounts, negations, and mixed-language text. A timeout
-should return the available raw transcript, not lose it or silently call a cloud provider. User
+should return the available validated delivery text without prose cleanup, not lose it or silently
+call a cloud provider. For Hindi this still means Roman Hinglish; failed script conversion gives
+an explicit error and opt-in original-ASR recovery, never automatic Devanagari insertion. User
 dictation and imported transcripts are data, not executable instructions for agents.
 
 Meeting labels start provisional, with manual naming and locking. Two audio tracks distinguish
@@ -188,7 +192,8 @@ a suggestion is not a promise. No automatic email, task creation, coaching, or b
 
 ## Phases and decision gates
 
-1. Establish a physical Handy English/Hindi/Hinglish baseline, then evaluate a pinned OpenWhispr
+1. Establish a physical Handy English/Hindi/Hinglish ASR baseline and add/test required local
+   Roman-Hinglish delivery (English spans unchanged), then evaluate a pinned OpenWhispr
    release on Windows using consented test audio: dictation/paste in actual editors, local-only
    operation and resource use. Later compare Teams/Zoom/browser capture, labels and export.
    This is the build-versus-adapt gate, not a base switch; use the current testing-guide.md.

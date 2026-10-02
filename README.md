@@ -14,6 +14,12 @@ multilingual Whisper Small model for English and Hindi/Hinglish. No cloud key is
 [setup.md](setup.md) for exact verification boundaries and [testing-guide.md](testing-guide.md)
 for microphone selection and the first test. Runtimes/models are not included in GitHub.
 
+Required product output: Hindi in natural **Roman Hinglish**, with English words unchanged.
+Example: "Kal ki meeting teen baje rakho, chaar baje nahi." No Devanagari or English translation
+in the delivered transcript. The current Handy runtime is an ASR-only baseline: it has no
+configured Romanization stage and may still produce Devanagari. It is not ready for this output
+requirement; adding and testing the local Roman-Hinglish delivery step is the next P0 task.
+
 From PowerShell:
 
 ```powershell

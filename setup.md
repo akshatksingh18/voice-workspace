@@ -1,7 +1,7 @@
 # Local setup and verification boundaries
 
 **Status:** Isolated Handy baseline, reference collection and 20-second startup check passed.
-Physical microphone, ASR output, hotkey and paste tests remain unverified.
+Physical ASR/hotkey/paste tests remain unverified; required Roman-Hinglish output is not implemented.
 
 ## Machine and prerequisite boundary
 
@@ -39,6 +39,14 @@ File: `ggml-small.bin`, 487,601,967 bytes. SHA-256 checked against Hugging Face 
 Stored at `runtime/handy/Data/models/ggml-small.bin`; selected Handy model ID is `small`.
 This is multilingual, not the `.en` variant. Download/hash verification does not prove accuracy.
 Model/packaging redistribution license review remains separate from permission to download/test.
+
+Akshat's selected Hindi output is natural Roman Hinglish (English letters), not Devanagari or an
+English translation. The current stock Handy schema/pipeline has language/translation and optional
+post-processing, but no configured Roman-Hindi script selector or conversion stage. The prepared
+profile remains raw ASR with translation/cleanup off; it may emit Devanagari and is not ready for
+the required final output. No settings, binary, dependencies or text models have been changed
+to claim otherwise. Next gate: implement and test local conversion before default display/paste,
+without changing English spans or relying on cloud inference or optional cleanup.
 
 On another machine, rebuild/copy Handy's release executable, its top-level runtime DLLs and
 resources. For a **fresh, empty** runtime only, copy `scripts/portable` beside the executable
@@ -80,7 +88,7 @@ the workspace OneDrive archive. Source recovery is not private-data recovery.
 ## Required manual checks / things deliberately not configured
 
 - Choose and permit microphone, press shortcut and verify actual English/Hindi/Hinglish output.
-- Verify insertion/cancellation/clipboard behavior in real supported apps and preferred script.
+- Verify insertion/cancellation/clipboard behavior; implement/test the decided Roman-Hinglish script contract.
 - OpenWhispr/Meetily meeting runtime preparation after baseline; no capture module selected yet.
 - No local cleanup/summary LLM installed, no LAN service/Docker, no cloud API keys or account login.
 - No calendar integrations, automatic meeting recording, external MCP, sync or biometric profiles.
