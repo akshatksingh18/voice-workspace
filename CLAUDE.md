@@ -5,9 +5,10 @@ editing, personal notes, and bot-free meeting notes. Handy is the accepted deskt
 This repository owns the product requirements, cross-project research, evaluation, and future
 integration; sibling Handy and Granola repositories keep their own implementation instructions.
 
-**Status:** Evaluation and product definition — pinned reference sources and an isolated Windows
-Handy test setup are prepared; moves to implementation after the first real dictation/capture comparison
-and component/license gates pass. No integrated Voice Workspace application exists yet.
+**Status:** Dictation implementation and evaluation — the initial live test failed speed/script
+acceptance; experimental Roman-Hinglish delivery and performance work live in the Handy fork.
+Moves to integrated notes/capture after updated dictation and component/license gates pass.
+No integrated Voice Workspace application exists yet.
 
 ## Files
 
@@ -21,6 +22,8 @@ and component/license gates pass. No integrated Voice Workspace application exis
 - `testing-guide.md` — exact first-test settings, test order, pass/fail evidence, and limitations.
 - `setup.md` — this machine's prepared runtimes/models/configuration, verified evidence, and
   remaining manual actions; update whenever setup state changes.
+- `performance.md` — user-reported acceptance failures, aggregate device/model timings,
+  converter evidence and remaining latency/accuracy gates; read before performance changes.
 - `tasks.md` — current checklists and transition gates, not a session diary.
 - `repositories.json` — immutable source revisions, remotes, license boundaries, and local paths.
 - `.gitmodules` — pinned reference checkouts, not merged application dependencies.
@@ -46,7 +49,8 @@ and component/license gates pass. No integrated Voice Workspace application exis
 - Start with English plus Hindi/Hinglish and local ASR; translation and AI cleanup are off for
   ASR-only baseline testing. Akshat requires Hindi speech to be delivered in natural Roman
   Hinglish (English letters), never Devanagari or an English translation; preserve English spans.
-  This is a P0 output contract, not implemented in the current stock Handy test profile. Raw
+  The fork now implements an experimental local converter; spoken accuracy and updated delivery
+  still require acceptance tests. This is a P0 output contract. Raw
   ASR may retain original script internally; it must not silently become final delivered text.
   Never silently fall back to cloud or start recording automatically.
 - Manual meeting start and no live coaching remain standing boundaries. Optional future calendar

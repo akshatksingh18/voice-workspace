@@ -11,15 +11,17 @@ Sources reviewed on October 2, 2026. Repository default branches, published rele
 and selected source files were inspected; the external applications were not installed or tested.
 Published documentation can describe newer code than the shipped release. No feature parity,
 performance, privacy guarantee, or cross-platform runtime verification is implied by this review.
-An isolated Handy runtime/model has subsequently been prepared in this project; `setup.md` owns
-that startup evidence. The external comparison apps remain untested.
+An isolated Handy runtime/models and dictation changes are prepared in this project; `setup.md`
+and `performance.md` own actual verification evidence. The external comparison apps remain untested.
 Akshat requires natural Roman Hinglish for Hindi transcripts, not Devanagari or English translation.
-This is a P0 delivery requirement; the prepared raw-ASR profile has no implemented script conversion.
+This is a P0 delivery requirement; the Handy fork implements an experimental local converter,
+but spoken accuracy and updated live acceptance remain open.
 
 ## Current workspace evidence
 
-- Handy is a Rust/Tauri + React desktop fork. Its Windows source build and startup passed; real
-  microphone dictation, GPU inference, and signed installer behavior remain unverified. See
+- Handy is a Rust/Tauri + React desktop fork. Its Windows source build/startup and initial Notepad
+  capture/insertion worked, but speed/script/acronym acceptance failed. Local CPU/GPU model
+  inference is measured; updated live acceptance and signed installer behavior remain open. See
   `../handy/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
   and SQLite dictation history already provide useful integration points.
 - `../granola-alt/` is a specification on an imported Electron/Natively base, not a completed
@@ -230,9 +232,10 @@ Targets are to be set from those measurements, not copied from marketing pages.
 - Any agent/MCP access is an egress permission boundary. Local storage plus a cloud assistant is
   not a local-only workflow; restrict access by collection, keep dictations excluded by default,
   and require explicit authorization before sending meeting content outside the workspace.
-- Windows first for physical testing; preserve Handy's existing macOS/Linux paths. No new runtime
-  was tested on any platform during this research. The imported code-review-graph tools were
-  unavailable, so focused source inspection was used; no product code was modified.
+- Windows first for physical testing; preserve Handy's existing macOS/Linux paths. This research
+  is source review, not runtime evidence. Current dictation changes and actual tests are owned by
+  setup.md, performance.md and ../handy/voice-workspace-features.md. The imported code-review-graph
+  tools were unavailable, so focused source inspection was used.
 - Decisions still needed: personal-only versus distributable/business use; measured suitability of
   OpenWhispr; meeting engine selection; retention; mobile packaging; and whether later calendar
   integration should revise the deliberately manual-start meeting scope.

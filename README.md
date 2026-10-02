@@ -2,7 +2,8 @@
 
 Akshat's local-first, self-hostable voice workspace: speak into any supported desktop text field,
 edit text deliberately, keep personal notes, and record consented meetings without a meeting bot.
-Handy is the accepted desktop foundation. This is an evaluation and product-definition repository,
+Handy is the accepted desktop foundation. This owns evaluation, product definition and experimental
+dictation improvements maintained in the private Handy fork,
 **not an already integrated application**.
 
 Source home: [Akshat's private voice-workspace repository](https://github.com/akshatksingh18/voice-workspace).
@@ -10,15 +11,17 @@ Source home: [Akshat's private voice-workspace repository](https://github.com/ak
 ## Start here
 
 This Windows machine has a separate Handy test runtime under ignored `runtime/handy/`, with a
-multilingual Whisper Small model for English and Hindi/Hinglish. No cloud key is needed. Read
+multilingual Whisper models for English and Hindi/Hinglish. No cloud key is needed. Read
 [setup.md](setup.md) for exact verification boundaries and [testing-guide.md](testing-guide.md)
 for microphone selection and the first test. Runtimes/models are not included in GitHub.
 
 Required product output: Hindi in natural **Roman Hinglish**, with English words unchanged.
 Example: "Kal ki meeting teen baje rakho, chaar baje nahi." No Devanagari or English translation
-in the delivered transcript. The current Handy runtime is an ASR-only baseline: it has no
-configured Romanization stage and may still produce Devanagari. It is not ready for this output
-requirement; adding and testing the local Roman-Hinglish delivery step is the next P0 task.
+in the delivered transcript. The Handy fork now has an experimental, fast offline Roman-Hinglish
+converter and model preload. Synthetic converter/history checks pass; spoken accuracy and updated
+live insertion still need acceptance. Initial CPU dictation exceeded 10 seconds and failed this
+script contract. See [performance.md](performance.md) for measurements; instant delivery is not
+yet achieved. Model selection and script conversion are separate from recognizing words correctly.
 
 From PowerShell:
 
@@ -41,6 +44,7 @@ terminal command line, password field, chat send box, or confidential meeting fi
 - [voice-workspace-research.md](voice-workspace-research.md): detailed source-backed research.
 - [testing-guide.md](testing-guide.md) and [test-cases.md](test-cases.md): settings and synthetic tests.
 - [setup.md](setup.md): actual local readiness, not advertised capabilities.
+- [performance.md](performance.md): measured latency, reported failures and remaining speed gates.
 - [tasks.md](tasks.md): remaining decisions and implementation gates.
 - [repositories.json](repositories.json): exact reference revisions and license qualifications.
 - [CLAUDE.md](CLAUDE.md): canonical instructions for any coding agent.

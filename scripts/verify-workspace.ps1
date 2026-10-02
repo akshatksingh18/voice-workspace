@@ -49,26 +49,31 @@ if ($HashModel -and -not $CheckRuntime) { throw '-HashModel requires -CheckRunti
 if ($CheckRuntime) {
     $voiceExe = Join-Path $voiceRoot 'runtime\handy\handy.exe'
     $voiceMarker = Join-Path $voiceRoot 'runtime\handy\portable'
-    $voiceModel = Join-Path $voiceRoot 'runtime\handy\Data\models\ggml-small.bin'
     $voiceStore = Join-Path $voiceRoot 'runtime\handy\Data\settings_store.json'
-    foreach ($voiceRequired in @($voiceExe,$voiceMarker,$voiceModel,$voiceStore,
+    foreach ($voiceRequired in @($voiceExe,$voiceMarker,$voiceStore,
         (Join-Path $voiceRoot 'runtime\handy\transcribe.dll'),
         (Join-Path $voiceRoot 'runtime\handy\onnxruntime.dll'))) {
         if (-not (Test-Path -LiteralPath $voiceRequired -PathType Leaf)) { throw "Missing runtime input: $voiceRequired" }
     }
     if (-not (Get-Content -LiteralPath $voiceMarker -Raw).StartsWith('Handy Portable Mode')) { throw 'Invalid portable marker.' }
-    if ((Get-Item -LiteralPath $voiceModel).Length -ne 487601967) { throw 'Model size mismatch.' }
-    if ($HashModel -and (Get-FileHash -LiteralPath $voiceModel -Algorithm SHA256).Hash -ne
-        '1BE3A9B2063867B937E64E2EC7483364A79917E157FA98C5D94B5C1FFFEA987B') { throw 'Model checksum mismatch.' }
     $voiceSettings = (Get-Content -LiteralPath $voiceStore -Raw | ConvertFrom-Json).settings
-    if ($voiceSettings.selected_model -ne 'small' -or $voiceSettings.selected_language -ne 'auto' -or
+    $voiceModels = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'local-models.json') -Raw | ConvertFrom-Json
+    $voiceModelInfo = $voiceModels.PSObject.Properties[$voiceSettings.selected_model].Value
+    if (-not $voiceModelInfo) { throw 'Unsupported model in test profile.' }
+    $voiceModel = Join-Path $voiceRoot "runtime\handy\Data\models\$($voiceModelInfo.filename)"
+    if (-not (Test-Path -LiteralPath $voiceModel) -or (Get-Item -LiteralPath $voiceModel).Length -ne $voiceModelInfo.bytes) { throw 'Model missing or size mismatch.' }
+    if ($HashModel -and (Get-FileHash -LiteralPath $voiceModel -Algorithm SHA256).Hash.ToLowerInvariant() -ne
+        $voiceModelInfo.sha256) { throw 'Model checksum mismatch.' }
+    if ($voiceSettings.selected_language -notin @('auto','hi') -or
         $voiceSettings.translate_to_english -or $voiceSettings.post_process_enabled -or
+        -not $voiceSettings.roman_hinglish_enabled -or -not $voiceSettings.preload_model -or
         $voiceSettings.always_on_microphone -or $voiceSettings.auto_submit -or
         $voiceSettings.update_checks_enabled -or $voiceSettings.autostart_enabled -or
-        $voiceSettings.transcribe_accelerator -ne 'cpu' -or $voiceSettings.ort_accelerator -ne 'cpu') {
+        $voiceSettings.transcribe_accelerator -notin @('auto','gpu') -or
+        $voiceSettings.model_unload_timeout -ne 'never' -or $voiceSettings.ort_accelerator -ne 'cpu') {
         throw 'Baseline settings mismatch; inspect local profile and testing-guide.md.'
     }
-    Write-Output 'Handy baseline inputs/settings OK. This is not a physical ASR, hotkey or paste test.'
-    Write-Output 'ASR-only profile: required Roman-Hinglish conversion is not implemented or validated.'
+    Write-Output 'Handy experimental profile/model inputs OK. This is not a physical ASR, hotkey or paste test.'
+    Write-Output 'Roman-Hinglish and startup warm-up enabled; speech accuracy and instant insertion remain unverified.'
 }
 Write-Output 'Workspace verification passed; no network requests or recordings were made.'

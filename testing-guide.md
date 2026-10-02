@@ -1,26 +1,32 @@
 # First tests and settings
 
-**Status:** Prepared baseline configuration; physical microphone recognition, shortcut registration
-and insertion still require Akshat's tests. Required Roman-Hinglish output is not implemented;
-this profile measures raw ASR only. See setup.md for actual machine verification.
+**Status:** Experimental updated test profile; initial physical dictation failed speed/script/acronym
+acceptance. Converter unit/history checks pass; updated live accuracy, shortcut/paste reliability
+and instant latency still need Akshat's tests. See setup.md for activation/verification state.
 
 ## 1. Handy first — no account, server or cleanup model
 
 Close any running Handy/OpenWhispr/other dictation app from its tray; do not run both together.
 Run `scripts/start-test.ps1` from this project, or open `runtime/handy/handy.exe`. This is the
-copied local build, not an installed replacement or the reference source checkout.
+updated private-fork build, not an installed replacement or the reference source checkout.
+Wait until model preparation/loading finishes; preload primes Whisper with discarded synthetic
+silence and never records your microphone. First startup is slower than later dictations.
 
 The isolated portable settings select:
 
-- Model: multilingual **Whisper Small** (`small`), not Small.en or an English-only engine.
+- Model: multilingual **Whisper Turbo** (`turbo`), not an English-only engine. Small is retained
+  only for explicit comparisons. Do not switch to English-only Parakeet for a Hindi test.
 - Language: Automatic. Translate to English: off. Hindi-only failures should be retested with
   Hindi selected explicitly; mixed Hinglish should return to Automatic for comparison.
 - Activation: hold-to-talk; Ctrl+Shift+F12. Escape: cancel.
-- ASR and ONNX acceleration: CPU for the reproducible baseline; model unload after 5 minutes.
+- ASR: measured NVIDIA MX450 device with Vulkan. ONNX: CPU (no ONNX dictation model selected).
+- Roman Hinglish: on. Warm model on startup: on. Model Unload: Never during latency tests.
+  This consumes more RAM/VRAM; close the test app if it causes system pressure.
 - Post-processing/AI cleanup and filler removal: off. Use the normal Transcribe shortcut.
 - Custom words: initially empty, then a separate technical-word test.
 - Paste: Ctrl+V; clipboard preservation; automatic Enter/submit off.
 - Always-on microphone, launch at login, update checks, hidden startup, debug mode: off.
+- Log level: INFO for content-free phase timings. Do not enable debug logging.
 - Retention: preserve latest 20 history entries, with local audio/text kept for comparison.
   This is not a no-storage mode. Delete synthetic test entries when finished if desired.
 
@@ -30,29 +36,35 @@ must permit desktop apps; no administrator mode is needed. These device/privacy 
 be honestly completed without selecting/testing your actual microphone.
 
 Focus a blank Notepad document. Hold Ctrl+Shift+F12, say E01, release, and wait for insertion.
-Try E02, H01 and H03. Leave focus in place for initial tests. Hindi must ultimately appear in
-natural Roman Hinglish, not Devanagari or English translation. The unchanged Handy build may
-still produce Devanagari; record that as a known output-policy gap, not acceptable product output.
-Language Automatic/Hindi controls recognition, not script. Translation to English must stay off.
-Do not use the current profile expecting Roman Hinglish to be enforced.
+Try E02, H01 and H03. Start speaking after the recording-ready cue and leave focus in place.
+Hindi must appear in natural Roman Hinglish, not Devanagari or English translation. The new toggle
+controls script independently of Automatic/Hindi recognition language; translation must stay off.
+Retest: "Please move the meeting to tomorrow, and aaj deployment mat karna, pehle API test kar lo."
+Check the English opening, API, negation and order—not only the script. The converter cannot
+restore words ASR lost/misheard. Unsupported script produces an error/retry, never raw auto-paste.
 
 Then run cancellation, silence, clipboard and repeated-insertion tests from test-cases.md.
 After a quiet baseline, try a browser textarea and your usual harmless editor. Do not use a real
 chat send box/terminal/password field. If paste fails, inspect History and use Copy; don't repeatedly
 trigger recordings to recover the same text. An app that starts successfully can still fail ASR.
+History shows delivered text by default; old/unconverted entries can be retried or explicitly
+revealed with Show raw recognition (recovery only). Existing recordings were not deleted.
 
 ## 2. Change one variable at a time
 
 Add only synthetic/domain terms (PostgreSQL/Kubernetes/REST API) to Custom Words and rerun E03/H06.
 Keep this distinct from automatic correction learning, which has not been built here.
-Compare CPU versus Vulkan/Auto only after the baseline; measure memory and cold/warm latency.
+CPU/Small and NVIDIA/Intel comparisons are recorded in performance.md; they are not instant.
+Measure at least three warmed-up utterances in the new GUI. INFO `dictation_latency` logs separate
+capture, recognition, output, paste and total release-to-paste time. CLI timings omit insertion.
+Do not read a load-only or best-of-two number as p95. Keep vocabulary tests separate from model/device changes.
 Do not load a large text model just because a discrete GPU exists: this machine has 8 GB RAM
 and about 2 GB discrete VRAM. Save aggregate conclusions, not private text, into tracked docs.
 
 Initial proposed gate: 20 inserts without loss/duplication/auto-submit; all negation/number/date
 fixtures preserve meaning; H01-H06 delivered Hindi uses natural Latin-letter Hinglish, with no
 Devanagari or unasked English translation; cancel and failure leave recoverable text. Keep the
-ASR-only measurements separate until the local Romanization stage passes. Latency targets should be
+headless ASR-only and full GUI measurements separate. Latency targets should be
 chosen from measurements; log stop-to-insert time separately from spoken duration.
 
 ## 3. OpenWhispr comparison — not preconfigured or launched

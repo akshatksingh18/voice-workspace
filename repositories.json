@@ -8,11 +8,11 @@
       "path": "references/handy",
       "url": "https://github.com/akshatksingh18/handy.git",
       "upstream": "https://github.com/cjpais/Handy.git",
-      "revision": "46d6311feef18950487220226c467c95c7f9afd7",
+      "revision": "2211059c0e79c97ae9916d4113a2be2e0295e6e9",
       "sourceBranch": "main",
       "license": "MIT",
       "licenseFile": "LICENSE",
-      "boundary": "Accepted desktop base; private fork. Model, asset and dependency terms require separate review. Runtime binary is the existing build, not a rebuild of documentation-only changes."
+      "boundary": "Accepted desktop base; private fork with experimental offline Roman-Hinglish delivery, startup priming and latency diagnostics. Windows runtime rebuilt/tested locally; updated live acceptance and other platforms remain open. Model, asset and dependency terms require separate review."
     },
     {
       "name": "granola-alt",

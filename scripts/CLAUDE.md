@@ -3,8 +3,8 @@
 Project-owned Windows launch, source-recovery, and local test preparation tools. These tools are
 not the integrated application. Product decisions belong in the parent project documents.
 
-**Status:** Setup tooling — syntax, baseline verification, launcher preview and idempotent restore
-of existing pins passed; physical ASR/paste tests and fresh-machine restoration remain unverified.
+**Status:** Experimental dictation test tooling — model/profile checks and launch/recovery tools
+support the Handy fork. Updated physical ASR/paste acceptance and fresh-machine restoration remain open.
 
 ## Files
 
@@ -14,6 +14,8 @@ of existing pins passed; physical ASR/paste tests and fresh-machine restoration 
   never initialize premium/nested submodules or update pins automatically.
 - `handy-baseline.json` — nonsensitive portable settings template for a fresh test profile;
   not the user's live settings, and not proof of microphone or inference success.
+- `local-models.json` — allowed downloaded model filenames, sizes and verified checksums shared by
+  the launcher and runtime verifier; no automatic download or redistribution authorization.
 - `portable` — Handy's supported marker template; copy beside a fresh test executable only.
 
 ## Working agreement

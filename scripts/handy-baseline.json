@@ -11,10 +11,12 @@
       }
     },
     "shortcut_activation": "push_to_talk",
-    "selected_model": "small",
+    "selected_model": "turbo",
     "onboarding_completed": true,
     "selected_language": "auto",
     "translate_to_english": false,
+    "roman_hinglish_enabled": true,
+    "preload_model": true,
     "selected_microphone": null,
     "always_on_microphone": false,
     "start_hidden": false,
@@ -25,8 +27,8 @@
     "post_process_api_keys": {},
     "filler_word_removal_enabled": false,
     "custom_words": [],
-    "model_unload_timeout": "min5",
-    "transcribe_accelerator": "cpu",
+    "model_unload_timeout": "never",
+    "transcribe_accelerator": "auto",
     "ort_accelerator": "cpu",
     "history_limit": 20,
     "recording_retention_period": "preserve_limit",
@@ -35,7 +37,7 @@
     "auto_submit": false,
     "mute_while_recording": false,
     "debug_mode": false,
-    "log_level": "warn",
+    "log_level": "info",
     "reliable_paste": false
   }
 }

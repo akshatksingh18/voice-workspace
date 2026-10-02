@@ -1,7 +1,8 @@
 # Architecture and component selection
 
-**Status:** Accepted ownership and guardrails; integration design below is proposed. No product
-modules or inter-app bridge have been implemented in this repository.
+**Status:** Accepted ownership and guardrails; broader integration design remains proposed.
+The Handy fork implements experimental dictation script conversion, preload and diagnostics.
+No notes/meeting module or inter-app bridge is implemented in this repository.
 
 ## Ownership and first decision
 
@@ -83,16 +84,21 @@ session identity and embeddings require an explicit separate privacy decision an
 ## Inference and deployment
 
 Accepted Hindi output contract: natural Roman Hinglish, never Devanagari or English translation.
-Proposed order: ASR → local Hindi script normalization → optional validated cleanup → delivery.
+Implemented dictation order in the Handy fork: ASR → local Hindi script normalization → optional
+cleanup → script revalidation/conversion → delivery. Meaning-validation around future AI cleanup
+is still planned, not implied by script validation.
 Keep English spans intact and validate script plus names/numbers/negation before insertion. A
 conversion failure produces an error/retry with explicit raw recovery, not blind Devanagari
 paste. Default transcript display, dictated notes and exports use the validated Roman form;
-retain original-script ASR internally for provenance. The local conversion implementation/model
-has not been selected or installed, and stock Handy settings do not implement this contract.
-Evaluate a lightweight local converter on H01-H06, mixed English and spelling variants before
-adopting it; any contextual model needs separate memory/license/meaning-preservation checks.
+retain original-script ASR internally for provenance. The fork uses an authored dependency-free
+Rust converter with common chat spellings/exact loanwords and conservative fallback. Unit fixtures
+pass, but unfamiliar-word spellings and speech recognition require further tests. History defaults
+to delivered text and exposes raw ASR only by explicit recovery. Notes/export integration is not
+built yet. Any later contextual model needs separate memory/license/meaning-preservation checks.
 
-Phase one: on-device Whisper Small, CPU baseline; cleanup off. This laptop has about 8 GB RAM and
+The CPU Whisper Small baseline reproduced excessive delay; measured NVIDIA Vulkan acceleration
+is faster. See performance.md for device/model evidence and setup.md for the active profile.
+Cleanup remains off. This laptop has about 8 GB RAM and
 2 GB discrete VRAM, so do not load a large LLM alongside ASR by default. Benchmark warm/cold times,
 memory, battery and meeting backlog before selecting a text model. Self-hosted means controllable
 inference/storage, not a promise that every task runs quickly on this laptop.

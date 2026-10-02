@@ -31,7 +31,8 @@ inside the Wispr experience; dictation language coverage is not meeting-language
 
 Wispr: system-wide dictation with a shortcut and polished insertion. Handy already supplies local
 ASR, global shortcuts, selectable microphones, tray/overlay and several paste modes. Physical
-focus/paste behavior on this machine still needs testing. Our gate: 20 repeated short inserts in
+Notepad capture/insertion worked in Akshat's initial test, but speed/script/acronym acceptance
+failed; updated focus/paste behavior still needs testing. Our gate: 20 repeated short inserts in
 Notepad and browser textareas, no lost/doubled text, no unintended submission, and recoverable
 transcript on failure. Test terminal-like editors separately, never execute dictated commands.
 
@@ -44,7 +45,9 @@ This is transliteration/script normalization, not translation or prose rewriting
 
 Wispr advertises broad dictation language coverage; our exact mix must be measured. Handy's
 multilingual Whisper path is the ASR-only baseline. Automatic/Hindi language settings do not
-select a Latin output script. Add an independent local Romanization stage before delivery;
+select a Latin output script. The fork implements an experimental independent local Romanization
+stage before delivery; see ../handy/voice-workspace-features.md and performance.md for actual evidence.
+Spoken H01-H06 acceptance remains open;
 do not claim that changing the recognition language or an ASR prompt guarantees Roman Hinglish.
 Preserve original ASR internally for provenance/recovery, not as the default delivered transcript.
 Keep English identifiers/URLs/acronyms, names, numbers, dates, negation and word order intact.
