@@ -20,9 +20,10 @@ Turbo live test improved speed but still took 3–4 seconds and produced unwante
 Hindi work is deferred; the experimental converter is off and existing data is preserved.
 The English test candidate is Parakeet Unified EN Q8 on NVIDIA, with startup warm-up and no AI
 cleanup or translation. Akshat accepts the earlier streaming profile's live English speed, but
-its live E03 test missed PostgreSQL and punctuation. A full-recording mode and narrow manual
-dictionary are the next quality-test slice; live retest and the broader insertion/reliability suite
-remain open. Natural list commas and contextual cleanup are not solved. See [performance.md](performance.md) for
+its initial live E03 test missed PostgreSQL and punctuation. The full-recording/narrow-dictionary
+profile is deployed; Akshat reports technical words and punctuation worked perfectly on retest,
+without AI cleanup. Broader accuracy/insertion/reliability and quantitative latency remain open.
+Contextual cleanup/spoken repair are separate experiments, not enabled features. See [performance.md](performance.md) for
 comparisons and verification boundaries. Recognition-only timings are not an insertion guarantee.
 Spoken self-correction is requested but not built; its proposed behavior and tests are in
 [product-framework.md](product-framework.md) and [test-cases.md](test-cases.md).

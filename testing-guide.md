@@ -1,8 +1,9 @@
 # First tests and settings
 
 **Status:** English-only evaluation. Akshat accepts the current Parakeet profile's live speed;
-the live E03 test failed technical spelling and punctuation. The quality profile needs a new
-live test; the broader insertion/reliability suite remains open. Dedicated spoken
+the earlier streaming E03 test failed technical spelling/punctuation, but Akshat reports the
+full-recording/three-term retest worked perfectly. Broader accuracy, quantitative latency and
+insertion/reliability remain open. Dedicated spoken
 self-correction is not implemented; its fixtures specify future behavior, not expected current output.
 See setup.md for deployment evidence and performance.md for measured samples.
 
@@ -57,12 +58,14 @@ revealed with Show raw recognition (recovery only). Existing recordings were not
 
 ## 2. Change one variable at a time
 
-The earlier empty-dictionary streaming baseline failed live E03. First retest E03 with the
-prepared full-recording/three-word profile: check PostgreSQL, neighboring words, punctuation and
-release delay separately. A final period is not a pass for natural list commas; these remain open.
+The earlier empty-dictionary streaming baseline failed live E03. Akshat reports technical spelling
+and punctuation passed the full-recording/three-term live retest, cleanup off. Keep that profile;
+repeat and broaden fixtures, checking neighboring words and release delay separately. One user
+report is not universal punctuation/accuracy or a numeric latency guarantee. Saved-clip batch
+screening lacked list commas; record live and offline results separately rather than overriding either.
 For controlled comparisons, save the profile first, change only the mode (restart to warm it),
 then only the dictionary. Do not erase other settings/history. The saved-clip screening isolated
-raw batch/stream outputs and dictionary effects; a new user-microphone result is still required.
+raw batch/stream outputs and dictionary effects; the reported live retest is qualitative evidence.
 
 Then read E09–E12 with the current model and your natural pronunciation, without pre-seeding their
 additional terms. For a repeat empty-dictionary baseline, preserve the three prepared entries locally.
@@ -117,6 +120,11 @@ separates source review from released runtime results. OpenWhispr is a workflow 
 an accepted replacement for Handy. No installer/account setup is needed for the Handy-first test.
 
 ## 4. Meeting evaluation and local intelligence — later
+
+The optional dummy-only cleanup benchmark is separate from dictation. It has been exercised with
+Qwen3-0.6B Q8/llama.cpp but failed correction/meaning gates; it is not an accepted Handy cleanup
+profile. Keep AI cleanup off. See setup.md for verified inputs, PowerShell/version/security limits
+and performance.md for results. Do not send saved recordings/history to that helper or a cloud provider.
 
 After English dictation passes, prepare a manual, consented dummy call in the actual meeting app with
 headphones. Evaluate microphone plus Windows system loopback, silence, overlap, duplicates,

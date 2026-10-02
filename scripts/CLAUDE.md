@@ -23,6 +23,11 @@ support the Handy fork. Updated physical ASR/paste acceptance and fresh-machine 
 - `benchmark-asr.ps1` — run the fork's standalone local timing/error/punctuation diagnostic with
   optional local gold and vocabulary files and explicit
   device selection; no mic/paste/upload. Read performance.md for interpretation and compile prerequisites.
+- `benchmark-cleanup.ps1` — opt-in local Qwen/llama.cpp experiment on built-in dummy text only;
+  verifies pinned model/package/extracted binaries, owns an authenticated loopback-only offline
+  helper with tools/MCP disabled, compares CPU/NVIDIA, emits aggregate checks and stops its own PID.
+  `-ShowDummyOutput` exposes only built-in public dummy completions for scoring diagnosis; no user input is accepted.
+  Never changes Handy settings or processes; no uploads/downloads. Read setup/performance before use.
 - `portable` — Handy's supported marker template; copy beside a fresh test executable only.
 
 ## Working agreement

@@ -24,7 +24,8 @@ setup.md/performance.md own the current English profile and measurements, not th
   inference is measured; Turbo's updated live latency was still about 4 seconds and Hindi output
   failed. Akshat accepts the earlier English streaming profile's live speed; live E03 then failed
   PostgreSQL spelling and punctuation. A same-clip batch/vocabulary comparison motivates the
-  new full-recording quality test; accuracy, broader
+  new full-recording quality test. Akshat then reported technical words/punctuation worked
+  perfectly in the deployed quality retest, cleanup off; broader accuracy,
   insertion/reliability and signed installer behavior remain open. See
   `../handy/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
   and SQLite dictation history already provide useful integration points.
@@ -99,6 +100,10 @@ and notices if actual code/prompt reuse follows. Do not import cloud/account beh
 For Handy, first improve the chosen ASR path and manual vocabulary, then independently benchmark
 punctuation/repair cleanup. Switching to another app with the same recognizer is not itself an
 accuracy fix. This laptop's RAM/VRAM and accepted responsiveness are explicit adoption gates.
+The approved official Qwen3-0.6B Q8/llama.cpp experiment later ran locally on dummy text, not
+OpenWhispr itself. It was fast but kept superseded times and dropped clauses; that configuration
+was not adopted. The successful live technical/punctuation profile remains non-LLM. Local evidence
+and pinned inputs belong in performance.md/setup.md, not model marketing or source prompt claims.
 
 ### Anarlog — strong meeting-module reference, Windows local-ASR caveat
 

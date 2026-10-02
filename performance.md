@@ -1,8 +1,8 @@
 # Dictation performance and acceptance
 
 **Status:** English-only evaluation. Akshat accepts the earlier Parakeet streaming profile's live speed.
-The live E03 technical/punctuation test failed. Broader insertion/reliability and quantitative
-p50/p95 remain open; the full-recording/vocabulary quality profile needs a fresh live test.
+The full-recording/vocabulary quality retest passed technical words/punctuation by Akshat's report.
+Broader accuracy, insertion/reliability and quantitative p50/p95 remain open.
 Turbo's older live test failed latency/Hindi acceptance. The Hindi converter is off, not a solved feature.
 
 ## Current physical acceptance boundary
@@ -13,8 +13,11 @@ release-to-paste duration, sample count or p95 was supplied. This is qualitative
 acceptance, not proof of maximum accuracy, all-editor reliability or a guaranteed sub-second p95.
 Akshat then tried E03: PostgreSQL became split phonetic words, an extra article appeared, and
 list commas plus the terminal period were absent. Kubernetes and REST API were retained.
-That is a failed technical/punctuation test, not merely untested accuracy. Next tests repeat E03
-on the quality profile, then English critical vocabulary/meaning and insertion safety. Requested spoken
+That streaming baseline failed technical/punctuation acceptance. After deployment, Akshat reports
+the full-recording/three-term profile's technical words and punctuation worked perfectly in his
+live retest. This is user-reported one-fixture acceptance; no new transcript, exact delay, repeat
+count or punctuation statistics were supplied. It does not establish full E01–E12 or p95.
+Next tests broaden English critical vocabulary/meaning and insertion safety. Requested spoken
 self-correction is not implemented; benchmark its additional work before enabling it so it does
 not regress the accepted speed. New mode/profile preparation does not inherit live speed acceptance.
 
@@ -59,11 +62,58 @@ bound as Vulkan0; the profile has full-recording mode plus the three manual term
 alive after load and batch priming (0.893 s in the sampled GUI startup). These verify deployment/
 readiness and native inference, not microphone/VAD/paste latency or a new critical-word pass.
 
-Natural commas, contextual grammar and flexible spoken repair remain a separate cleanup gate.
+The live quality retest's punctuation passed by user report, despite the saved-clip batch sample
+missing list commas. Do not generalize either sample to all utterances or claim the dictionary
+creates punctuation. Broader punctuation/contextual grammar and spoken repair remain separate gates.
 OpenWhispr's pinned cleanup workflow is an implementation reference (see research), not tested
 local performance. No cleanup model/runtime has been downloaded or configured for this slice;
-approval for a separate local text-model/runtime comparison is still outstanding. Never synthesize
+Akshat approved a separate local text-model/Windows-runtime comparison from official GitHub/Hugging
+Face. It is an isolated experiment, not permission to upload recordings or enable cloud cleanup.
+Never synthesize
 hardcoded E03 output, insert commas around every conjunction, or silently use cloud inference.
+
+## Local cleanup experiment — not adopted
+
+Measured 2026-10-02 with official Qwen3-0.6B Q8 and llama.cpp b11146, pinned download/integrity
+details in setup.md. `scripts/benchmark-cleanup.ps1` uses eight public dummy text fixtures, two
+runs each per CPU/NVIDIA configuration, plus one NVIDIA diagnostic pass to inspect only fixed
+dummy completions. No user recordings/history/transcripts are inputs. Handy's profile was
+unchanged, AI cleanup off; its process residency and other user activity were not controlled.
+Authenticated loopback-only helper, offline, no agent/tools/MCP/web UI/proxy;
+one slot, 2,048-token context, four threads, non-thinking, temperature 0, seed 42, 96-token cap.
+This deterministic screen differs from Qwen's suggested general chat sampling; it is not a claim
+that every prompt/model configuration fails. No model/server is activated in Handy.
+
+- CPU: startup/preparation 6.549 s; requests 0.187–1.210 s. Second identical requests ranged
+  0.187–0.558 s. Sampled process working set about 954 MiB.
+- NVIDIA configuration: explicit Vulkan1, verified device list identifies MX450; startup 5.665 s,
+  requests 0.089–1.288 s, second identical requests 0.089–0.274 s. Working-set samples 974–978 MiB.
+  A later diagnostic startup was 2.649 s. No independent GPU allocation/bound-device telemetry
+  was captured in the log-disabled server; do not present process RAM as VRAM or whole-system memory.
+- Timings include local HTTP/tokenization/inference, exclude ASR/VAD/paste and are not complete
+  release-to-text. Repeated prompts benefit from KV/prefix caching. First requests were slower
+  despite startup warm-up; resource caches/temperature and user activity were uncontrolled.
+
+Only P02 (technical names), C06 (literal apology) and N01 (versions/negation) matched their expected
+surface text in both repeats/device settings: 3/8 fixtures. This comparison ignores capitalization,
+punctuation and whitespace; it is a narrow surface check, not comprehensive semantic validation.
+P02's optional comma differed stylistically and is not itself a meaning failure. All responses
+ended normally with no tool calls; none hit the output cap. Completion/fallback checks alone do
+not protect meaning.
+
+The separate fixed-dummy readback confirms real failures, not just formatting differences:
+C01 and C02 kept the superseded 7 pm and deleted the 6 pm correction; C05 retained contradictory
+old/new deployment clauses; D01 discarded its second sentence despite normal completion. P01
+added both list commas but retained the extra article. These are unsuitable for automatic cleanup.
+No real transcript/output is copied here, and no source from OpenWhispr was copied into the prompt.
+
+Decision: do not adopt this prompt/model configuration or enable default cleanup. Retain the
+user-accepted full-recording/dictionary profile without an LLM. Spoken correction remains planned;
+first prove the narrow explicit full-restatement matcher and literal/quoted/ambiguous exceptions,
+with raw recovery and latency gates, rather than relying on an unvalidated tiny model. Future
+prompt/model comparisons are possible but need a new implementation/evaluation slice, not a
+claim that downloading a model solves punctuation or correction. Helpers stopped after tests;
+no persistent endpoint/service or cloud fallback was configured.
 
 ## Initial physical result
 

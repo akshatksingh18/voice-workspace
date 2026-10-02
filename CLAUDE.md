@@ -6,8 +6,10 @@ This repository owns the product requirements, cross-project research, evaluatio
 integration; sibling Handy and Granola repositories keep their own implementation instructions.
 
 **Status:** English-only dictation evaluation — Akshat accepts the Parakeet profile's live speed;
-the live E03 technical/punctuation test failed. An opt-in full-recording/vocabulary quality slice
-is implemented in the fork; deployment evidence lives in setup.md and live retest remains open.
+the earlier streaming E03 test failed. The full-recording/vocabulary quality slice is deployed,
+and Akshat reports technical words and punctuation work perfectly in his live retest.
+This is one-fixture qualitative acceptance, not a complete accuracy/latency guarantee.
+The isolated small local cleanup experiment failed meaning/correction gates; Handy cleanup stays off.
 Broader insertion/reliability gates remain open. Spoken self-correction
 is a requested behavior with a proposed design, not implemented. Code lives in the Handy fork.
 Moves to integrated notes/capture after remaining dictation and component/license gates pass.

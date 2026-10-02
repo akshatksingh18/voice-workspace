@@ -127,9 +127,15 @@ The profile seeds three manual dictionary terms. Parakeet applies fuzzy post-ASR
 acoustic prompting. The prefix-preservation fix avoids consuming an ordinary preceding word when
 a better suffix match for the same term exists. It neither deletes unspoken articles nor creates
 list commas. Native Parakeet punctuation toggles are ignored; normalization preserves punctuation.
-Natural list punctuation, contextual grammar and flexible repair need a separate measured cleanup
-stage. OpenWhispr's pinned cleanup prompt/failure fallback is a reference, not a drop-in validated
-processor. No text model or local inference server is configured; new downloads require authority.
+The live quality retest's technical words/punctuation passed by user report; this does not make
+the dictionary a punctuation engine or prove all utterances. Broader contextual grammar/flexible
+repair need independent tests. OpenWhispr's pinned prompt/failure fallback is a reference, not a
+validated drop-in. A small local text-model/Windows runtime test is approved from official
+GitHub/Hugging Face. No inference server or cleanup is configured in Handy; keep the experiment
+separate and default cleanup off unless speed/meaning/fallback gates independently pass.
+The tested Qwen3-0.6B Q8 configuration failed explicit time repairs and clause preservation;
+therefore no Handy adapter/cleanup activation follows. Benchmark helper lifecycle/inputs are
+owned by scripts/benchmark-cleanup.ps1 and setup.md; it is not a production background service.
 
 The converter remains recoverable code, not an active product requirement: its script fixtures
 passed, but the user's live Hindi result failed meaning/translation expectations. Reintroducing
@@ -169,8 +175,8 @@ untrusted data; they cannot grant permissions, execute commands, or expand agent
 
 G0: pinned sources + safe ASR-only isolated test setup. G1: physical English-only
 accuracy/latency/paste acceptance, superseding the old Hindi/Hinglish gate. Qualitative English
-streaming speed is accepted; live E03 technical/punctuation acceptance failed. The full-recording/
-vocabulary quality slice needs a live retest; quantitative coverage and insertion safety remain open.
+streaming speed is accepted and the full-recording/vocabulary technical/punctuation retest passed
+by user report. Broader fixtures, quantitative coverage and insertion safety remain open.
 G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
 G3: license-approved minimal notes + transcript integration in Handy. G4: validated correction/
 editing and grounded local intelligence. G5: packaging, privacy/security/recovery and sustained

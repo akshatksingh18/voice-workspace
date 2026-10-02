@@ -52,7 +52,9 @@ Akshat accepts the earlier Parakeet streaming profile's live speed, but its live
 punctuation test failed. The same saved clip retained technical terms with a final period using
 Parakeet batch in 0.378–0.439 s of recognition; natural list commas were still absent. This one-clip
 result motivates opt-in full-recording mode and a narrow manual vocabulary, not an all-model
-accuracy claim. Live quality-profile latency/accuracy must be retested; longer clips may slow down.
+accuracy claim. Akshat reports the deployed full-recording/three-term live retest's technical
+words and punctuation worked perfectly, AI cleanup off. Preserve that profile; broaden fixtures
+and quantify latency rather than treating one result as maximum accuracy. Longer clips may slow down.
 This qualitative result is not a measured numeric/p95 pass. Proposed warm target: release-to-paste
 below one second for short dictations, with cold preparation,
 p50/p95, speech duration and resource use reported separately. Measure E01–E12 with Akshat's accent,
@@ -78,9 +80,13 @@ no silent cloud fallback.
 OpenWhispr's pinned source separates ASR/dictionary from optional cleanup, with prompt rules for
 punctuation, jargon and explicit backtracking. Reuse that architecture with provenance, not its
 cloud sync or an unvalidated prompt as a correctness guarantee. Full-recording ASR and the manual
-dictionary do not solve natural list punctuation/contextual grammar. A separate small local text
-model/runtime comparison requires download authority, latency/meaning tests and safe fallback
-before adoption; none is configured or enabled. The first slice must not hardcode the test sentence.
+dictionary are not a general punctuation/contextual grammar engine. One live quality retest's
+punctuation passed without cleanup. Akshat approved a separate small local text-model/Windows
+runtime experiment from official GitHub/Hugging Face, mainly for broader cleanup/repair tests;
+latency/meaning validation and safe fallback are required before adoption. Default cleanup stays
+off; downloads/testing are not an activation decision. The Qwen3-0.6B Q8 experiment was quick but
+kept superseded times and dropped clauses, so that prompt/configuration was not adopted (performance.md).
+Do not hardcode the test sentence or equate normal completion with semantic safety.
 
 Spoken self-correction is a requested behavior, not currently implemented. Proposed first slice:
 while the user holds the recording shortcut, keep ASR text provisional, recognize explicit
@@ -238,8 +244,8 @@ secure text fields and keyboard-extension microphone limits must be respected.
 
 ## Order and decisions
 
-Retain the speed-accepted English model; retest the full-recording/vocabulary quality slice after
-the failed live E03 test. Next measure a separate punctuation/cleanup path with explicit authority;
+Retain Parakeet/full-recording/vocabulary after the user-reported technical/punctuation pass.
+Broaden fixtures and measure the separately approved local cleanup/repair experiment;
 same-recording spoken self-correction remains proposed, preserving speed and raw recovery,
 not an implemented or enabled feature. Then build notes + manual meeting
 capture. Add explicit editing/cleanup, correction learning and grounded summaries in small tested

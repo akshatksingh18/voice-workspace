@@ -2,8 +2,9 @@
 
 **Status:** English-only runtime/profile evaluation; local GPU inference and model integrity are
 verified, and Akshat accepts the earlier Parakeet streaming profile's live English speed.
-Live E03 technical/punctuation acceptance failed. The full-recording quality profile is deployed;
-live retest, broader insertion/reliability coverage and signed packaging remain open.
+The full-recording quality profile is deployed; Akshat reports its live technical-word/punctuation
+retest worked perfectly. Broader accuracy/insertion/reliability, quantitative latency and signed
+packaging remain open.
 Hindi work is deferred; dedicated spoken self-correction is not implemented or enabled.
 
 ## Machine and prerequisite boundary
@@ -66,7 +67,10 @@ Updated transcript-free headless inference on the same 8.28-second E03 clip load
 No microphone, VAD, paste or history insertion was exercised. The updated GUI stays alive for at
 least 60 seconds after NVIDIA load and full-recording priming (0.893 s in the sampled startup).
 Persisted mode/vocabulary and unchanged other profile fields were verified. This is readiness,
-not a new microphone/paste/accuracy test. No cleanup model/server is installed/configured.
+not by itself a microphone/paste/accuracy test. Akshat then reported a successful live technical/
+punctuation retest; no exact latency or completed wider suite was supplied. AI cleanup remains off.
+A separate local text-model/Windows-runtime test from official GitHub/Hugging Face is approved;
+this does not authorize uploading audio/transcripts, cloud processing or automatic adoption.
 
 ## Local model inputs
 
@@ -127,6 +131,44 @@ the measured NVIDIA device. The launcher checks for fork CLI features and reject
 These generated inputs are deliberately not
 in GitHub. Do not copy an existing user's settings/history into the repository.
 
+## Separate local cleanup experiment — not activated in Handy
+
+Akshat approved local text-cleanup testing from official GitHub/Hugging Face. Downloaded and
+hash-verified official [Qwen3-0.6B Q8 GGUF](https://huggingface.co/Qwen/Qwen3-0.6B-GGUF), revision
+`23749fefcc72300e3a2ad315e1317431b06b590a`, Apache-2.0, 639,446,688 bytes, SHA-256
+`9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031`.
+Location: ignored `runtime/cleanup/models/Qwen3-0.6B-Q8_0.gguf`, outside Handy's ASR discovery.
+It is a small experiment candidate, not a maximum-accuracy recommendation or new dictation model.
+
+Official [llama.cpp b11146 Windows Vulkan package](https://github.com/ggml-org/llama.cpp/releases/tag/b11146),
+source `7fe450e19305b828c199d602c23a8337aaa1f03b`,
+[MIT source](https://github.com/ggml-org/llama.cpp/blob/7fe450e19305b828c199d602c23a8337aaa1f03b/LICENSE)
+plus bundled dependency notices.
+`downloads/llama-b11146-bin-win-vulkan-x64.zip`, 32,127,004 bytes; SHA-256 matches GitHub's digest:
+`55a378aa095b466979d85075234f66d7655c7a7483222af0c006c0e55b4d7bd6`.
+Extracted separately to `runtime/cleanup/llama-b11146-vulkan/`; never mix its DLLs with Handy's.
+The server launcher is unsigned (not an Authenticode/SLSA security audit), SHA-256
+`7b886298b688509ced3e92b420edd57dd3d665da72c1fc207d7a537be5870352`.
+Version/help/device checks execute normally; no Windows application-control bypass was used.
+
+Opt-in PowerShell 7.2+ `scripts/benchmark-cleanup.ps1` verifies the model/archive and every
+extracted executable/DLL against the verified archive. It tests eight built-in public dummy
+fixtures, not stored audio/history/files, with an independently authored prompt. An owned helper
+uses only 127.0.0.1, an ephemeral port/key, no HTTP proxy, offline mode, no web UI/agent/tools/MCP,
+non-thinking mode, one slot, 2,048-token context and four CPU threads. CPU and NVIDIA Vulkan1
+are compared separately; process indices differ from Handy. The helper stops in normal/error
+cleanup and never changes Handy settings. If forcibly interrupted, inspect the exact experiment
+executable/PID before stopping an orphan; never kill all dictation/LLM processes.
+
+The benchmark ran on CPU and the explicit NVIDIA configuration and failed spoken-correction/
+meaning-preservation gates; results/adoption decision belong in performance.md. Helpers stopped
+after testing. Optional `-ShowDummyOutput` exposes fixed public fixture completions only for scoring
+diagnosis; default output is aggregate-only and the runner accepts no user-data input.
+The downloaded candidate is not
+configured in Handy, no persistent server/service is installed, no cloud cleanup or recording/text
+uploads occur, and the successful non-LLM dictation profile remains the default. These downloads
+and raw runtime state stay ignored; model redistribution/dependency packaging are separate gates.
+
 ## OpenWhispr download only
 
 Official [v1.10.2 release](https://github.com/OpenWhispr/openwhispr/releases/tag/v1.10.2), published
@@ -159,11 +201,12 @@ the workspace OneDrive archive. Source recovery is not private-data recovery.
 
 ## Required manual checks / things deliberately not configured
 
-- Retain the speed-accepted Parakeet model; activate then retest the full-recording/vocabulary
-  quality profile with the selected microphone. Natural list commas remain a separate cleanup gate.
+- Retain Parakeet/full-recording/three-term profile after the successful user-reported quality retest;
+  broaden technical/punctuation fixtures without assuming one pass proves universal accuracy.
 - Verify English meaning/critical words, measured release-to-paste timing, cancellation, focus and clipboard behavior.
 - Spoken self-correction is proposed; no rule engine, cleanup model or previous-insertion edit mode is enabled.
 - OpenWhispr/Meetily meeting runtime preparation after baseline; no capture module selected yet.
-- No local cleanup/summary LLM installed, no LAN service/Docker, no cloud API keys or account login.
+- A small cleanup candidate/runtime is downloaded only for the isolated experiment; no Handy
+  cleanup/summary model configured, persistent local/LAN service, Docker, cloud keys or account login.
 - No calendar integrations, automatic meeting recording, external MCP, sync or biometric profiles.
 - No integrated application, iPhone runtime, production signing or encrypted-at-rest implementation.

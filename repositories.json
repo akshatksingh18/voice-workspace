@@ -8,11 +8,11 @@
       "path": "references/handy",
       "url": "https://github.com/akshatksingh18/handy.git",
       "upstream": "https://github.com/cjpais/Handy.git",
-      "revision": "6044308bc2b39bd3073f0fc5a8674f7b9b171723",
+      "revision": "9b849b2c96e3618e00d6444e3d17575cfb819a61",
       "sourceBranch": "main",
       "license": "MIT",
       "licenseFile": "LICENSE",
-      "boundary": "Accepted desktop base; private fork with English-first dictation, opt-in full-recording mode, dictionary prefix protection, matching startup priming and content-free timing/vocabulary diagnostics. Hindi converter dormant. Earlier streaming speed accepted; live E03 technical/punctuation test failed. Quality profile deployed; live retest, natural list punctuation, broader reliability, spoken repair, signing and other platforms remain open. Model, asset and dependency terms require separate review."
+      "boundary": "Accepted desktop base; private fork with English-first dictation, opt-in full-recording mode, dictionary prefix protection, matching priming and content-free diagnostics. Hindi converter dormant. Earlier streaming speed accepted; full-recording/three-term technical-word and punctuation retest passed by user report. Broader accuracy, quantitative latency, reliability, spoken repair, signing and other platforms remain open. Separate small cleanup experiment failed meaning gates; not activated in Handy. Model, asset and dependency terms require separate review."
     },
     {
       "name": "granola-alt",

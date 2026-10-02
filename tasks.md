@@ -1,7 +1,7 @@
 # Current work and transition gates
 
 **Status:** English-only dictation evaluation. Akshat accepts the current Parakeet profile's live
-speed. Live E03 technical/punctuation acceptance failed; quality-profile retest,
+speed. The full-recording quality retest passed technical words/punctuation by user report;
 broader insertion/reliability and quantitative latency coverage
 remain open. Spoken self-correction is requested/planned, not built; notes/meetings are not integrated.
 
@@ -32,9 +32,10 @@ remain open. Spoken self-correction is requested/planned, not built; notes/meeti
   48 standalone diagnostic/text-filter tests pass. Deployment evidence belongs in setup.md.
 - [x] Build/deploy the full-recording quality fork and three-term profile; preserve rollback/history,
   verify 14 matching DLLs, unchanged other settings and transcript-free native inference.
-- [x] Verify quality GUI startup/NVIDIA warm-up without recording; live retest still required.
-- [ ] Retest the quality profile's E03 spelling, neighboring words, punctuation and live delay;
-  no list-comma fix or full critical-word acceptance is claimed.
+- [x] Verify quality GUI startup/NVIDIA warm-up without recording; not the complete reliability suite.
+- [x] Akshat reports technical words/punctuation worked perfectly in the quality retest, cleanup off.
+- [ ] Broaden technical/punctuation fixtures and measure live delay; one qualitative retest is not
+  the complete critical-word/reliability suite or a numeric p95.
 - [ ] Complete English E01–E12 with the chosen microphone.
 - [ ] Run 20 inserts, silence, Escape, clipboard and focus-change checks; capture aggregate results.
 - [x] Preserve dormant experimental converter and synthetic regression fixtures, not an active P0.
@@ -51,8 +52,12 @@ remain open. Spoken self-correction is requested/planned, not built; notes/meeti
   keep subjective speed acceptance distinct from the proposed numeric/p95 gate and cold/first run.
 - [x] Screen three manual terms offline; prepare PostgreSQL/Kubernetes/REST API for live retest.
 - [ ] Test other missed vocabulary one variable at a time; no automatic learning implemented.
-- [ ] Obtain separate download authority and benchmark small local punctuation/technical cleanup
-  plus a Windows runtime before enabling it; keep latency, literal speech and negation intact.
+- [x] Obtain authority for an isolated small local cleanup model/Windows runtime from official
+  GitHub/Hugging Face; no recordings/transcripts uploaded or default cleanup activation.
+- [x] Benchmark approved Qwen3-0.6B Q8/llama.cpp CPU/NVIDIA cleanup on dummy text;
+  reject default adoption after incorrect time repairs and dropped clauses. Keep Handy cleanup off.
+- [ ] Prove a safe spoken-repair implementation; a fast model/prompt or one technical/punctuation
+  pass is not an automatic correction/meaning-preservation gate.
 - [ ] Prepare OpenWhispr offline comparison profile only after reviewing released onboarding/egress.
 - [ ] Compare same model/settings; retain Handy base unless Akshat explicitly accepts a change.
 
