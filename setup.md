@@ -131,6 +131,30 @@ the measured NVIDIA device. The launcher checks for fork CLI features and reject
 These generated inputs are deliberately not
 in GitHub. Do not copy an existing user's settings/history into the repository.
 
+## Second laptop (Windows 11 ARM64, Snapdragon X) runtime state
+
+The project folder was unpacked here without executables, DLLs, models or downloads. All model
+and download files are restored from the pinned sources above, each checked for size and SHA-256
+(`model-input.ps1` passes `Get-VoiceModelInput -HashModel` for Parakeet, Turbo, Small and both
+Moonshine files): Parakeet in the Hugging Face cache layout under
+`Data/huggingface/hub/models--handy-computer--parakeet-unified-en-0.6b-gguf/` (file in
+`blobs/<sha256>`, a hard link at `snapshots/<revision>/`, `refs/main` holding the revision),
+the other ASR models in `Data/models/`, `Qwen3-0.6B-Q8_0.gguf` in `runtime/cleanup/models/`, and
+`llama-b11146-bin-win-vulkan-x64.zip` plus `OpenWhispr-1.10.2.exe` in `downloads/` (the exe
+re-verified as Authenticode-valid, signer Gizmo Labs Inc.; still not installed or launched).
+The extracted llama.cpp folder is the x64 Vulkan build and its launcher hash matches; this
+laptop's Snapdragon has no use for it, and the cleanup experiment stays off.
+
+`runtime/handy/handy.exe` is the unsigned CPU-only ARM64 build from the fork's
+`windows-arm64-build.yml` (run 40252857590, commit `12ee212`; `../handy/windows-local-setup.md`
+owns the workflow), SHA-256 `61170cd9ffb5982845842879271129982ac0a9b6d12649505ec6f7b6bea16bad`,
+with the eight ARM64 VC++ runtime DLLs beside it, all matching the run's `SHA256SUMS.txt`. There
+are no `ggml*`/`transcribe` DLLs. `Data/settings_store.json` now has `transcribe_accelerator` set
+to `cpu` and `transcribe_gpu_device` cleared (rollback copy `Data/settings-before-arm64-cpu.json`);
+every other setting is unchanged. It has not been launched here: whether Windows allows the
+unsigned exe, and Parakeet's speed on this CPU, are unverified. The three `handy-before-*.exe`
+rollback copies and `asr_latency.exe` from the first laptop are not recreated.
+
 ## Separate local cleanup experiment — not activated in Handy
 
 Akshat approved local text-cleanup testing from official GitHub/Hugging Face. Downloaded and
