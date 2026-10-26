@@ -216,8 +216,8 @@ source pin/remote/license-file checks and runtime/model hashing passed. An actua
 on the already present checkouts preserved all pins and source cleanliness. A full fresh-machine
 restore has not been run; no third-party application feature is validated by those checks.
 
-Project remote: `https://github.com/akshatksingh18/voice-workspace.git`, owned by Akshat and verified
-private. Visibility must remain private. Runtimes/weights/private-tests are ignored.
+Project remote: `https://github.com/akshatksingh18/voice-workspace.git`, owned by Akshat and public.
+Review every push as public content. Runtimes/weights/private-tests are ignored.
 The initial source/docs/gitlink push was verified against GitHub's main commit. No runtime,
 model or private test file is tracked. This is source recovery, not a private-data backup.
 Private audio/text data has no backup destination configured; personal-project is excluded from
