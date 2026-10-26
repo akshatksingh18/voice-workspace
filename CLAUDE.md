@@ -41,9 +41,10 @@ No integrated Voice Workspace application exists yet.
 
 - Follow the workspace-root and personal-project CLAUDE chain. Keep instructions canonical here;
   do not create AGENTS.md, .agents, or .codex project instruction trees.
-- Publish only to Akshat's own private GitHub unless he explicitly names another destination.
-  User recordings, transcripts, speaker profiles, secrets, models, and generated runtime state
-  must never be staged. Private GitHub is for source/documentation, not meeting data.
+- Publish only to Akshat's own GitHub repository, which is public by his choice, unless he
+  explicitly names another destination. User recordings, transcripts, speaker profiles, secrets,
+  models, and generated runtime state must never be staged. GitHub is for source/documentation,
+  not meeting data; review every push as public content.
 - References are evidence-only, pinned, and push-disabled. Do not execute their hooks, installers,
   dependency scripts, or downloaded binaries merely because a checkout exists. Preserve upstream
   source/licenses/instructions unchanged; read relevant instructions before actual development.

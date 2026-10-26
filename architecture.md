@@ -9,7 +9,7 @@ No notes/meeting module or inter-app bridge is implemented in this repository.
 ## Ownership and first decision
 
 This is the future product home. Handy remains the accepted desktop/native dictation foundation,
-not a discarded reference. Its private fork is currently the working implementation. The
+not a discarded reference. Its public fork is currently the working implementation. The
 Granola-alternative fork retains its narrower planning scope and restrictive upstream license.
 Do not move/delete either sibling or change its implementation without a specific change task.
 
@@ -162,7 +162,7 @@ No automatic Docker/backend/calendar setup is needed for the first test.
 ## Security, storage and recovery gates
 
 Audio, transcripts, notes, keys, speaker data and logs stay out of Git. Source/docs recovery uses
-Akshat's private GitHub; the workspace's OneDrive archive excludes personal-project. Private-data
+Akshat's public GitHub repository; the workspace's OneDrive archive excludes personal-project. Private-data
 backup has no configured destination and needs explicit approval. Export must warn about scope.
 
 No current claim of encrypted databases. A product release needs storage location/ACL review,

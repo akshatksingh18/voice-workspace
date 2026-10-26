@@ -3,10 +3,10 @@
 Akshat's local-first, self-hostable voice workspace: speak into any supported desktop text field,
 edit text deliberately, keep personal notes, and record consented meetings without a meeting bot.
 Handy is the accepted desktop foundation. This owns evaluation, product definition and experimental
-dictation improvements maintained in the private Handy fork,
+dictation improvements maintained in the public Handy fork,
 **not an already integrated application**.
 
-Source home: [Akshat's private voice-workspace repository](https://github.com/akshatksingh18/voice-workspace).
+Source home: [Akshat's public voice-workspace repository](https://github.com/akshatksingh18/voice-workspace).
 
 ## Start here
 
@@ -61,7 +61,7 @@ OpenWhispr, Anarlog, Minutes, Open Granola, Omascribe, Meetily, and Steno. They 
 submodules, not merged dependencies. Their history and licenses stay separate. Push is disabled
 in the local reference copies. Read the manifest before considering code reuse.
 
-Clone this **private** repository while authenticated as Akshat, then run:
+Clone this repository, then run:
 
 ```powershell
 .\scripts\restore-references.ps1
@@ -69,8 +69,8 @@ Clone this **private** repository while authenticated as Akshat, then run:
 ```
 
 Do not use `--recurse-submodules`: some upstream repositories refer to premium/private code that
-is not needed or authorized. Recovery requires access to the two private source repositories;
-public upstream pins also depend on upstream availability. A gitlink is not a permanent offline
+is not needed or authorized. Recovery uses Akshat's public Handy and Granola-alternative
+repositories; public upstream pins also depend on upstream availability. A gitlink is not a permanent offline
 mirror. Runtimes can be rebuilt/redownloaded using setup.md; GitHub does not back up private
 recordings, note databases, or test profiles. No private-data backup destination is configured.
 
