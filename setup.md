@@ -32,6 +32,11 @@ the app still requires; it activates `runtime/desktop/Data/` for settings, model
 recordings and logs (`Data/logs/voice-workspace.log`; older runs logged to `handy.log`). No
 normal user profile is touched. Generated files are ignored; never stage them with force.
 
+History keeps the latest 20 entries, so older recordings drop out of `Data/recordings/`.
+`private-tests/archive/2026-10-02-first-live-tests/` holds the 7 recordings from the first live
+test (2 October, x64 laptop) that had survived only in an old vault copy, plus that day's history
+database. Like all of `private-tests/` it is ignored by Git and kept in the local-only vault.
+
 The first laptop's copy below (x64, NVIDIA) still describes the older Handy-era executable in
 `runtime/handy/`; that laptop needs the rebuild and folder rename in tasks.md.
 

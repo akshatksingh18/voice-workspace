@@ -44,9 +44,10 @@ Snapdragon X laptop (ARM64, CPU only) — first priority on this device:
 
 First laptop (x64, NVIDIA):
 
-- [ ] Rebuild `voice-workspace.exe` from `voice-workspace-desktop` `main` (x64 recipe in its
-  `windows-local-setup.md`), rename `runtime/handy` to `runtime/desktop`, keep the old exe as a
-  rollback copy, and rerun startup/inference checks before its next live test.
+- [ ] Only if dictating on this laptop again: on it, pull the repos, run `windows-x64-build.yml`
+  (or download its latest artifact), rename `runtime/handy` to `runtime/desktop`, keep the old
+  exe and `resources/` as rollback copies, copy in the new exe/DLLs and
+  `voice-workspace-desktop/src-tauri/resources`, then rerun the launcher and a headless check.
 - [x] Initial user Notepad capture/insertion attempted: failed Roman script, technical acronym and
   speed acceptance (reported release-to-text over 10 seconds).
 - [x] Updated Turbo live test attempted: user reports 3–4 seconds; INFO logs show 4.029–4.527 s
