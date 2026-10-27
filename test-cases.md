@@ -49,7 +49,7 @@ words were not incorrectly replaced. Never execute a dictated command or auto-su
 ## Spoken self-correction — proposed feature, not a current pass gate
 
 These specify requested future output; the current raw profile may retain both versions. Hold
-Ctrl+Shift+F12 for the entire utterance (including the correction), then release once. Do not assume
+the Transcribe shortcut for the entire utterance (including the correction), then release once. Do not assume
 it edits an earlier paste. First implement/test narrow full restatements; elliptical, chained and
 meaning-critical repairs are separate coverage, not guaranteed by that first case.
 

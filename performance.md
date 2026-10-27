@@ -1,7 +1,9 @@
 # Dictation performance and acceptance
 
 **Status:** English-only evaluation. Akshat accepts the earlier Parakeet streaming profile's live speed.
-The full-recording/vocabulary quality retest passed technical words/punctuation by Akshat's report.
+The full-recording/vocabulary quality retest passed technical words/punctuation by Akshat's report
+on the first laptop. On the Snapdragon X laptop, CPU-only Parakeet passed live speed ("good
+enough") and technical words, but list/clause commas were missing; Akshat wants it closer to instant.
 Broader accuracy, insertion/reliability and quantitative p50/p95 remain open.
 Turbo's older live test failed latency/Hindi acceptance. The Hindi converter is off, not a solved feature.
 
@@ -20,6 +22,86 @@ count or punctuation statistics were supplied. It does not establish full E01–
 Next tests broaden English critical vocabulary/meaning and insertion safety. Requested spoken
 self-correction is not implemented; benchmark its additional work before enabling it so it does
 not regress the accepted speed. New mode/profile preparation does not inherit live speed acceptance.
+
+## Second laptop — Snapdragon X CPU (ARM64)
+
+Measured 2026-10-26 on the Snapdragon X X126100 (8 Oryon cores, 15.6 GiB RAM), Windows 11 ARM64,
+Balanced power plan, **on battery**, with the CI-built CPU-only ARM64 exe (setup.md). These results
+do not transfer to the first laptop's x64/NVIDIA profile, or the reverse.
+
+Headless full-recording path (`--stats-only`), Parakeet Q8 bound to the Oryon CPU, saved local clips:
+
+- 8.28 s E03 clip: load 1.804 s (first process), recognition 0.467/0.471/0.494/0.451/0.496 s
+  (first laptop's NVIDIA: 0.780/0.399/0.443 s).
+- 7.14 s clip: load 0.848 s, recognition 0.408–0.492 s. 12.21 s clip: load 0.874 s, 0.721–0.754 s.
+- About 17–18× real time; recognition grows roughly 55–60 ms per second of speech.
+
+GUI startup: model loaded and warmed about 1 s after launch (warm-up 72 ms); working set ~1.1 GB.
+Live Notepad run, built-in Microphone Array, INFO `dictation_latency` (stop-to-paste):
+
+| Hold | Audio | ASR | Paste | Stop-to-paste |
+|---|---|---|---|---|
+| E01, first dictation ~85 min after startup | 4.80 s | 2.861 s | 0.228 s | **3.192 s** |
+| E03 ×3 in one hold | 23.16 s | 1.350 s | 0.225 s | 1.673 s |
+| E07 | 6.57 s | 0.432 s | 0.226 s | **0.723 s** |
+| ~17 s free speech | 16.74 s | 0.976 s | 0.225 s | 1.268 s |
+
+Capture was 55–87 ms; output processing 0 ms. Akshat called the delay "good enough" but asked for
+closer to instant. Findings:
+
+- **First use after a long idle is slow** (2.86 s ASR for 4.8 s of audio, ~6× the warm rate)
+  even though startup warm-up succeeded. Likely cause: the idle app's memory/CPU state goes cold;
+  not yet confirmed. The first laptop showed a similar first-run spike (performance below).
+- **Warm delay is mostly ASR**, which scales with utterance length; short sentences paste in ~0.7 s.
+- **Paste's 225 ms is mostly after the text is visible**: 60 ms pre-delay, then Ctrl+V with a 100 ms
+  modifier hold and a 60 ms post-delay before clipboard restore. Perceived delay is ~150 ms below
+  the logged stop-to-paste.
+
+Accuracy (Akshat's Notepad text, scored here; text not stored): every PostgreSQL/Kubernetes/REST API
+instance correct (3/3), numbers in E01/E07 preserved, sentence-ending periods mostly present.
+Failures: E03 list commas missing all three times and one repeat added "the" before PostgreSQL;
+E07 lost the comma before "not" and the period after "2.10"; E01 gave "3.30" for "three thirty".
+False starts are transcribed literally (cleanup off). E06 and E12 were not run. This matches the
+earlier saved-clip batch result (no list commas), so the first laptop's "perfect" retest was not
+a general punctuation guarantee.
+
+**Retest with the re-warm build** (re-warm on shortcut press after 15 s idle, 20 ms paste
+pre-delay; setup.md), same mic, on battery:
+
+| Hold | Audio | Re-warm | ASR | Paste | Stop-to-paste |
+|---|---|---|---|---|---|
+| E01 after 26.8 min idle | 4.35 s | 183 ms, during speech | 0.488 s | 0.187 s | **0.743 s** (was 3.192 s) |
+| E07 ×3 in one hold | 16.74 s | not needed (6 s idle) | 1.207 s | 0.187 s | 1.457 s |
+
+The re-warm removes the idle first-use spike: the first dictation after a long idle now matches
+warm speed. Paste fell by the expected ~40 ms. Keep both. E01 was fully correct ("three thirty"
+as words this time; number formatting varies between runs).
+
+**E07 meaning failure:** all three repeats came out as "2.102.10": "not" was dropped and the two
+versions merged, losing the negation. Re-running the saved recording offline gives the same output
+3/3, while the earlier single-hold E07 recording keeps "not" 3/3. So it is the model's reading of
+that audio (faster run-on repeats), not the re-warm, paste change or randomness. The three custom
+words are unrelated to this phrase; a dictionary-off rerun was not done. Negation/number fixtures
+need per-sentence holds and more repeats before calling this pass or fail.
+
+**Per-sentence retest** (one sentence per hold, normal pace): six holds of 4.7–10.0 s pasted in
+0.545/0.577/0.604/0.676/0.697/0.870 s stop-to-paste (ASR 0.288–0.606 s, paste ~0.186 s); a re-warm
+ran once after 7.5 min idle (160 ms). Akshat pasted five of the six results:
+
+- E01 1/1 fully correct, including the comma before "not".
+- E07 3/3 kept "not", "2.1", "2.10" and "15 milliseconds": meaning preserved. The comma landed
+  after "2.10" instead of a sentence break, and two of three lacked the final period.
+- E12 1/1 kept "HTTP 429" and "500 milliseconds"; both sentence-ending periods were missing.
+
+So negation held when each sentence had its own hold; the earlier loss came with fast run-on
+repeats. Remaining weakness: sentence boundaries inside one hold become commas or nothing.
+
+Deployed, awaiting the combined retest: early-chunk recognition, which recognizes each finished
+phrase at a pause while the key is held so release only decodes the last phrase (setup.md). It
+targets the long-hold cost above (1.27–1.67 s for 17–23 s holds). Upstream
+#2282 chunking only cuts audio over 40 s, so it does not help normal dictation.
+Plugged-in/Best-performance timing is unmeasured. Streaming mode is faster on long holds
+but failed E03 accuracy; a smaller quant is not justified on speed alone.
 
 ## Same-recording technical/punctuation comparison
 

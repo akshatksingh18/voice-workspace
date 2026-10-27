@@ -37,7 +37,7 @@ Set-Location 'D:\AI Important Files\personal-project\voice-workspace'
 ```
 
 Close other dictation apps first. The launcher opens Handy; it does not start recording.
-Focus Notepad, hold Ctrl+Shift+F12, speak, then release. Escape cancels. If the shortcut cannot be
+Focus Notepad, hold the Transcribe shortcut shown in Handy (currently Left Ctrl+S), speak, then release. Escape cancels. If the shortcut cannot be
 registered, choose an unused shortcut in Handy and update your test notes. Never test in a real
 terminal command line, password field, chat send box, or confidential meeting first.
 

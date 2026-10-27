@@ -9,6 +9,8 @@ integration; sibling Handy and Granola repositories keep their own implementatio
 the earlier streaming E03 test failed. The full-recording/vocabulary quality slice is deployed,
 and Akshat reports technical words and punctuation work perfectly in his live retest.
 This is one-fixture qualitative acceptance, not a complete accuracy/latency guarantee.
+On the Snapdragon X (ARM64) laptop, CPU-only Parakeet passed live speed and technical words but
+missed commas; making release-to-paste closer to instant is the next priority.
 The isolated small local cleanup experiment failed meaning/correction gates; Handy cleanup stays off.
 Broader insertion/reliability gates remain open. Spoken self-correction
 is a requested behavior with a proposed design, not implemented. Code lives in the Handy fork.
@@ -52,6 +54,9 @@ No integrated Voice Workspace application exists yet.
   code into the product; component provenance and model/asset rights are separate gates.
 - Windows is the first physical-test target. Preserve Handy's macOS/Linux boundaries; do not
   claim another platform or iPhone works from a Windows source review or build.
+- Each laptop needs its own acceptance. A pass on the x64/NVIDIA laptop does not carry over to
+  the ARM64/CPU laptop, or the reverse. On a new device, verify hardware, exe architecture and
+  device first, then measure speed before any feature work.
 - English only is the active product/test scope, explicitly superseding Hindi/Hinglish requirements.
   Prioritize English acoustic accuracy and warm release-to-paste latency. Select English explicitly;
   translation, Roman Hinglish and AI cleanup stay off. Preserve the dormant converter and existing

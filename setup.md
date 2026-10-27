@@ -3,8 +3,9 @@
 **Status:** English-only runtime/profile evaluation; local GPU inference and model integrity are
 verified, and Akshat accepts the earlier Parakeet streaming profile's live English speed.
 The full-recording quality profile is deployed; Akshat reports its live technical-word/punctuation
-retest worked perfectly. Broader accuracy/insertion/reliability, quantitative latency and signed
-packaging remain open.
+retest worked perfectly. The Snapdragon X laptop runs the CI-built CPU-only ARM64 exe and passed a
+live speed/technical-word test (punctuation gaps; see performance.md). Broader accuracy/insertion/
+reliability, quantitative latency and signed packaging remain open.
 Hindi work is deferred; dedicated spoken self-correction is not implemented or enabled.
 
 ## Machine and prerequisite boundary
@@ -145,14 +146,30 @@ re-verified as Authenticode-valid, signer Gizmo Labs Inc.; still not installed o
 The extracted llama.cpp folder is the x64 Vulkan build and its launcher hash matches; this
 laptop's Snapdragon has no use for it, and the cleanup experiment stays off.
 
-`runtime/handy/handy.exe` is the unsigned CPU-only ARM64 build from the fork's
-`windows-arm64-build.yml` (run 40252857590, commit `12ee212`; `../handy/windows-local-setup.md`
-owns the workflow), SHA-256 `61170cd9ffb5982845842879271129982ac0a9b6d12649505ec6f7b6bea16bad`,
-with the eight ARM64 VC++ runtime DLLs beside it, all matching the run's `SHA256SUMS.txt`. There
+`runtime/handy/handy.exe` is the unsigned CPU-only ARM64 build of the fork's `arm64-rewarm` branch
+(idle re-warm plus opt-in early-chunk recognition, see `../handy/voice-workspace-features.md`) from
+`windows-arm64-build.yml` (run 40419914181, commit `9cb3884`; `../handy/windows-local-setup.md`
+owns the workflow), SHA-256 `e8d55637309a17a3c3307f2c4baa1bcd100b65df68043a8536b22ee86071de9d`.
+Rollback exes: `handy-before-early-chunks.exe` (re-warm only, run 40412889343, `abe07448…3e91`)
+and `handy-before-rewarm.exe` (first tested build, run 40252857590, `61170cd9…6bad`). The eight
+ARM64 VC++ runtime DLLs match all three runs' `SHA256SUMS.txt`, so only the exe was replaced. There
 are no `ggml*`/`transcribe` DLLs. `Data/settings_store.json` now has `transcribe_accelerator` set
 to `cpu` and `transcribe_gpu_device` cleared (rollback copy `Data/settings-before-arm64-cpu.json`);
-every other setting is unchanged. It has not been launched here: whether Windows allows the
-unsigned exe, and Parakeet's speed on this CPU, are unverified. The three `handy-before-*.exe`
+every other setting is unchanged. Hardware is a Snapdragon X X126100 (8 Oryon cores, 15.6 GiB RAM,
+Adreno X1-45, unused). The exe's PE header is ARM64 and it is not marked as downloaded; Windows runs
+it without an application-control block (Smart App Control reports off; nothing was bypassed).
+`--list-devices` shows only the Oryon CPU, portable mode resolves to this `Data/`, and the GUI loads
+and warms Parakeet in about 1 s. Akshat ran a live Notepad test; timings and accuracy are in
+performance.md. Saved profile on this laptop: microphone **Default** (resolves to the built-in
+Microphone Array; the first laptop's C922 is absent), Transcribe shortcut **Left Ctrl+S**
+(push-to-talk, carried over unchanged), paste pre-delay **20 ms** (was 60; rollback copy
+`Data/settings-before-paste-delay.json`, the only changed field). The 60 ms after-paste delay is
+kept so the clipboard is not restored before the target app reads it. The re-warm build starts and
+warms Parakeet normally (startup warm-up 65 ms). Akshat's idle retest confirmed the re-warm runs
+and removes the slow first dictation (performance.md); both changes are kept.
+`early_chunk_recognition` is now **true** (no UI toggle; edit with Handy closed; rollback copy
+`Data/settings-before-early-chunks.json`, the only changed field). The early-chunk build starts and
+warms normally (102 ms); live behavior awaits the combined retest in testing-guide.md. The three `handy-before-*.exe`
 rollback copies and `asr_latency.exe` from the first laptop are not recreated.
 
 ## Separate local cleanup experiment — not activated in Handy

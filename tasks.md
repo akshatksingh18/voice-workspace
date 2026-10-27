@@ -3,7 +3,9 @@
 **Status:** English-only dictation evaluation. Akshat accepts the current Parakeet profile's live
 speed. The full-recording quality retest passed technical words/punctuation by user report;
 broader insertion/reliability and quantitative latency coverage
-remain open. Spoken self-correction is requested/planned, not built; notes/meetings are not integrated.
+remain open. On the Snapdragon X laptop the CPU-only profile passed live speed and technical words
+but missed commas; reducing release-to-paste toward instant is the current priority, before new
+features. Spoken self-correction is requested/planned, not built; notes/meetings are not integrated.
 
 ## G0 — Source and baseline preparation
 
@@ -18,6 +20,28 @@ remain open. Spoken self-correction is requested/planned, not built; notes/meeti
 - [x] Publish only source/docs/gitlinks to Akshat's private voice-workspace GitHub repository.
 
 ## G1 — Physical dictation comparison (next)
+
+Snapdragon X laptop (ARM64, CPU only) — first priority on this device:
+
+- [x] Verify hardware, ARM64 exe/DLL hashes, CPU-only device, portable profile and that Windows
+  runs the unsigned exe without a bypass.
+- [x] Headless CPU timing on saved clips and a live Notepad run (E01, E03 ×3, E07, free speech);
+  results in performance.md. Akshat: speed "good enough", wants closer to instant.
+- [x] Build (ARM64 CI) and deploy re-warm on shortcut press after idle, plus 20 ms paste pre-delay.
+- [x] Retest after 26.8 min idle: re-warm ran during speech; first dictation 0.74 s (was 3.19 s).
+  Keep the re-warm build and 20 ms pre-delay.
+- [x] E07 dropped "not" in all three run-on repeats (reproducible from the recording). Retest
+  one sentence per hold: E07 kept "not" 3/3, E01 and E12 kept numbers (performance.md).
+- [x] Build (ARM64 CI) and deploy opt-in early-chunk recognition, enabled in this profile.
+- [ ] Run the combined retest in testing-guide.md (idle start, short sentences, long holds with
+  early chunks on, cancel, long holds with it off); keep or turn it off from the results.
+- [ ] Plugged-in timing.
+- [ ] Port the re-warm and early-chunk commits from `arm64-rewarm` onto local `main` (upstream import)
+  before adopting it.
+- [ ] Run E06 and E12 here, and fix or accept the missing list/clause commas.
+- [ ] Recheck the shortcut: the profile's Left Ctrl+S overlaps Notepad's Save.
+
+First laptop (x64, NVIDIA):
 
 - [x] Initial user Notepad capture/insertion attempted: failed Roman script, technical acronym and
   speed acceptance (reported release-to-text over 10 seconds).

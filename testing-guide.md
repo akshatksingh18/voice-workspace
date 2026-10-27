@@ -2,10 +2,27 @@
 
 **Status:** English-only evaluation. Akshat accepts the current Parakeet profile's live speed;
 the earlier streaming E03 test failed technical spelling/punctuation, but Akshat reports the
-full-recording/three-term retest worked perfectly. Broader accuracy, quantitative latency and
-insertion/reliability remain open. Dedicated spoken
+full-recording/three-term retest worked perfectly. The Snapdragon X CPU run kept technical words
+but missed commas. Broader accuracy, quantitative latency and insertion/reliability remain open. Dedicated spoken
 self-correction is not implemented; its fixtures specify future behavior, not expected current output.
 See setup.md for deployment evidence and performance.md for measured samples.
+
+## Snapdragon laptop — combined retest (current)
+
+One sitting, built-in mic, blank Notepad, Left Ctrl+S. One sentence per hold unless a step says
+otherwise; 2–3 s between holds; normal pace. Early-chunk recognition is **on** for steps 1–4.
+
+1. **Idle start:** leave Handy idle 20+ minutes, then say E01 once.
+2. **Short sentences:** E01, E07, E12 and E03, twice each.
+3. **Long holds (the new feature):** in one hold, read E06, E08 and E09 with a normal pause between
+   sentences. Repeat once. Then one ~30 s free-speech hold with natural pauses.
+4. **Cancel:** start a long hold, speak 5+ s, pause, speak again, press Escape before releasing.
+   Nothing may paste; the next dictation must work.
+5. **Comparison:** ask the agent to turn early chunks off and restart Handy, then repeat step 3.
+
+Paste the Notepad text. The agent reads `dictation_latency`, `early_chunks` and
+`dictation_rewarm_ms` from the log and records aggregate results only. Check meaning (negation,
+numbers, technical words), duplicated or missing phrases at pause points, and stray periods.
 
 ## 1. Handy first — no account, server or cleanup model
 
@@ -20,8 +37,12 @@ The isolated portable settings select:
 - Model: **Parakeet Unified EN 0.6B Q8_0**, English-only native GGUF, not old ONNX Parakeet V3.
   Other downloaded models are retained for explicit comparisons, not automatic selection.
 - Language: **English**. Translate to English: off. English models are not expected to recognize Hindi.
-- Activation: hold-to-talk; Ctrl+Shift+F12. Escape: cancel.
-- ASR: measured NVIDIA MX450 device with Vulkan. ONNX: CPU (no ONNX dictation model selected).
+- Activation: hold-to-talk with the profile's saved Transcribe shortcut, currently **Left Ctrl+S**
+  (older notes say Ctrl+Shift+F12). Check it in Settings before testing. Escape: cancel.
+- ASR device depends on the laptop. Do not mix their results:
+  - First laptop (x64): measured NVIDIA MX450 with Vulkan.
+  - Snapdragon X laptop (ARM64): CPU only. The CI build has no GPU backend.
+  - ONNX: CPU (no ONNX dictation model selected).
 - Roman Hinglish: **off**. Warm model on startup: on. Model Unload: Never during latency tests.
   This consumes more RAM/VRAM; close the test app if it causes system pressure.
 - Use full-recording recognition: **on** for the quality test. No live partial preview; the whole
@@ -30,7 +51,10 @@ The isolated portable settings select:
 - Post-processing/AI cleanup and filler removal: off. Use the normal Transcribe shortcut.
 - Custom words: PostgreSQL, Kubernetes and REST API; correction threshold 0.18. These are manual
   spelling entries, not auto-learning, an acoustic prompt or a punctuation engine.
-- Paste: Ctrl+V; clipboard preservation; automatic Enter/submit off.
+- Paste: Ctrl+V; clipboard preservation; automatic Enter/submit off. Pre-paste delay is 20 ms on
+  the Snapdragon laptop (60 ms elsewhere); the 60 ms after-paste delay protects clipboard restore.
+- Idle re-warm (Snapdragon `arm64-rewarm` build only): after 15 s without dictation, pressing the
+  shortcut warms the model while you speak. Test it with one dictation after 20+ minutes idle.
 - Always-on microphone, launch at login, update checks, hidden startup, debug mode: off.
 - Log level: INFO for content-free phase timings. Do not enable debug logging.
 - Retention: preserve latest 20 history entries, with local audio/text kept for comparison.
@@ -41,7 +65,10 @@ levels, and check shortcut registration. Windows Settings → Privacy & security
 must permit desktop apps; no administrator mode is needed. These device/privacy choices cannot
 be honestly completed without selecting/testing your actual microphone.
 
-Focus a blank Notepad document. Hold Ctrl+Shift+F12, say E01, release, and wait for insertion.
+On a new laptop, first verify the device in setup.md, run headless `--stats-only` timing on saved
+clips, then the live run. Report startup and the first dictation after idle separately from warm
+repeats, and speak each fixture in its own hold so timings stay per-fixture.
+Focus a blank Notepad document. Hold the Transcribe shortcut, say E01, release, and wait for insertion.
 Try E03 and E06. Start speaking after the recording-ready cue and leave focus in place.
 Say: "Please move the meeting to tomorrow, and do not deploy today. First test the API on staging."
 Check tomorrow, API, negation and ordering, then three short utterances and a 30-second paragraph.
