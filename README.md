@@ -2,16 +2,16 @@
 
 Akshat's local-first, self-hostable voice workspace: speak into any supported desktop text field,
 edit text deliberately, keep personal notes, and record consented meetings without a meeting bot.
-Handy is the accepted desktop foundation. This owns evaluation, product definition and experimental
-dictation improvements maintained in the public Handy fork,
+The desktop app is the sibling `voice-workspace-desktop` project (started from Handy, now
+maintained on its own). This repository owns evaluation, product definition and test results,
 **not an already integrated application**.
 
 Source home: [Akshat's public voice-workspace repository](https://github.com/akshatksingh18/voice-workspace).
 
 ## Start here
 
-This Windows machine has a separate Handy test runtime under ignored `runtime/handy/`, with an
-English-first local model profile. No cloud key is needed. Read
+This Windows machine has a separate desktop-app test runtime under ignored `runtime/desktop/`,
+with an English-first local model profile. No cloud key is needed. Read
 [setup.md](setup.md) for exact verification boundaries and [testing-guide.md](testing-guide.md)
 for microphone selection and the first test. Runtimes/models are not included in GitHub.
 
@@ -36,9 +36,10 @@ Set-Location 'D:\AI Important Files\personal-project\voice-workspace'
 .\scripts\start-test.ps1
 ```
 
-Close other dictation apps first. The launcher opens Handy; it does not start recording.
-Focus Notepad, hold the Transcribe shortcut shown in Handy (currently Left Ctrl+S), speak, then release. Escape cancels. If the shortcut cannot be
-registered, choose an unused shortcut in Handy and update your test notes. Never test in a real
+Close other dictation apps first. The launcher opens Voice Workspace; it does not start recording.
+Focus Notepad, hold the Transcribe shortcut shown in the app (currently Left Ctrl+S), speak, then
+release. Escape cancels. If the shortcut cannot be registered, choose an unused shortcut in the
+app and update your test notes. Never test in a real
 terminal command line, password field, chat send box, or confidential meeting first.
 
 ## Project documents
@@ -56,7 +57,8 @@ terminal command line, password field, chat send box, or confidential meeting fi
 
 ## Local copies and recovery
 
-`references/` contains nine real source checkouts: Handy, Akshat's Granola alternative,
+`references/` contains nine real source checkouts: the desktop app (pinned at its Handy-era
+revision under `references/handy`), Akshat's Granola alternative,
 OpenWhispr, Anarlog, Minutes, Open Granola, Omascribe, Meetily, and Steno. They are pinned Git
 submodules, not merged dependencies. Their history and licenses stay separate. Push is disabled
 in the local reference copies. Read the manifest before considering code reuse.
@@ -69,7 +71,7 @@ Clone this repository, then run:
 ```
 
 Do not use `--recurse-submodules`: some upstream repositories refer to premium/private code that
-is not needed or authorized. Recovery uses Akshat's public Handy and Granola-alternative
+is not needed or authorized. Recovery uses Akshat's public voice-workspace-desktop and Granola-alternative
 repositories; public upstream pins also depend on upstream availability. A gitlink is not a permanent offline
 mirror. Runtimes can be rebuilt/redownloaded using setup.md; GitHub does not back up private
 recordings, note databases, or test profiles. No private-data backup destination is configured.
@@ -77,7 +79,7 @@ recordings, note databases, or test profiles. No private-data backup destination
 ## Scope
 
 Windows first; macOS/Linux and iPhone need independent implementation/device checks. Keep the
-sibling Handy and Granola projects intact. Their product code has not been combined, and the
+sibling desktop-app and Granola projects intact. Their product code has not been combined, and the
 Granola repository's Natively license prohibits treating it as permissive commercial source.
 Local ASR and a local language model are different capabilities. AI rewriting, meeting capture,
 speaker identification, and note intelligence must earn separate acceptance tests.

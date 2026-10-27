@@ -10,9 +10,9 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $voiceRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-$voiceRuntime = Join-Path $voiceRoot 'runtime\handy'
+$voiceRuntime = Join-Path $voiceRoot 'runtime\desktop'
 $voiceExe = Join-Path $voiceRuntime 'asr_latency.exe'
-if (Get-Process -Name handy -ErrorAction SilentlyContinue) { throw 'Quit Handy first; do not benchmark competing models.' }
+if (Get-Process -Name voice-workspace,handy -ErrorAction SilentlyContinue) { throw 'Quit Voice Workspace first; do not benchmark competing models.' }
 $voiceArgs = @()
 foreach ($voicePath in @($ModelFile, $AudioFile)) {
     $voiceResolved = (Resolve-Path -LiteralPath $voicePath).Path

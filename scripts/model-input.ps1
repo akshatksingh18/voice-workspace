@@ -5,7 +5,7 @@ function Get-VoiceModelInput {
     $voiceProperty = $voiceModels.PSObject.Properties[$ModelId]
     if (-not $voiceProperty) { throw 'Unsupported model in test profile; review setup.md.' }
     $voiceInfo = $voiceProperty.Value
-    $voiceData = [IO.Path]::GetFullPath((Join-Path $Root 'runtime\handy\Data'))
+    $voiceData = [IO.Path]::GetFullPath((Join-Path $Root 'runtime\desktop\Data'))
     if ([IO.Path]::IsPathRooted($voiceInfo.relativePath)) { throw 'Model path must be relative.' }
     $voiceModel = [IO.Path]::GetFullPath((Join-Path $voiceData $voiceInfo.relativePath))
     if (-not $voiceModel.StartsWith("$voiceData\", [StringComparison]::OrdinalIgnoreCase) -or

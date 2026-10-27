@@ -11,24 +11,29 @@ See setup.md for deployment evidence and performance.md for measured samples.
 
 One sitting, built-in mic, blank Notepad, Left Ctrl+S. One sentence per hold unless a step says
 otherwise; 2–3 s between holds; normal pace. Early-chunk recognition is **on** for steps 1–4.
+This is the first live test of the Voice Workspace build from `main` (renamed app, new engine
+worker, re-warm and early phrases ported to it), so also check step 0.
 
-1. **Idle start:** leave Handy idle 20+ minutes, then say E01 once.
+0. **App check:** the tray shows the new microphone icon and the window says Voice Workspace;
+   the shortcut, microphone, custom words and earlier history are still there.
+1. **Idle start:** leave the app idle 20+ minutes, then say E01 once.
 2. **Short sentences:** E01, E07, E12 and E03, twice each.
 3. **Long holds (the new feature):** in one hold, read E06, E08 and E09 with a normal pause between
    sentences. Repeat once. Then one ~30 s free-speech hold with natural pauses.
 4. **Cancel:** start a long hold, speak 5+ s, pause, speak again, press Escape before releasing.
    Nothing may paste; the next dictation must work.
-5. **Comparison:** ask the agent to turn early chunks off and restart Handy, then repeat step 3.
+5. **Comparison:** ask the agent to turn early chunks off and restart the app, then repeat step 3.
 
 Paste the Notepad text. The agent reads `dictation_latency`, `early_chunks` and
-`dictation_rewarm_ms` from the log and records aggregate results only. Check meaning (negation,
+`dictation_rewarm_ms` from `Data/logs/voice-workspace.log` and records aggregate results only. Check meaning (negation,
 numbers, technical words), duplicated or missing phrases at pause points, and stray periods.
 
-## 1. Handy first — no account, server or cleanup model
+## 1. Voice Workspace desktop first — no account, server or cleanup model
 
-Close any running Handy/OpenWhispr/other dictation app from its tray; do not run both together.
-Run `scripts/start-test.ps1` from this project, or open `runtime/handy/handy.exe`. This is the
-updated private-fork build, not an installed replacement or the reference source checkout.
+Close any running Voice Workspace, Handy, OpenWhispr or other dictation app from its tray; do not
+run two together. Run `scripts/start-test.ps1` from this project, or open
+`runtime/desktop/voice-workspace.exe`. This is the build from `../voice-workspace-desktop`, not
+stock Handy, an installed copy or the reference source checkout.
 Wait until model preparation/loading finishes; preload primes native batch/streaming inference with discarded synthetic
 silence and never records your microphone. First startup is slower than later dictations.
 
@@ -53,14 +58,16 @@ The isolated portable settings select:
   spelling entries, not auto-learning, an acoustic prompt or a punctuation engine.
 - Paste: Ctrl+V; clipboard preservation; automatic Enter/submit off. Pre-paste delay is 20 ms on
   the Snapdragon laptop (60 ms elsewhere); the 60 ms after-paste delay protects clipboard restore.
-- Idle re-warm (Snapdragon `arm64-rewarm` build only): after 15 s without dictation, pressing the
-  shortcut warms the model while you speak. Test it with one dictation after 20+ minutes idle.
-- Always-on microphone, launch at login, update checks, hidden startup, debug mode: off.
+- Idle re-warm: after 15 s without dictation, pressing the shortcut warms the model while you
+  speak. Test it with one dictation after 20+ minutes idle.
+- Early phrases (`early_chunk_recognition`, Snapdragon profile only, no UI toggle): finished
+  phrases are recognized at pauses while the key is held. Change it only with the app closed.
+- Always-on microphone, launch at login, hidden startup, debug mode: off. The app has no updater.
 - Log level: INFO for content-free phase timings. Do not enable debug logging.
 - Retention: preserve latest 20 history entries, with local audio/text kept for comparison.
   This is not a no-storage mode. Delete synthetic test entries when finished if desired.
 
-In Handy Settings select the intended physical microphone (headset preferred), confirm input
+In the app's Settings select the intended physical microphone (headset preferred), confirm input
 levels, and check shortcut registration. Windows Settings → Privacy & security → Microphone
 must permit desktop apps; no administrator mode is needed. These device/privacy choices cannot
 be honestly completed without selecting/testing your actual microphone.
@@ -124,7 +131,7 @@ never transcript text. Vocabulary scoring needs a gold file and uses threshold 0
 Use the returned bound device name, not a presumed index. Gold scoring ignores case/punctuation
 but counts valid number formatting as word errors; its limited critical-token checks are not
 full semantic validation. Synthetic offline Windows TTS screens candidates but does not prove
-accuracy for Akshat's voice. Compile prerequisites are in ../handy/windows-local-setup.md.
+accuracy for Akshat's voice. Compile prerequisites are in ../voice-workspace-desktop/windows-local-setup.md.
 Never upload recordings, local diagnostics or gold transcripts. Post-ASR vocabulary correction on
 non-Whisper models is not acoustic prompting or automatic learning.
 
@@ -135,7 +142,7 @@ Do not assume current-main features exist in that release. Its initial onboardin
 defaults, profile/model locations and offline settings have not been verified against that binary;
 it is **not** a second ready-to-use isolated test profile.
 
-When explicitly starting this comparison, close Handy, review onboarding, choose local/guest mode
+When explicitly starting this comparison, close Voice Workspace, review onboarding, choose local/guest mode
 if offered, a supported local English model, English language, translation/cleanup/assistant/screen context off, no
 cloud keys, sync/calendar/connectors/meeting detection/automatic recording off. Verify the UI can
 actually provide those choices. Do not improvise unsupported localStorage/Chromium-profile flags.
@@ -144,12 +151,12 @@ authorized download is needed. Refuse testing private data until egress defaults
 
 Rerun identical fixtures and settings. A fair comparison matches model/mic/noise/cleanup and
 separates source review from released runtime results. OpenWhispr is a workflow benchmark, not
-an accepted replacement for Handy. No installer/account setup is needed for the Handy-first test.
+an accepted replacement for the desktop app. No installer/account setup is needed for the desktop-app test.
 
 ## 4. Meeting evaluation and local intelligence — later
 
 The optional dummy-only cleanup benchmark is separate from dictation. It has been exercised with
-Qwen3-0.6B Q8/llama.cpp but failed correction/meaning gates; it is not an accepted Handy cleanup
+Qwen3-0.6B Q8/llama.cpp but failed correction/meaning gates; it is not an accepted app cleanup
 profile. Keep AI cleanup off. See setup.md for verified inputs, PowerShell/version/security limits
 and performance.md for results. Do not send saved recordings/history to that helper or a cloud provider.
 

@@ -13,9 +13,9 @@ features. Spoken self-correction is requested/planned, not built; notes/meetings
 - [x] Move research here; document product framework, nitpicks, architecture and test fixtures.
 - [x] Download local reference sources without executing dependency/install scripts.
 - [x] Download and hash-check multilingual Whisper Small, retained for comparison/recovery.
-- [x] Copy isolated Handy release runtime; provision safe baseline settings.
+- [x] Copy isolated desktop-app release runtime; provision safe baseline settings.
 - [x] Validate script syntax, launcher/restore previews, source pins and safe remotes.
-- [x] Validate Handy portable startup and generated setting persistence; startup alone is not ASR evidence.
+- [x] Validate portable startup and generated setting persistence; startup alone is not ASR evidence.
 - [ ] Exercise fresh-machine source/runtime restoration before calling recovery fully verified.
 - [x] Publish only source/docs/gitlinks to Akshat's private voice-workspace GitHub repository.
 
@@ -33,16 +33,20 @@ Snapdragon X laptop (ARM64, CPU only) — first priority on this device:
 - [x] E07 dropped "not" in all three run-on repeats (reproducible from the recording). Retest
   one sentence per hold: E07 kept "not" 3/3, E01 and E12 kept numbers (performance.md).
 - [x] Build (ARM64 CI) and deploy opt-in early-chunk recognition, enabled in this profile.
-- [ ] Run the combined retest in testing-guide.md (idle start, short sentences, long holds with
-  early chunks on, cancel, long holds with it off); keep or turn it off from the results.
+- [x] Port re-warm and early chunks onto the imported engine worker and make the desktop app its
+  own project (Voice Workspace name, no updater, no upstream remote or mirror); CI passes and the
+  ARM64 build from `main` is deployed here (setup.md).
+- [ ] Run the combined retest in testing-guide.md (app check, idle start, short sentences, long
+  holds with early chunks on, cancel, long holds with it off); keep or turn early chunks off.
 - [ ] Plugged-in timing.
-- [ ] Port the re-warm and early-chunk commits from `arm64-rewarm` onto local `main` (upstream import)
-  before adopting it.
 - [ ] Run E06 and E12 here, and fix or accept the missing list/clause commas.
 - [ ] Recheck the shortcut: the profile's Left Ctrl+S overlaps Notepad's Save.
 
 First laptop (x64, NVIDIA):
 
+- [ ] Rebuild `voice-workspace.exe` from `voice-workspace-desktop` `main` (x64 recipe in its
+  `windows-local-setup.md`), rename `runtime/handy` to `runtime/desktop`, keep the old exe as a
+  rollback copy, and rerun startup/inference checks before its next live test.
 - [x] Initial user Notepad capture/insertion attempted: failed Roman script, technical acronym and
   speed acceptance (reported release-to-text over 10 seconds).
 - [x] Updated Turbo live test attempted: user reports 3–4 seconds; INFO logs show 4.029–4.527 s
@@ -79,18 +83,18 @@ First laptop (x64, NVIDIA):
 - [x] Obtain authority for an isolated small local cleanup model/Windows runtime from official
   GitHub/Hugging Face; no recordings/transcripts uploaded or default cleanup activation.
 - [x] Benchmark approved Qwen3-0.6B Q8/llama.cpp CPU/NVIDIA cleanup on dummy text;
-  reject default adoption after incorrect time repairs and dropped clauses. Keep Handy cleanup off.
+  reject default adoption after incorrect time repairs and dropped clauses. Keep app cleanup off.
 - [ ] Prove a safe spoken-repair implementation; a fast model/prompt or one technical/punctuation
   pass is not an automatic correction/meaning-preservation gate.
 - [ ] Prepare OpenWhispr offline comparison profile only after reviewing released onboarding/egress.
-- [ ] Compare same model/settings; retain Handy base unless Akshat explicitly accepts a change.
+- [ ] Compare same model/settings; retain the desktop app unless Akshat explicitly accepts a change.
 
 ## G2/G3 — Minimal useful integrated slice
 
 - [ ] Consented Windows two-source capture spike; compare OpenWhispr/Meetily and native adapters.
 - [ ] Review exact component/dependency/model/asset licenses; no Natively code copied.
 - [ ] Select capture module and define versioned audio/session/segment contracts.
-- [ ] Add note inbox, autosave, SQLite migrations/FTS and Markdown export in a small Handy-based slice.
+- [ ] Add note inbox, autosave, SQLite migrations/FTS and Markdown export in a small slice of the desktop app.
 - [ ] Manual meeting start/pause/stop, gap reporting, durable transcript and human speaker locks.
 - [ ] Test echo/duplicates/overlap/devices/sleep/crash/disk-full before confidential meetings.
 

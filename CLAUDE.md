@@ -1,9 +1,10 @@
 # Voice Workspace
 
 Akshat's standalone local-first/self-hosted voice application project: dictation, explicit text
-editing, personal notes, and bot-free meeting notes. Handy is the accepted desktop foundation.
+editing, personal notes, and bot-free meeting notes. The desktop app is the accepted foundation.
 This repository owns the product requirements, cross-project research, evaluation, and future
-integration; sibling Handy and Granola repositories keep their own implementation instructions.
+integration; the sibling `voice-workspace-desktop` (started from Handy) and Granola repositories
+keep their own implementation instructions.
 
 **Status:** English-only dictation evaluation — Akshat accepts the Parakeet profile's live speed;
 the earlier streaming E03 test failed. The full-recording/vocabulary quality slice is deployed,
@@ -11,9 +12,10 @@ and Akshat reports technical words and punctuation work perfectly in his live re
 This is one-fixture qualitative acceptance, not a complete accuracy/latency guarantee.
 On the Snapdragon X (ARM64) laptop, CPU-only Parakeet passed live speed and technical words but
 missed commas; making release-to-paste closer to instant is the next priority.
-The isolated small local cleanup experiment failed meaning/correction gates; Handy cleanup stays off.
+The isolated small local cleanup experiment failed meaning/correction gates; app cleanup stays off.
 Broader insertion/reliability gates remain open. Spoken self-correction
-is a requested behavior with a proposed design, not implemented. Code lives in the Handy fork.
+is a requested behavior with a proposed design, not implemented. Code lives in
+`../voice-workspace-desktop`.
 Moves to integrated notes/capture after remaining dictation and component/license gates pass.
 No integrated Voice Workspace application exists yet.
 
@@ -52,7 +54,7 @@ No integrated Voice Workspace application exists yet.
   source/licenses/instructions unchanged; read relevant instructions before actual development.
 - Do not initialize nested/private premium submodules. Do not copy Natively or other restricted
   code into the product; component provenance and model/asset rights are separate gates.
-- Windows is the first physical-test target. Preserve Handy's macOS/Linux boundaries; do not
+- Windows is the first physical-test target. Preserve the desktop app's macOS/Linux code; do not
   claim another platform or iPhone works from a Windows source review or build.
 - Each laptop needs its own acceptance. A pass on the x64/NVIDIA laptop does not carry over to
   the ARM64/CPU laptop, or the reverse. On a new device, verify hardware, exe architecture and

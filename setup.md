@@ -3,8 +3,9 @@
 **Status:** English-only runtime/profile evaluation; local GPU inference and model integrity are
 verified, and Akshat accepts the earlier Parakeet streaming profile's live English speed.
 The full-recording quality profile is deployed; Akshat reports its live technical-word/punctuation
-retest worked perfectly. The Snapdragon X laptop runs the CI-built CPU-only ARM64 exe and passed a
-live speed/technical-word test (punctuation gaps; see performance.md). Broader accuracy/insertion/
+retest worked perfectly. The Snapdragon X laptop runs the CI-built CPU-only ARM64
+`voice-workspace.exe` from `../voice-workspace-desktop` `main` (renamed app, re-warm and early
+phrases on the new engine worker); its live retest is next. Broader accuracy/insertion/
 reliability, quantitative latency and signed packaging remain open.
 Hindi work is deferred; dedicated spoken self-correction is not implemented or enabled.
 
@@ -16,18 +17,23 @@ The CPU Small baseline was measured and rejected for excessive delay; NVIDIA Vul
 measured faster device. English-only Parakeet is the current candidate; no concurrent LLM is configured.
 Read performance.md for exact samples and caveats; hardware presence alone is not proof of speed.
 
-Handy's existing Windows source-build prerequisites and build evidence remain owned by
-`../handy/windows-local-setup.md`. No new compiler/toolchain/dependency install was needed here.
-The test executable must come from the updated Handy 0.9.7 private fork, with its embedded
-production frontend. Stock Handy lacks the fork's startup warm-up and timing-only changes. This is not a notes/meeting
-integration build or signed public distribution.
+Windows build prerequisites, CI workflows and build evidence are owned by
+`../voice-workspace-desktop/windows-local-setup.md`. The test executable must come from that
+project (the desktop app, started from Handy), with its embedded production frontend; stock Handy
+lacks the startup warm-up, re-warm, early phrases and timing-only changes. This is not a
+notes/meeting integration build or signed public distribution.
 
-## Isolated Handy test runtime
+## Isolated desktop-app test runtime
 
-Location: `runtime/handy/handy.exe` with required sibling DLLs and resources copied from the
-existing release directory. The `portable` marker contains `Handy Portable Mode`, activating
-`runtime/handy/Data/` for settings/models/history/recordings/logs. The user's normal Handy
-profile is not overwritten. Generated files are ignored; never stage them with force.
+Location: ignored `runtime/desktop/` (named `runtime/handy/` before the app became its own
+project): `voice-workspace.exe` with its sibling DLLs and the `resources/` folder from
+`src-tauri/resources`. The `portable` marker keeps its original text, `Handy Portable Mode`, which
+the app still requires; it activates `runtime/desktop/Data/` for settings, models, history,
+recordings and logs (`Data/logs/voice-workspace.log`; older runs logged to `handy.log`). No
+normal user profile is touched. Generated files are ignored; never stage them with force.
+
+The first laptop's copy below (x64, NVIDIA) still describes the older Handy-era executable in
+`runtime/handy/`; that laptop needs the rebuild and folder rename in tasks.md.
 
 Active quality-test settings are described in testing-guide.md. The initial portable startup was verified;
 Akshat subsequently recorded/inserted speech in Notepad, reporting the failed acceptance described
@@ -100,7 +106,7 @@ The following older multilingual inputs are retained, not the active language sc
 Authorized source: [ggerganov/whisper.cpp on Hugging Face](https://huggingface.co/ggerganov/whisper.cpp).
 File: `ggml-small.bin`, 487,601,967 bytes. SHA-256 checked against Hugging Face LFS metadata:
 `1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b`.
-Stored at `runtime/handy/Data/models/ggml-small.bin`; Handy model ID `small`, retained for comparison.
+Stored at `runtime/desktop/Data/models/ggml-small.bin` (`runtime/handy/` on the x64 laptop until renamed); model ID `small`, retained for comparison.
 This is multilingual, not the `.en` variant. Download/hash verification does not prove accuracy.
 Model/packaging redistribution license review remains separate from permission to download/test.
 
@@ -118,17 +124,18 @@ It does not repair acoustic recognition errors, and unfamiliar-word spelling can
 Hindi's live acoustic/meaning test failed and its requirement was removed; the converter is off.
 English technical-word/meaning fixtures, reliability checks and quantitative release-to-paste
 measurements remain required despite the user's qualitative speed acceptance.
-See ../handy/voice-workspace-features.md for implementation.
+See ../voice-workspace-desktop/voice-workspace-features.md for implementation.
 
-On another machine, rebuild/copy the updated private Handy fork's release executable, its top-level runtime DLLs and
-resources. For a **fresh, empty** runtime only, copy `scripts/portable` beside the executable
-and `scripts/handy-baseline.json` to `runtime/handy/Data/settings_store.json`. Refuse to overwrite
+On another machine, build or download `voice-workspace.exe` from `../voice-workspace-desktop`,
+with its top-level runtime DLLs and `src-tauri/resources`. For a **fresh, empty** runtime only,
+copy `scripts/portable` beside the executable and `scripts/handy-baseline.json` to
+`runtime/desktop/Data/settings_store.json`. Refuse to overwrite
 an existing profile. Download the same model from the authorized Hugging Face destination and
 verify size/hash for the selected model, then run the verifier/launcher. For Parakeet, use Handy's
 supported downloader/cache layout or reproduce the pinned snapshot path in local-models.json;
 do not place a duplicate file arbitrarily and assume registry detection. The template uses Auto
 GPU selection because hardware identities differ; this laptop's live profile must explicitly select
-the measured NVIDIA device. The launcher checks for fork CLI features and rejects stock builds.
+the measured NVIDIA device. The launcher checks for the app's CLI features and rejects stock builds.
 These generated inputs are deliberately not
 in GitHub. Do not copy an existing user's settings/history into the repository.
 
@@ -146,31 +153,32 @@ re-verified as Authenticode-valid, signer Gizmo Labs Inc.; still not installed o
 The extracted llama.cpp folder is the x64 Vulkan build and its launcher hash matches; this
 laptop's Snapdragon has no use for it, and the cleanup experiment stays off.
 
-`runtime/handy/handy.exe` is the unsigned CPU-only ARM64 build of the fork's `arm64-rewarm` branch
-(idle re-warm plus opt-in early-chunk recognition, see `../handy/voice-workspace-features.md`) from
-`windows-arm64-build.yml` (run 40419914181, commit `9cb3884`; `../handy/windows-local-setup.md`
-owns the workflow), SHA-256 `e8d55637309a17a3c3307f2c4baa1bcd100b65df68043a8536b22ee86071de9d`.
-Rollback exes: `handy-before-early-chunks.exe` (re-warm only, run 40412889343, `abe07448…3e91`)
-and `handy-before-rewarm.exe` (first tested build, run 40252857590, `61170cd9…6bad`). The eight
-ARM64 VC++ runtime DLLs match all three runs' `SHA256SUMS.txt`, so only the exe was replaced. There
-are no `ggml*`/`transcribe` DLLs. `Data/settings_store.json` now has `transcribe_accelerator` set
-to `cpu` and `transcribe_gpu_device` cleared (rollback copy `Data/settings-before-arm64-cpu.json`);
-every other setting is unchanged. Hardware is a Snapdragon X X126100 (8 Oryon cores, 15.6 GiB RAM,
-Adreno X1-45, unused). The exe's PE header is ARM64 and it is not marked as downloaded; Windows runs
-it without an application-control block (Smart App Control reports off; nothing was bypassed).
-`--list-devices` shows only the Oryon CPU, portable mode resolves to this `Data/`, and the GUI loads
-and warms Parakeet in about 1 s. Akshat ran a live Notepad test; timings and accuracy are in
-performance.md. Saved profile on this laptop: microphone **Default** (resolves to the built-in
-Microphone Array; the first laptop's C922 is absent), Transcribe shortcut **Left Ctrl+S**
-(push-to-talk, carried over unchanged), paste pre-delay **20 ms** (was 60; rollback copy
-`Data/settings-before-paste-delay.json`, the only changed field). The 60 ms after-paste delay is
-kept so the clipboard is not restored before the target app reads it. The re-warm build starts and
-warms Parakeet normally (startup warm-up 65 ms). Akshat's idle retest confirmed the re-warm runs
-and removes the slow first dictation (performance.md); both changes are kept.
-`early_chunk_recognition` is now **true** (no UI toggle; edit with Handy closed; rollback copy
-`Data/settings-before-early-chunks.json`, the only changed field). The early-chunk build starts and
-warms normally (102 ms); live behavior awaits the combined retest in testing-guide.md. The three `handy-before-*.exe`
-rollback copies and `asr_latency.exe` from the first laptop are not recreated.
+`runtime/desktop/voice-workspace.exe` is the unsigned CPU-only ARM64 build of
+`voice-workspace-desktop` `main` (commit `d338ea2c`: Handy's final engine, idle re-warm and early
+phrases ported to its worker, standalone makeover) from `windows-arm64-build.yml` (run 40487970601),
+SHA-256 `1365045071939cade650144f70d25bcb8b979b6def22bfbc372067acab344a65`. Its `resources/` folder now comes from the same commit, including the
+`silero-vad-v6.2-F32.gguf` voice detector the new engine needs and the new microphone tray icons;
+the previous folder is kept as `resources-before-standalone/`. The eight ARM64 VC++ runtime DLLs
+match the run's `SHA256SUMS.txt`, unchanged from earlier runs. There are no `ggml*`/`transcribe`
+DLLs. Rollback exes (each needs `resources-before-standalone/` renamed back to `resources/`):
+`handy-before-standalone.exe` (old engine with re-warm and early chunks, run 40419914181,
+`e8d55637…de9d`), `handy-before-early-chunks.exe` (re-warm only, run 40412889343, `abe07448…3e91`)
+and `handy-before-rewarm.exe` (first tested build, run 40252857590, `61170cd9…6bad`). Settings
+before this change are in `Data/settings-before-standalone.json`.
+
+Hardware is a Snapdragon X X126100 (8 Oryon cores, 15.6 GiB RAM, Adreno X1-45, unused). The exe's
+PE header is ARM64 and it is not marked as downloaded; Windows runs it without an
+application-control block (Smart App Control reports off; nothing was bypassed). `--list-devices`
+shows only the Oryon CPU and portable mode resolves to this `Data/`. The new build starts, loads
+Parakeet in its worker process and warms it (94 ms). Saved profile on this laptop:
+`transcribe_accelerator` `cpu` with no GPU device (rollback `Data/settings-before-arm64-cpu.json`),
+microphone **Default** (the built-in Microphone Array; the first laptop's C922 is absent),
+Transcribe shortcut **Left Ctrl+S** (push-to-talk), paste pre-delay **20 ms** (was 60; rollback
+`Data/settings-before-paste-delay.json`) with the 60 ms after-paste delay kept for clipboard
+restore, and `early_chunk_recognition` **true** (no UI toggle; edit with the app closed; rollback
+`Data/settings-before-early-chunks.json`). The idle re-warm was confirmed live on the old engine
+(performance.md); its port and early phrases on the new engine await the combined retest in
+testing-guide.md. `asr_latency.exe` from the first laptop is not recreated.
 
 ## Separate local cleanup experiment — not activated in Handy
 

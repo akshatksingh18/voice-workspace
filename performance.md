@@ -96,12 +96,18 @@ ran once after 7.5 min idle (160 ms). Akshat pasted five of the six results:
 So negation held when each sentence had its own hold; the earlier loss came with fast run-on
 repeats. Remaining weakness: sentence boundaries inside one hold become commas or nothing.
 
-Deployed, awaiting the combined retest: early-chunk recognition, which recognizes each finished
+Deployed on the new engine worker with the standalone desktop build (setup.md), awaiting the
+combined retest: early-chunk recognition, which recognizes each finished
 phrase at a pause while the key is held so release only decodes the last phrase (setup.md). It
 targets the long-hold cost above (1.27–1.67 s for 17–23 s holds). Upstream
 #2282 chunking only cuts audio over 40 s, so it does not help normal dictation.
 Plugged-in/Best-performance timing is unmeasured. Streaming mode is faster on long holds
 but failed E03 accuracy; a smaller quant is not justified on speed alone.
+
+**Standalone build on the new engine worker** (commit `d338ea2c`, plugged in), headless
+`--stats-only`, three runs each: a 5.76 s clip 0.315–0.341 s (worker load 1.741 s) and a 7.20 s clip
+0.490–0.538 s (load 1.039 s), about 15–18x real time, close to the old engine on battery. GUI startup
+warm-up 94 ms. Live dictation on this build is not yet measured.
 
 ## Same-recording technical/punctuation comparison
 
@@ -219,7 +225,7 @@ The actual app headless path, using the stable NVIDIA selector on the same old 7
 clip, loaded in 6.607 s and recognized in **9.892, 0.430 and 0.362 s**. The first-run spike remains
 important; the clip is mixed-language and is only a speed comparison, not an English accuracy gold.
 
-The standalone `../handy/src-tauri/examples/asr_latency.rs` diagnostic uses the same installed
+The standalone `../voice-workspace-desktop/src-tauri/examples/asr_latency.rs` diagnostic uses the same installed
 transcribe-cpp 0.2.4/runtime libraries. It warms with one second of discarded silence, then paces
 100 ms frames at real-time speed for streaming. `release_ms` is the time beyond the WAV's duration,
 including feed backlog and finalization. It omits microphone/VAD/IPC/paste/history; raw recognition

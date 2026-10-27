@@ -1,6 +1,6 @@
 [submodule "handy"]
 	path = references/handy
-	url = https://github.com/akshatksingh18/handy.git
+	url = https://github.com/akshatksingh18/voice-workspace-desktop.git
 [submodule "granola-alt"]
 	path = references/granola-alt
 	url = https://github.com/akshatksingh18/granola-alt.git

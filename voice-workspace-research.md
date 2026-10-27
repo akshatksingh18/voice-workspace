@@ -27,7 +27,7 @@ setup.md/performance.md own the current English profile and measurements, not th
   new full-recording quality test. Akshat then reported technical words/punctuation worked
   perfectly in the deployed quality retest, cleanup off; broader accuracy,
   insertion/reliability and signed installer behavior remain open. See
-  `../handy/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
+  `../voice-workspace-desktop/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
   and SQLite dictation history already provide useful integration points.
 - `../granola-alt/` is a specification on an imported Electron/Natively base, not a completed
   custom meeting app. See its `CLAUDE.md`, `spec.md`, `tasks.md`, and `setup.md`. Native/core build
@@ -285,7 +285,7 @@ Targets are to be set from those measurements, not copied from marketing pages.
   and require explicit authorization before sending meeting content outside the workspace.
 - Windows first for physical testing; preserve Handy's existing macOS/Linux paths. This research
   is source review, not runtime evidence. Current dictation changes and actual tests are owned by
-  setup.md, performance.md and ../handy/voice-workspace-features.md. The imported code-review-graph
+  setup.md, performance.md and ../voice-workspace-desktop/voice-workspace-features.md. The imported code-review-graph
   tools were unavailable, so focused source inspection was used.
 - Decisions still needed: personal-only versus distributable/business use; measured suitability of
   OpenWhispr; meeting engine selection; retention; mobile packaging; and whether later calendar

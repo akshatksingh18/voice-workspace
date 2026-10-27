@@ -47,12 +47,10 @@ $voiceUnsafe = @($voiceTracked | Where-Object {
 if ($voiceUnsafe.Count) { throw "Unsafe tracked root files: $($voiceUnsafe -join ', ')" }
 if ($HashModel -and -not $CheckRuntime) { throw '-HashModel requires -CheckRuntime.' }
 if ($CheckRuntime) {
-    $voiceExe = Join-Path $voiceRoot 'runtime\handy\handy.exe'
-    $voiceMarker = Join-Path $voiceRoot 'runtime\handy\portable'
-    $voiceStore = Join-Path $voiceRoot 'runtime\handy\Data\settings_store.json'
-    foreach ($voiceRequired in @($voiceExe,$voiceMarker,$voiceStore,
-        (Join-Path $voiceRoot 'runtime\handy\transcribe.dll'),
-        (Join-Path $voiceRoot 'runtime\handy\onnxruntime.dll'))) {
+    $voiceExe = Join-Path $voiceRoot 'runtime\desktop\voice-workspace.exe'
+    $voiceMarker = Join-Path $voiceRoot 'runtime\desktop\portable'
+    $voiceStore = Join-Path $voiceRoot 'runtime\desktop\Data\settings_store.json'
+    foreach ($voiceRequired in @($voiceExe,$voiceMarker,$voiceStore)) {
         if (-not (Test-Path -LiteralPath $voiceRequired -PathType Leaf)) { throw "Missing runtime input: $voiceRequired" }
     }
     if (-not (Get-Content -LiteralPath $voiceMarker -Raw).StartsWith('Handy Portable Mode')) { throw 'Invalid portable marker.' }
@@ -63,12 +61,12 @@ if ($CheckRuntime) {
         $voiceSettings.translate_to_english -or $voiceSettings.post_process_enabled -or
         $voiceSettings.roman_hinglish_enabled -or -not $voiceSettings.preload_model -or
         $voiceSettings.always_on_microphone -or $voiceSettings.auto_submit -or
-        $voiceSettings.update_checks_enabled -or $voiceSettings.autostart_enabled -or
-        $voiceSettings.transcribe_accelerator -notin @('auto','gpu') -or
-        $voiceSettings.model_unload_timeout -ne 'never' -or $voiceSettings.ort_accelerator -ne 'cpu') {
+        $voiceSettings.autostart_enabled -or
+        $voiceSettings.transcribe_accelerator -notin @('auto','gpu','cpu') -or
+        $voiceSettings.model_unload_timeout -ne 'never') {
         throw 'Baseline settings mismatch; inspect local profile and testing-guide.md.'
     }
-    Write-Output 'Handy English-only profile/model inputs OK. This is not a physical ASR, hotkey or paste test.'
+    Write-Output 'Voice Workspace English-only profile/model inputs OK. This is not a physical ASR, hotkey or paste test.'
     Write-Output 'Startup warm-up enabled; translation/Hinglish/cleanup off. Speech accuracy and instant insertion remain unverified.'
     $voiceModeLabel = if ($voiceSettings.prefer_batch_transcription) { 'full recording' } else { 'streaming when supported' }
     Write-Output "Recognition mode: $voiceModeLabel; manual vocabulary count: $($voiceSettings.custom_words.Count)."
