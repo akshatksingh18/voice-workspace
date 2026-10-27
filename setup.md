@@ -131,10 +131,12 @@ English technical-word/meaning fixtures, reliability checks and quantitative rel
 measurements remain required despite the user's qualitative speed acceptance.
 See ../voice-workspace-desktop/voice-workspace-features.md for implementation.
 
-On another machine, build or download `voice-workspace.exe` from `../voice-workspace-desktop`,
-with its top-level runtime DLLs and `src-tauri/resources`. For a **fresh, empty** runtime only,
-copy `scripts/portable` beside the executable and `scripts/handy-baseline.json` to
-`runtime/desktop/Data/settings_store.json`. Refuse to overwrite
+To install or update the app on either laptop, quit it and run `scripts/install-desktop.ps1`: it
+downloads the ARM64 or x64 zip for that laptop from the latest `voice-workspace-desktop` GitHub
+Release, checks its SHA-256, moves the current exe, DLLs and `resources/` into a dated
+`rollback-*` folder with a settings copy, and leaves `Data/` alone. It needs a prepared runtime.
+For a **fresh, empty** runtime only, first create `runtime/desktop/`, copy `scripts/portable`
+into it and `scripts/handy-baseline.json` to `runtime/desktop/Data/settings_store.json`. Refuse to overwrite
 an existing profile. Download the same model from the authorized Hugging Face destination and
 verify size/hash for the selected model, then run the verifier/launcher. For Parakeet, use Handy's
 supported downloader/cache layout or reproduce the pinned snapshot path in local-models.json;
@@ -158,24 +160,28 @@ re-verified as Authenticode-valid, signer Gizmo Labs Inc.; still not installed o
 The extracted llama.cpp folder is the x64 Vulkan build and its launcher hash matches; this
 laptop's Snapdragon has no use for it, and the cleanup experiment stays off.
 
-`runtime/desktop/voice-workspace.exe` is the unsigned CPU-only ARM64 build of
-`voice-workspace-desktop` `main` (commit `d338ea2c`: Handy's final engine, idle re-warm and early
-phrases ported to its worker, standalone makeover) from `windows-arm64-build.yml` (run 40487970601),
-SHA-256 `1365045071939cade650144f70d25bcb8b979b6def22bfbc372067acab344a65`. Its `resources/` folder now comes from the same commit, including the
-`silero-vad-v6.2-F32.gguf` voice detector the new engine needs and the new microphone tray icons;
-the previous folder is kept as `resources-before-standalone/`. The eight ARM64 VC++ runtime DLLs
-match the run's `SHA256SUMS.txt`, unchanged from earlier runs. There are no `ggml*`/`transcribe`
-DLLs. Rollback exes (each needs `resources-before-standalone/` renamed back to `resources/`):
-`handy-before-standalone.exe` (old engine with re-warm and early chunks, run 40419914181,
-`e8d55637…de9d`), `handy-before-early-chunks.exe` (re-warm only, run 40412889343, `abe07448…3e91`)
-and `handy-before-rewarm.exe` (first tested build, run 40252857590, `61170cd9…6bad`). Settings
-before this change are in `Data/settings-before-standalone.json`.
+`runtime/desktop/` holds GitHub Release **v0.10.0** (`voice-workspace-desktop` commit
+`3c57e35c`, [release run 40520112353](https://github.com/akshatksingh18/voice-workspace-desktop/actions/runs/40520112353)),
+installed with `scripts/install-desktop.ps1`: the unsigned CPU-only ARM64 `voice-workspace.exe`
+(SHA-256 `b8421972d307c859b952ba2b020563b0758c2a74fdf171857bc662995addb055`), its eight ARM64
+VC++ runtime DLLs and `resources/` (tray icons and the `silero-vad-v6.2-F32.gguf` voice detector
+the new engine needs), with `VERSION.txt` and the zip's `SHA256SUMS.txt`. It is Handy's final
+engine with idle re-warm and early phrases ported to its worker, after the standalone makeover.
+There are no `ggml*`/`transcribe` DLLs. Windows added no download mark to the installed files.
+
+Rollback copies, newest first: `rollback-unversioned-20261027-094056/` (the same code from
+`windows-arm64-build.yml` run 40487970601, exe `13650450…2a65`, with its DLLs, resources and a
+settings copy); `handy-before-standalone.exe` (old engine with re-warm and early chunks, run
+40419914181, `e8d55637…de9d`), `handy-before-early-chunks.exe` (re-warm only, run 40412889343,
+`abe07448…3e91`) and `handy-before-rewarm.exe` (first tested build, run 40252857590,
+`61170cd9…6bad`). Those three old-engine exes need `resources-before-standalone/` renamed back to
+`resources/`. Settings before the standalone change are in `Data/settings-before-standalone.json`.
 
 Hardware is a Snapdragon X X126100 (8 Oryon cores, 15.6 GiB RAM, Adreno X1-45, unused). The exe's
 PE header is ARM64 and it is not marked as downloaded; Windows runs it without an
 application-control block (Smart App Control reports off; nothing was bypassed). `--list-devices`
-shows only the Oryon CPU and portable mode resolves to this `Data/`. The new build starts, loads
-Parakeet in its worker process and warms it (94 ms). Saved profile on this laptop:
+shows only the Oryon CPU and portable mode resolves to this `Data/`. The release starts, loads
+Parakeet in its worker process and warms it (121 ms; 94 ms for the earlier CI copy). Saved profile on this laptop:
 `transcribe_accelerator` `cpu` with no GPU device (rollback `Data/settings-before-arm64-cpu.json`),
 microphone **Default** (the built-in Microphone Array; the first laptop's C922 is absent),
 Transcribe shortcut **Left Ctrl+S** (push-to-talk), paste pre-delay **20 ms** (was 60; rollback

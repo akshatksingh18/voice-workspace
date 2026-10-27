@@ -44,10 +44,10 @@ Snapdragon X laptop (ARM64, CPU only) — first priority on this device:
 
 First laptop (x64, NVIDIA):
 
-- [ ] Only if dictating on this laptop again: on it, pull the repos, run `windows-x64-build.yml`
-  (or download its latest artifact), rename `runtime/handy` to `runtime/desktop`, keep the old
-  exe and `resources/` as rollback copies, copy in the new exe/DLLs and
-  `voice-workspace-desktop/src-tauri/resources`, then rerun the launcher and a headless check.
+- [ ] Only if dictating on this laptop again: on it, pull `voice-workspace`, quit the old app, run
+  `scripts/install-desktop.ps1` (it installs the latest x64 release, renames `runtime/handy` to
+  `runtime/desktop` and keeps a rollback folder), then `scripts/start-test.ps1` and confirm the
+  NVIDIA device is listed and bound.
 - [x] Initial user Notepad capture/insertion attempted: failed Roman script, technical acronym and
   speed acceptance (reported release-to-text over 10 seconds).
 - [x] Updated Turbo live test attempted: user reports 3–4 seconds; INFO logs show 4.029–4.527 s

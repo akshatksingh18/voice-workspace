@@ -3,11 +3,16 @@
 Project-owned Windows launch, source-recovery, and local test preparation tools. These tools are
 not the integrated application. Product decisions belong in the parent project documents.
 
-**Status:** Experimental dictation test tooling — model/profile checks and launch/recovery tools
-support the Handy fork. Updated physical ASR/paste acceptance and fresh-machine restoration remain open.
+**Status:** Experimental dictation test tooling — model/profile checks and install/launch/recovery
+tools support the voice-workspace-desktop app. Updated physical ASR/paste acceptance and
+fresh-machine restoration remain open.
 
 ## Files
 
+- `install-desktop.ps1` — install or update the desktop app in `runtime/desktop` from a GitHub
+  Release, picking the ARM64 or x64 zip for this laptop; verifies checksums, moves the current
+  exe/DLLs/resources into a dated `rollback-*` folder and leaves `Data/` untouched. Refuses while
+  the app runs or when no prepared runtime exists; renames a legacy `runtime/handy`.
 - `start-test.ps1` — launch a selected prepared app without starting microphone recording;
   report recognition mode and manual vocabulary count without profile/text content.
 - `verify-workspace.ps1` — check pinned sources, ignored runtime readiness, and unsafe tracked files;
@@ -27,7 +32,7 @@ support the Handy fork. Updated physical ASR/paste acceptance and fresh-machine 
   verifies pinned model/package/extracted binaries, owns an authenticated loopback-only offline
   helper with tools/MCP disabled, compares CPU/NVIDIA, emits aggregate checks and stops its own PID.
   `-ShowDummyOutput` exposes only built-in public dummy completions for scoring diagnosis; no user input is accepted.
-  Never changes Handy settings or processes; no uploads/downloads. Read setup/performance before use.
+  Never changes the desktop app's settings or processes; no uploads/downloads. Read setup/performance before use.
 - `portable` — Handy's supported marker template; copy beside a fresh test executable only.
 
 ## Working agreement
