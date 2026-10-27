@@ -10,9 +10,12 @@ license, instruction, dependency, and Windows acceptance checks.
 
 ## Files
 
-- `handy/` — Akshat's private Handy fork; accepted dictation base, separate from generated test runtime.
-- `granola-alt/` — Akshat's private Natively-derived planning base; restrictive personal/noncommercial
-  license, evidence only. Nested premium/API submodules must remain uninitialized.
+- `handy/` — Akshat's public `voice-workspace-desktop` repository (renamed from `handy`), pinned at
+  its Handy-era revision; the live project is `../../voice-workspace-desktop/`, separate from the
+  generated test runtime.
+- `granola-alt/` — Akshat's Natively-derived planning base (live project:
+  `../../granola-alt/`); restrictive personal/noncommercial license, evidence only. Nested
+  premium/API submodules must remain uninitialized.
 - `openwhispr/` — OpenWhispr desktop/mobile source; MIT reference, release/runtime distinction matters.
 - `anarlog/` — Anarlog meeting app; MIT community versus commercial enterprise path boundaries.
 - `minutes/` — Minutes capture, local files, CLI and MCP source; MIT.
@@ -36,3 +39,7 @@ license, instruction, dependency, and Windows acceptance checks.
   context and follow its full applicable upstream instruction chain.
 - Whenever a source checkout or working file is added here, update this index and the manifest
   together. Do not use recursive submodule initialization for this collection.
+- Uninitialized nested submodules (`granola-alt/premium`, `granola-alt/natively-api`,
+  `meetily/backend/whisper.cpp`) are empty placeholder folders. Copies that drop empty folders
+  (such as a zip) make Git report them deleted and `verify-workspace.ps1` stop with "Dirty
+  evidence checkout"; recreate them empty, never by initializing or downloading them.
