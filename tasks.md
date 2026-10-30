@@ -43,6 +43,11 @@ Snapdragon X laptop (ARM64, CPU only) — first priority on this device:
 - [ ] Plugged-in timing.
 - [x] Run E06 and E12 here: version numbers, HTTP 429, timeouts, negation and technical names preserved.
 - [x] Recheck the shortcut: switched from Left Ctrl+S (which overlapped Notepad Save) to Left Alt+Space (alt_left+space; rollback settings-before-alt-space.json).
+- [x] Add Tier 1 Technical & Shortcut Formatting normalizer (voice-workspace-desktop v0.10.1):
+  automatically formats spoken shortcuts (Left Alt + Space, Ctrl + C, Alt + F4, Win + R),
+  identifier casing commands (camelCase, snake_case, kebab-case, CONSTANT_CASE, PascalCase, dot.case),
+  CLI flags (--flag, -m), code symbols (=>, ==, !=, &&, ||, ::, ??, +=), web/file extensions (.com, .json),
+  and technical acronyms (GitHub, REST API, OAuth, JWT, ARM64) with UI toggle in Settings → Advanced; 41 unit tests.
 
 First laptop (x64, NVIDIA):
 
