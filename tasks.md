@@ -42,7 +42,7 @@ Snapdragon X laptop (ARM64, CPU only) — first priority on this device:
   chunks on (performance.md). Step 5 (comparison with it off) optional.
 - [ ] Plugged-in timing.
 - [x] Run E06 and E12 here: version numbers, HTTP 429, timeouts, negation and technical names preserved.
-- [ ] Recheck the shortcut: the profile's Left Ctrl+S overlaps Notepad's Save.
+- [x] Recheck the shortcut: switched from Left Ctrl+S (which overlapped Notepad Save) to Left Alt+Space (alt_left+space; rollback settings-before-alt-space.json).
 
 First laptop (x64, NVIDIA):
 

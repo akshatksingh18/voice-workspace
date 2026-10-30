@@ -186,7 +186,7 @@ shows only the Oryon CPU and portable mode resolves to this `Data/`. The release
 Parakeet in its worker process and warms it (121 ms; 94 ms for the earlier CI copy). Saved profile on this laptop:
 `transcribe_accelerator` `cpu` with no GPU device (rollback `Data/settings-before-arm64-cpu.json`),
 microphone **Default** (the built-in Microphone Array; the first laptop's C922 is absent),
-Transcribe shortcut **Left Ctrl+S** (push-to-talk), paste pre-delay **20 ms** (was 60; rollback
+Transcribe shortcut **Left Alt+Space** (push-to-talk; rollback `Data/settings-before-alt-space.json`; was Left Ctrl+S), paste pre-delay **20 ms** (was 60; rollback
 `Data/settings-before-paste-delay.json`) with the 60 ms after-paste delay kept for clipboard
 restore, and `early_chunk_recognition` **true** (no UI toggle; edit with the app closed; rollback
 `Data/settings-before-early-chunks.json`). The idle re-warm was confirmed live on the old engine

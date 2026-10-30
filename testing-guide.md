@@ -9,7 +9,7 @@ See setup.md for deployment evidence and performance.md for measured samples.
 
 ## Snapdragon laptop — combined retest (current)
 
-One sitting, built-in mic, blank Notepad, Left Ctrl+S. One sentence per hold unless a step says
+One sitting, built-in mic, blank Notepad, Left Alt+Space (was Left Ctrl+S). One sentence per hold unless a step says
 otherwise; 2–3 s between holds; normal pace. Early-chunk recognition is **on** for steps 1–4.
 This is the first live test of the Voice Workspace build from `main` (renamed app, new engine
 worker, re-warm and early phrases ported to it), so also check step 0.
@@ -42,8 +42,8 @@ The isolated portable settings select:
 - Model: **Parakeet Unified EN 0.6B Q8_0**, English-only native GGUF, not old ONNX Parakeet V3.
   Other downloaded models are retained for explicit comparisons, not automatic selection.
 - Language: **English**. Translate to English: off. English models are not expected to recognize Hindi.
-- Activation: hold-to-talk with the profile's saved Transcribe shortcut, currently **Left Ctrl+S**
-  (older notes say Ctrl+Shift+F12). Check it in Settings before testing. Escape: cancel.
+- Activation: hold-to-talk with the profile's saved Transcribe shortcut, currently **Left Alt+Space**
+  (older notes say Left Ctrl+S or Ctrl+Shift+F12). Check it in Settings before testing. Escape: cancel.
 - ASR device depends on the laptop. Do not mix their results:
   - First laptop (x64): measured NVIDIA MX450 with Vulkan.
   - Snapdragon X laptop (ARM64): CPU only. The CI build has no GPU backend.
