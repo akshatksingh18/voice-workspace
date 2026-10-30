@@ -1,10 +1,10 @@
 # Dictation performance and acceptance
 
-**Status:** English-only evaluation. Akshat accepts the earlier Parakeet streaming profile's live speed.
-The full-recording/vocabulary quality retest passed technical words/punctuation by Akshat's report
-on the first laptop. On the Snapdragon X laptop, CPU-only Parakeet passed live speed ("good
-enough") and technical words, but list/clause commas were missing; Akshat wants it closer to instant.
-Broader accuracy, insertion/reliability and quantitative p50/p95 remain open.
+**Status:** English-only evaluation. On the Snapdragon X laptop, the standalone Voice Workspace
+v0.10.0 live retest passed: idle re-warm delivered 525 ms stop-to-paste after 108.9 min idle (was 3.19 s),
+and early phrase recognition reduced long-hold stop-to-paste to 254–671 ms (1–418 ms ASR for 22.5–32.1 s holds),
+with 100% critical token, technical word, negation, number, and user name accuracy.
+Broader editor insertion/reliability and quantitative p50/p95 suites remain open.
 Turbo's older live test failed latency/Hindi acceptance. The Hindi converter is off, not a solved feature.
 
 ## Current physical acceptance boundary
@@ -104,10 +104,36 @@ targets the long-hold cost above (1.27–1.67 s for 17–23 s holds). Upstream
 Plugged-in/Best-performance timing is unmeasured. Streaming mode is faster on long holds
 but failed E03 accuracy; a smaller quant is not justified on speed alone.
 
-**Standalone build on the new engine worker** (commit `d338ea2c`, plugged in), headless
-`--stats-only`, three runs each: a 5.76 s clip 0.315–0.341 s (worker load 1.741 s) and a 7.20 s clip
-0.490–0.538 s (load 1.039 s), about 15–18x real time, close to the old engine on battery. GUI startup
-warm-up 94 ms. Live dictation on this build is not yet measured.
+**Standalone build on the new engine worker** (Release v0.10.0, commit `3c57e35c`), headless
+`--stats-only` (plugged in), three runs each: a 5.76 s clip 0.315–0.341 s (worker load 1.741 s) and a 7.20 s clip
+0.490–0.538 s (load 1.039 s), about 15–18x real time. GUI startup warm-up 72–121 ms.
+
+**Live combined retest (2026-10-30)**, Snapdragon X CPU, built-in mic, Notepad, Left Ctrl+S:
+
+| Hold / Content | Audio | Re-warm | Early chunks | Tail audio / decode | Release ASR | Paste | Stop-to-paste |
+|---|---|---|---|---|---|---|---|
+| E01 after 108.9 min idle | 4.38 s | 1,839 ms | 0 (none) | 4.38 s / 255 ms | 0.260 s | 0.193 s | **0.525 s** (was 3.192 s cold) |
+| E01 + E07 + E12 + E03 (32.1 s hold) | 29.12 s | 101 ms (66 s idle) | 3 chunks (21.47 s / 1,350 ms) | 7.65 s / 414 ms | 0.418 s | 0.187 s | **0.671 s** (was 1.67 s on 23 s) |
+| E06 + E08 + E09 (22.5 s hold) | 18.14 s | 93 ms (38 s idle) | 3 chunks (18.14 s / 1,016 ms) | 0.00 s / 0 ms | **0.001 s** | 0.192 s | **0.254 s** |
+
+Findings:
+- **Idle re-warm verified on new engine:** after 108.9 min idle, re-warm executed during speech;
+  first dictation pasted in **525 ms** (ASR 260 ms), eliminating the cold-idle spike (down from 3.192 s).
+- **Early phrase recognition eliminates long-hold release delay:**
+  - On the 32.1 s hold, 3 early phrases (21.5 s of speech) were decoded in background during speech
+    pauses; only the final 7.65 s tail was decoded after release (418 ms ASR), pasting in **671 ms**.
+  - On the 22.5 s hold, all 18.14 s of speech was decoded during pauses before release (`tail_audio_ms=0`);
+    post-release ASR was **1 ms**, and total stop-to-paste was **254 ms** (purely Windows key release / paste delay).
+    Perceived latency was near-instantaneous.
+- **Accuracy and phrasing across chunk boundaries:**
+  - Meaning-critical tokens preserved 100%: negation ("not Friday", "not 2.10", "do not deploy today"),
+    versioning ("version 2.1 not 2.10"), numbers and units ("15 milliseconds", "HTTP 429", "500 milliseconds"),
+    and user name ("Akshat").
+  - Technical vocabulary: PostgreSQL, Kubernetes, and REST API all 3/3 capitalized and spelled correctly (custom words).
+    OAuth, JWT, and Redis recognized correctly without being in Custom Words.
+  - No duplicated or dropped phrases at pause boundaries. Sentence boundaries inside continuous holds
+    occasionally omit a trailing period (e.g. between E08 and E09) or comma, but semantic integrity is intact.
+  - Decision: keep early phrase recognition enabled.
 
 ## Same-recording technical/punctuation comparison
 

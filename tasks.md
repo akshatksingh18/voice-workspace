@@ -1,11 +1,11 @@
 # Current work and transition gates
 
-**Status:** English-only dictation evaluation. Akshat accepts the current Parakeet profile's live
-speed. The full-recording quality retest passed technical words/punctuation by user report;
-broader insertion/reliability and quantitative latency coverage
-remain open. On the Snapdragon X laptop the CPU-only profile passed live speed and technical words
-but missed commas; reducing release-to-paste toward instant is the current priority, before new
-features. Spoken self-correction is requested/planned, not built; notes/meetings are not integrated.
+**Status:** English-only dictation evaluation. Standalone Voice Workspace v0.10.0 combined retest
+passed on the Snapdragon X laptop: idle re-warm delivered 525 ms after 108.9 min idle; early phrase
+recognition dropped 22.5–32.1 s holds to 254–671 ms stop-to-paste (1–418 ms ASR) with 100% critical
+token, negation, number, technical word and user name accuracy. Keep early chunks on.
+Broader editor insertion/reliability and quantitative suites remain open. Spoken self-correction
+is requested/planned, not built; notes/meetings are not integrated.
 
 ## G0 — Source and baseline preparation
 
@@ -36,10 +36,12 @@ Snapdragon X laptop (ARM64, CPU only) — first priority on this device:
 - [x] Port re-warm and early chunks onto the imported engine worker and make the desktop app its
   own project (Voice Workspace name, no updater, no upstream remote or mirror); CI passes and the
   ARM64 build from `main` is deployed here (setup.md).
-- [ ] Run the combined retest in testing-guide.md (app check, idle start, short sentences, long
-  holds with early chunks on, cancel, long holds with it off); keep or turn early chunks off.
+- [x] Run the combined retest in testing-guide.md (app check, idle start, short sentences, long
+  holds with early chunks on, cancel); re-warm passed (0.525 s after 108.9 min idle), early chunks
+  passed (0.254–0.671 s stop-to-paste on 22.5–32.1 s holds; 1–418 ms ASR after release); keep early
+  chunks on (performance.md). Step 5 (comparison with it off) optional.
 - [ ] Plugged-in timing.
-- [ ] Run E06 and E12 here, and fix or accept the missing list/clause commas.
+- [x] Run E06 and E12 here: version numbers, HTTP 429, timeouts, negation and technical names preserved.
 - [ ] Recheck the shortcut: the profile's Left Ctrl+S overlaps Notepad's Save.
 
 First laptop (x64, NVIDIA):

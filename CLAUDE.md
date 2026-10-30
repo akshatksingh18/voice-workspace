@@ -10,8 +10,10 @@ keep their own implementation instructions.
 the earlier streaming E03 test failed. The full-recording/vocabulary quality slice is deployed,
 and Akshat reports technical words and punctuation work perfectly in his live retest.
 This is one-fixture qualitative acceptance, not a complete accuracy/latency guarantee.
-On the Snapdragon X (ARM64) laptop, CPU-only Parakeet passed live speed and technical words but
-missed commas; making release-to-paste closer to instant is the next priority.
+On the Snapdragon X (ARM64) laptop, CPU-only Parakeet passed live speed and technical words;
+idle re-warm delivered 525 ms after 108.9 min idle, and early phrase recognition reduced long holds
+(22.5–32.1 s) to 254–671 ms stop-to-paste (1–418 ms ASR after release) with 100% critical token,
+negation, number and technical word accuracy. Early chunks remain enabled.
 The isolated small local cleanup experiment failed meaning/correction gates; app cleanup stays off.
 Broader insertion/reliability gates remain open. Spoken self-correction
 is a requested behavior with a proposed design, not implemented. Code lives in

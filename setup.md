@@ -5,7 +5,9 @@ verified, and Akshat accepts the earlier Parakeet streaming profile's live Engli
 The full-recording quality profile is deployed; Akshat reports its live technical-word/punctuation
 retest worked perfectly. The Snapdragon X laptop runs the CI-built CPU-only ARM64
 `voice-workspace.exe` from `../voice-workspace-desktop` `main` (renamed app, re-warm and early
-phrases on the new engine worker); its live retest is next. Broader accuracy/insertion/
+phrases on the new engine worker); its live combined retest passed on 2026-10-30 with idle re-warm
+delivering 525 ms after 108.9 min idle and early phrases delivering 254–671 ms stop-to-paste on
+22.5–32.1 s holds. Broader accuracy/insertion/
 reliability, quantitative latency and signed packaging remain open.
 Hindi work is deferred; dedicated spoken self-correction is not implemented or enabled.
 
@@ -188,8 +190,9 @@ Transcribe shortcut **Left Ctrl+S** (push-to-talk), paste pre-delay **20 ms** (w
 `Data/settings-before-paste-delay.json`) with the 60 ms after-paste delay kept for clipboard
 restore, and `early_chunk_recognition` **true** (no UI toggle; edit with the app closed; rollback
 `Data/settings-before-early-chunks.json`). The idle re-warm was confirmed live on the old engine
-(performance.md); its port and early phrases on the new engine await the combined retest in
-testing-guide.md. `asr_latency.exe` from the first laptop is not recreated.
+and verified on the new engine (525 ms stop-to-paste after 108.9 min idle; performance.md); early
+phrases delivered 254–671 ms stop-to-paste on 22.5–32.1 s holds (1–418 ms post-release ASR).
+`asr_latency.exe` from the first laptop is not recreated.
 
 ## Separate local cleanup experiment — not activated in Handy
 
