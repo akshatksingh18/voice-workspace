@@ -199,11 +199,11 @@ tracks the manifest's main revision, which may be ahead of this release.
 
 ## References and recovery
 
-Nine top-level source checkouts; exact revisions/URLs/licenses in repositories.json and gitlinks.
+Seven top-level source checkouts; exact revisions/URLs/licenses in repositories.json and gitlinks.
 No third-party dependency installation or nested/premium submodule initialization. Local push
 URLs disabled and hooks disabled for these evidence checkouts. Source files are not merged.
 
-The scripts use temporary, exact-path Git safe-directory options for this project and its nine
+The scripts use temporary, exact-path Git safe-directory options for this project and its seven
 known reference paths, handling Windows sandbox/user ownership differences without trusting all
 repositories or modifying global Git configuration. A full fresh-machine
 restore has not been run; no third-party application feature is validated by those checks.

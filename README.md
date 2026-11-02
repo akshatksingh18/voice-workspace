@@ -52,9 +52,10 @@ terminal command line, password field, chat send box, or confidential meeting fi
 
 ## Local copies and recovery
 
-`references/` contains nine real source checkouts: the desktop app (pinned at its Handy-era
-revision under `references/handy`), Akshat's Granola alternative,
-OpenWhispr, Anarlog, Minutes, Open Granola, Omascribe, Meetily, and Steno. They are pinned Git
+`references/` contains seven real source checkouts: OpenWhispr, Anarlog, Minutes, Open Granola,
+Omascribe, Meetily, and Steno. The desktop app and Akshat's Granola alternative are sibling
+projects (`../voice-workspace-desktop/`, `../granola-alt/`); repositories.json keeps their
+upstream and license boundaries under `siblingProjects`. The references are pinned Git
 submodules, not merged dependencies. Their history and licenses stay separate. Push is disabled
 in the local reference copies. Read the manifest before considering code reuse.
 
@@ -66,8 +67,7 @@ Clone this repository, then run:
 ```
 
 Do not use `--recurse-submodules`: some upstream repositories refer to premium/private code that
-is not needed or authorized. Recovery uses Akshat's public voice-workspace-desktop and Granola-alternative
-repositories; public upstream pins also depend on upstream availability. A gitlink is not a permanent offline
+is not needed or authorized. Public upstream pins depend on upstream availability. A gitlink is not a permanent offline
 mirror. Runtimes can be rebuilt/redownloaded using setup.md; GitHub does not back up private
 recordings, note databases, or test profiles. No private-data backup destination is configured.
 

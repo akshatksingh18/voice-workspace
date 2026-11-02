@@ -4,7 +4,7 @@ param([switch]$CheckRuntime, [switch]$HashModel)
 $ErrorActionPreference = 'Stop'
 $voiceRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $voiceManifest = Get-Content -LiteralPath (Join-Path $voiceRoot 'repositories.json') -Raw | ConvertFrom-Json
-$voiceAllowed = @('handy','granola-alt','openwhispr','anarlog','minutes','open-granola','omascribe','meetily','steno')
+$voiceAllowed = @('openwhispr','anarlog','minutes','open-granola','omascribe','meetily','steno')
 $voiceGitSafety = @('-c', "safe.directory=$($voiceRoot.Replace('\','/'))", '-c', 'core.hooksPath=NUL', '-c', 'submodule.recurse=false')
 foreach ($voiceName in $voiceAllowed) {
     $voiceGitSafety += @('-c', "safe.directory=$($voiceRoot.Replace('\','/'))/references/$voiceName")

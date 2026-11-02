@@ -2,29 +2,29 @@
   "schemaVersion": 1,
   "verifiedAt": "2026-10-02",
   "purpose": "Pinned, reference-only source checkouts; not merged product dependencies or a complete license audit",
-  "repositories": [
+  "siblingProjects": [
     {
       "name": "handy",
-      "path": "references/handy",
+      "localPath": "../voice-workspace-desktop",
       "url": "https://github.com/akshatksingh18/voice-workspace-desktop.git",
       "upstream": "https://github.com/cjpais/Handy.git",
-      "revision": "9b849b2c96e3618e00d6444e3d17575cfb819a61",
       "sourceBranch": "main",
       "license": "MIT",
       "licenseFile": "LICENSE",
-      "boundary": "Accepted desktop base; private fork with English-first dictation, opt-in full-recording mode, dictionary prefix protection, matching priming and content-free diagnostics. Hindi converter dormant. Earlier streaming speed accepted; full-recording/three-term technical-word and punctuation retest passed by user report. Broader accuracy, quantitative latency, reliability, spoken repair, signing and other platforms remain open. Separate small cleanup experiment failed meaning gates; not activated in Handy. Model, asset and dependency terms require separate review."
+      "boundary": "Accepted desktop base; Akshat's public repository, started from Handy. Model, asset and dependency terms require separate review."
     },
     {
       "name": "granola-alt",
-      "path": "references/granola-alt",
+      "localPath": "../granola-alt",
       "url": "https://github.com/akshatksingh18/granola-alt.git",
       "upstream": "https://github.com/Natively-AI-assistant/natively-cluely-ai-assistant.git",
-      "revision": "dadb19873bff9a531213619edc047a59ce1f773d",
       "sourceBranch": "main",
       "license": "Natively Personal Use License (restricted, noncommercial)",
       "licenseFile": "LICENSE",
-      "boundary": "Requirements/UX evidence only; do not copy into permissively licensed product. No premium/API nested submodules initialized. Sibling implementation remains planning-only."
-    },
+      "boundary": "Requirements/UX evidence only; do not copy into permissively licensed product. Sibling implementation remains planning-only."
+    }
+  ],
+  "repositories": [
     {
       "name": "openwhispr",
       "path": "references/openwhispr",
