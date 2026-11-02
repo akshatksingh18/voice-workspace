@@ -3,7 +3,7 @@
 **Status:** Accepted direction: one local-first/self-hostable voice workspace, using Handy as
 the desktop base. Feature priorities and numerical gates below are proposed engineering criteria,
 not implemented behavior or a claim of complete Wispr parity. Source verification: 2026-10-02;
-see the research document's official links and source caveats before refreshing product claims.
+see the source-linked review named under Research conclusions in architecture.md before refreshing product claims.
 
 ## What Akshat has asked for
 

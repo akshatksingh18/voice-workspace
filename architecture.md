@@ -40,6 +40,54 @@ Manifest records exact revisions. Before reusing any file, record upstream path/
 per-file license, transitive dependencies, native binary and model/asset terms, notice obligations,
 and any modifications. Private hosting is not a substitute for license compliance. No bundled
 brand fonts/icons, premium submodules or trademarks assumed reusable. Product license unresolved.
+Handy branding requires separate rebranding before distribution.
+
+### Research conclusions
+
+Basis: repository default branches, published releases, documentation, and selected source files
+reviewed on October 2, 2026; the external applications were not installed or tested. Published
+documentation can describe newer code than the shipped release. No feature parity, performance,
+privacy guarantee, or cross-platform runtime verification is implied by this review. The full
+source-linked review is `voice-workspace-research.md` in Git commit `46d5d3e`.
+
+- Wispr Flow separates dictation from meeting notes. Dictionary entries can be learned from edits
+  and context; that does not establish proprietary model retraining.
+- OpenWhispr is a candidate for evaluating existing functionality before committing to custom
+  development, not an approved replacement for Handy. Its Windows docs and unreleased changelog
+  discuss Teams capture failures; test the exact shipped version instead of assuming fixes on main
+  are released. Its correction learning, provisional-to-locked speaker labels and Windows
+  diarization route are implementation references after provenance review.
+- OpenWhispr review at `0c232a3eaa30f2fde318d0ae0254dfb19cca3f54`: optional cleanup is separate
+  from recognition and falls back to raw text on failure/truncation. Its Parakeet local-server
+  route does not pass Whisper dictionary prompts. `src/utils/cleanupOutput.ts` checks
+  whole-transcript duplication, not complete semantic fidelity. `src/services/DictionaryService.ts`
+  is a cloud-sync service, not a portable local dictionary implementation. No code/prompt was copied.
+- Switching to another app with the same recognizer is not itself an accuracy fix.
+- Anarlog: a local Deepgram-compatible server is another option. Local LLM summaries do not by
+  themselves make audio transcription local.
+- Minutes: borrow export schemas, explicit sharing scopes, and evidence-backed recall patterns
+  rather than its live coaching features.
+- Open Granola: the Windows loopback routine just starts a sleeping thread and pushes no audio; the
+  Windows Airlock routine logs a requested block instead of implementing WFP filtering. These
+  selected findings reject a production-readiness assumption; they are not a complete audit.
+- Granola alternative: its current spec uses two Deepgram streams, so it is not local-only
+  transcription. Its manual start, live copyable blocks, searchable history and speaker enrollment
+  boundaries remain in force until explicitly revised; replacing its Deepgram/Natively path needs
+  Akshat's approval.
+- English ASR: no model has both globally maximum speed and accuracy across hardware, accents and
+  noise. Test critical words and warm/cold delivery, then choose the Pareto tradeoff appropriate to
+  each laptop. Published WER is not an accented-microphone acceptance result. Handy's current native
+  Whisper path is batch-only. Parakeet's GGUF card says CC-BY-4.0 but the current NVIDIA base says
+  NVIDIA Open Model License: packaging must reconcile provenance/terms before redistributing
+  weights. Moonshine English cards list MIT.
+- Extract portable Rust crates or reimplement ideas with provenance; Electron helpers are not
+  drop-in Tauri modules. Keep a small patch series over Handy and pin any reused external files to
+  immutable revisions.
+- Correction learning order: manual vocabulary and exact correction rules; then user-approved
+  learning inside our own editor; then opt-in observation in supported external apps.
+- Diarization: Sherpa-onnx is a credible native candidate, not a measured winner. Benchmark actual
+  multi-person calls before selecting a model or similarity threshold, and review licenses/access
+  conditions for each model as well as library code.
 
 ## Proposed module seams
 

@@ -41,8 +41,8 @@ terminal command line, password field, chat send box, or confidential meeting fi
 
 - [product-framework.md](product-framework.md): Wispr capability comparison, explicit needs,
   proposed acceptance criteria, and small reliability details.
-- [architecture.md](architecture.md): ownership, proposed integration, privacy and license gates.
-- [voice-workspace-research.md](voice-workspace-research.md): detailed source-backed research.
+- [architecture.md](architecture.md): ownership, research conclusions, proposed integration,
+  privacy and license gates.
 - [testing-guide.md](testing-guide.md) and [test-cases.md](test-cases.md): settings and synthetic tests.
 - [setup.md](setup.md): actual local readiness, not advertised capabilities.
 - [performance.md](performance.md): measured latency, user speed acceptance and remaining accuracy/reliability gates.

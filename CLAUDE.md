@@ -15,10 +15,10 @@ Moves to integrated notes/capture after remaining dictation and component/licens
 - `README.md` — entry point, current readiness, quick start, and recovery.
 - `product-framework.md` — Wispr capability framework, Akshat's explicit needs, priorities,
   fine-grained acceptance requirements, and scope/decision boundaries; read before feature work.
-- `architecture.md` — accepted ownership boundaries, proposed modules, license/privacy constraints,
-  inference/storage interfaces, and implementation gates; read before integration or dependency work.
-- `voice-workspace-research.md` — source-backed comparison and rationale; claims are research,
-  not physical runtime verification. Refresh external facts before relying on them.
+- `architecture.md` — accepted ownership boundaries, research conclusions, proposed modules,
+  license/privacy constraints, inference/storage interfaces, and implementation gates; read before
+  integration or dependency work. Its research claims are not physical runtime verification;
+  refresh external facts before relying on them.
 - `testing-guide.md` — exact first-test settings, test order, pass/fail evidence, and limitations.
 - `setup.md` — each laptop's prepared runtimes/models/configuration, install steps and recovery;
   update whenever setup state changes.

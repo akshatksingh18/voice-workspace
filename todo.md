@@ -58,6 +58,7 @@ First laptop (x64, NVIDIA):
 
 ## Deferred / requires another decision
 
+Personal-only versus distributable/business use; meeting engine selection; mobile packaging;
 iPhone/keyboard/share extension device spike; macOS/Linux physical tests; calendar behavior;
 Hindi/Hinglish (requires a new user decision, not silent reactivation);
 LAN inference/auth/TLS; MCP/export integrations; encrypted-at-rest design; private-data backup
