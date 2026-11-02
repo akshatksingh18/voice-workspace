@@ -4,7 +4,7 @@ Prepared runtimes, models, install steps and recovery per laptop. Project status
 [CLAUDE.md](CLAUDE.md); measured timings and accuracy in [performance.md](performance.md); open
 setup work in [todo.md](todo.md).
 
-## Desktop-app test runtime
+## Isolated desktop-app test runtime
 
 Windows build prerequisites, CI workflows and build evidence are owned by
 `../voice-workspace-desktop/windows-local-setup.md`. The test executable must come from that
@@ -28,8 +28,8 @@ The build is locally built or CI-built and unsigned; do not bypass a Windows app
 block. Onboarding completion is not proof of language or delivery acceptance. The user-selected
 microphone, shortcut and existing history must be preserved when tuning the profile. Confirm
 startup priming before dictating; no microphone recording is started by verification. The
-timing-only CLI and standalone diagnostic omit transcript text. Active quality-test settings are
-described in testing-guide.md.
+timing-only CLI and standalone diagnostic omit transcript text.
+Active quality-test settings are described in testing-guide.md.
 
 ## Install or update the app
 
@@ -159,7 +159,7 @@ Older multilingual Whisper inputs are retained for comparison, not the active la
 Download/hash verification does not prove accuracy. The dormant Hindi converter is described in
 ../voice-workspace-desktop/voice-workspace-features.md.
 
-## Separate local cleanup experiment — not activated in the app
+## Separate local cleanup experiment — not activated in Handy
 
 Akshat approved local text-cleanup testing from official GitHub/Hugging Face. Downloaded and
 hash-verified official [Qwen3-0.6B Q8 GGUF](https://huggingface.co/Qwen/Qwen3-0.6B-GGUF), revision

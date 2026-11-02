@@ -1,19 +1,22 @@
 # Dictation performance and acceptance
 
 Measured results, rejected options and the decisions they support. Project status lives in
-[CLAUDE.md](CLAUDE.md). Results do not transfer between the first laptop's x64/NVIDIA profile and
-the Snapdragon X ARM64/CPU profile, or the reverse.
+[CLAUDE.md](CLAUDE.md).
 
-## Current acceptance boundary
+## Current physical acceptance boundary
+
+First laptop (x64, NVIDIA):
 
 Akshat reports that the selected English profile's speed is now exactly the experience he wanted.
 Keep this model as the baseline; preserve the old streaming profile for comparison. No exact new
 release-to-paste duration, sample count or p95 was supplied. This is qualitative live speed
 acceptance, not proof of maximum accuracy, all-editor reliability or a guaranteed sub-second p95.
-After deployment, Akshat reports the full-recording/three-term profile's technical words and
-punctuation worked perfectly in his live retest (first laptop). This is user-reported one-fixture
-acceptance; no new transcript, exact delay, repeat count or punctuation statistics were supplied.
-It does not establish full E01–E12 or p95.
+Akshat then tried E03: PostgreSQL became split phonetic words, an extra article appeared, and
+list commas plus the terminal period were absent. Kubernetes and REST API were retained.
+That streaming baseline failed technical/punctuation acceptance. After deployment, Akshat reports
+the full-recording/three-term profile's technical words and punctuation worked perfectly in his
+live retest. This is user-reported one-fixture acceptance; no new transcript, exact delay, repeat
+count or punctuation statistics were supplied. It does not establish full E01–E12 or p95.
 Next tests broaden English critical vocabulary/meaning and insertion safety. Requested spoken
 self-correction is not implemented; benchmark its additional work before enabling it so it does
 not regress the accepted speed. New mode/profile preparation does not inherit live speed acceptance.
@@ -21,7 +24,8 @@ not regress the accepted speed. New mode/profile preparation does not inherit li
 ## Second laptop — Snapdragon X CPU (ARM64)
 
 Measured 2026-10-26 on the Snapdragon X X126100 (8 Oryon cores, 15.6 GiB RAM), Windows 11 ARM64,
-Balanced power plan, **on battery**, with the CI-built CPU-only ARM64 exe (setup.md).
+Balanced power plan, **on battery**, with the CI-built CPU-only ARM64 exe (setup.md). These results
+do not transfer to the first laptop's x64/NVIDIA profile, or the reverse.
 
 Headless full-recording path (`--stats-only`), Parakeet Q8 bound to the Oryon CPU, saved local clips:
 
@@ -142,7 +146,7 @@ Git history (commit `e6e7a44`).
 | Smaller Parakeet quant | Not tested | Not justified by advertised speed alone |
 | Qwen3-0.6B Q8 cleanup | 3/8 dummy fixtures; kept superseded times and dropped clauses | Not adopted (see below) |
 
-## Same-recording technical/punctuation comparison (first laptop)
+## Same-recording technical/punctuation comparison
 
 Measured 2026-10-02, offline, with Handy closed and no concurrent native compilation. Reused the
 latest synthetic E03 microphone recording locally: 8.28 s, 16 kHz mono PCM. Recordings/transcripts
@@ -179,10 +183,12 @@ native API ignores runtime punctuation toggles. A missing checkbox is not the ca
 
 The deployed quality build's headless path recognized the same clip in 0.780/0.399/0.443 s after
 a 7.886 s load/prime (NVIDIA MX450 bound as Vulkan0); that verifies deployment and native
-inference, not microphone/VAD/paste latency. The live quality retest's punctuation passed by user
-report, despite the saved-clip batch sample missing list commas. Do not generalize either sample
-to all utterances or claim the dictionary creates punctuation. Broader punctuation/contextual
-grammar and spoken repair remain separate gates. Never synthesize
+inference, not microphone/VAD/paste latency.
+
+The live quality retest's punctuation passed by user report, despite the saved-clip batch sample
+missing list commas. Do not generalize either sample to all utterances or claim the dictionary
+creates punctuation. Broader punctuation/contextual grammar and spoken repair remain separate gates.
+Never synthesize
 hardcoded E03 output, insert commas around every conjunction, or silently use cloud inference.
 
 ## Local cleanup experiment — not adopted
