@@ -18,7 +18,7 @@ see the research document's official links and source caveats before refreshing 
 - Use Handy as the production desktop foundation; evaluate the best ideas from multiple projects.
 - Bring the existing Granola alternative into the analysis without losing its separate context.
 - Keep source copies, research, requirements, setup, and agent instructions in this new project.
-- Text/Markdown documentation, no Canvas; private GitHub source recovery.
+- Text/Markdown documentation, no Canvas; GitHub source recovery (the repository is public by Akshat's choice).
 - Offline model preparation is authorized from Hugging Face. Recordings/uploads are not authorized.
 
 Manual meeting start and no live coaching remain standing boundaries from the existing note-taker
@@ -245,7 +245,8 @@ secure text fields and keyboard-extension microphone limits must be respected.
 ## Order and decisions
 
 Retain Parakeet/full-recording/vocabulary after the user-reported technical/punctuation pass.
-Broaden fixtures and measure the separately approved local cleanup/repair experiment;
+Broaden fixtures; the separately approved local cleanup experiment was measured and not adopted
+(performance.md);
 same-recording spoken self-correction remains proposed, preserving speed and raw recovery,
 not an implemented or enabled feature. Then build notes + manual meeting
 capture. Add explicit editing/cleanup, correction learning and grounded summaries in small tested

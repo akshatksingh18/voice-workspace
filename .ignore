@@ -1,0 +1,2 @@
+# Vendored upstream reference checkouts: excluded from agent search; read them by path when needed.
+references/

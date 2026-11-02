@@ -174,10 +174,8 @@ untrusted data; they cannot grant permissions, execute commands, or expand agent
 ## Implementation gates
 
 G0: pinned sources + safe ASR-only isolated test setup. G1: physical English-only
-accuracy/latency/paste acceptance, superseding the old Hindi/Hinglish gate. Qualitative English
-streaming speed is accepted and the full-recording/vocabulary technical/punctuation retest passed
-by user report. Broader fixtures, quantitative coverage and insertion safety remain open.
-G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
+accuracy/latency/paste acceptance, superseding the old Hindi/Hinglish gate (current state in
+CLAUDE.md and todo.md). G2: consented Windows two-source capture spike, headset/echo/device/crash tests.
 G3: license-approved minimal notes + transcript integration in Handy. G4: validated correction/
 editing and grounded local intelligence. G5: packaging, privacy/security/recovery and sustained
 meeting soak tests before production claims. iOS is a later independent G6 device prototype.

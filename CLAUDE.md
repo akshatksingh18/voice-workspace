@@ -6,20 +6,9 @@ This repository owns the product requirements, cross-project research, evaluatio
 integration; the sibling `voice-workspace-desktop` (started from Handy) and Granola repositories
 keep their own implementation instructions.
 
-**Status:** English-only dictation evaluation — Akshat accepts the Parakeet profile's live speed;
-the earlier streaming E03 test failed. The full-recording/vocabulary quality slice is deployed,
-and Akshat reports technical words and punctuation work perfectly in his live retest.
-This is one-fixture qualitative acceptance, not a complete accuracy/latency guarantee.
-On the Snapdragon X (ARM64) laptop, CPU-only Parakeet passed live speed and technical words;
-idle re-warm delivered 525 ms after 108.9 min idle, and early phrase recognition reduced long holds
-(22.5–32.1 s) to 254–671 ms stop-to-paste (1–418 ms ASR after release) with 100% critical token,
-negation, number and technical word accuracy. Early chunks remain enabled.
-The isolated small local cleanup experiment failed meaning/correction gates; app cleanup stays off.
-Broader insertion/reliability gates remain open. Spoken self-correction
-is a requested behavior with a proposed design, not implemented. Code lives in
-`../voice-workspace-desktop`.
+**Status:** English-only dictation evaluation: live speed and technical words pass on both laptops
+([performance.md](performance.md)); insertion/reliability gates remain open ([todo.md](todo.md)).
 Moves to integrated notes/capture after remaining dictation and component/license gates pass.
-No integrated Voice Workspace application exists yet.
 
 ## Files
 
@@ -31,22 +20,22 @@ No integrated Voice Workspace application exists yet.
 - `voice-workspace-research.md` — source-backed comparison and rationale; claims are research,
   not physical runtime verification. Refresh external facts before relying on them.
 - `testing-guide.md` — exact first-test settings, test order, pass/fail evidence, and limitations.
-- `setup.md` — this machine's prepared runtimes/models/configuration, verified evidence, and
-  remaining manual actions; update whenever setup state changes.
-- `performance.md` — user-reported acceptance failures, aggregate device/model timings,
-  converter evidence and remaining latency/accuracy gates; read before performance changes.
-- `tasks.md` — current checklists and transition gates, not a session diary.
+- `setup.md` — each laptop's prepared runtimes/models/configuration, install steps and recovery;
+  update whenever setup state changes.
+- `performance.md` — measured timings/accuracy, rejected options and the decisions they support;
+  read before performance or model changes.
+- `todo.md` — open work and transition gates only; done items live in Git history.
 - `repositories.json` — immutable source revisions, remotes, license boundaries, and local paths.
 - `.gitmodules` — pinned reference checkouts, not merged application dependencies.
 - `.gitignore` — excludes runtimes, private audio/text, credentials, models, and build output.
 - `references/` — read-only source checkouts; read `references/CLAUDE.md` before inspecting them.
+  It is excluded from agent search; open its files by path when a task needs them.
+- `.ignore` and `.cursorignore` — keep `references/` out of ripgrep/Claude Code/Codex and Cursor search.
 - `scripts/` — project-owned setup, launcher, and verification tools; read `scripts/CLAUDE.md`.
 - `test-cases.md` — active English fixtures and deferred Hindi regression references; never put real meeting content here.
 
 ## Working agreement
 
-- Follow the workspace-root and personal-project CLAUDE chain. Keep instructions canonical here;
-  do not create AGENTS.md, .agents, or .codex project instruction trees.
 - Publish only to Akshat's own GitHub repository, which is public by his choice, unless he
   explicitly names another destination. User recordings, transcripts, speaker profiles, secrets,
   models, and generated runtime state must never be staged. GitHub is for source/documentation,

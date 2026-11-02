@@ -19,14 +19,8 @@ setup.md/performance.md own the current English profile and measurements, not th
 
 ## Current workspace evidence
 
-- Handy is a Rust/Tauri + React desktop fork. Its Windows source build/startup and initial Notepad
-  capture/insertion worked, but speed/script/acronym acceptance failed. Local CPU/GPU model
-  inference is measured; Turbo's updated live latency was still about 4 seconds and Hindi output
-  failed. Akshat accepts the earlier English streaming profile's live speed; live E03 then failed
-  PostgreSQL spelling and punctuation. A same-clip batch/vocabulary comparison motivates the
-  new full-recording quality test. Akshat then reported technical words/punctuation worked
-  perfectly in the deployed quality retest, cleanup off; broader accuracy,
-  insertion/reliability and signed installer behavior remain open. See
+- Handy is a Rust/Tauri + React desktop fork, now the `voice-workspace-desktop` project. Its
+  measured dictation results and rejected options are in performance.md. See
   `../voice-workspace-desktop/windows-local-setup.md`. Local ASR, custom vocabulary, filler removal, optional LLM processing,
   and SQLite dictation history already provide useful integration points.
 - `../granola-alt/` is a specification on an imported Electron/Natively base, not a completed

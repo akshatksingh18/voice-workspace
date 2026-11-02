@@ -1,15 +1,12 @@
 # First tests and settings
 
-**Status:** English-only evaluation. Akshat accepts the current Parakeet profile's live speed;
-the earlier streaming E03 test failed technical spelling/punctuation, but Akshat reports the
-full-recording/three-term retest worked perfectly. The Snapdragon X CPU run kept technical words
-but missed commas. Broader accuracy, quantitative latency and insertion/reliability remain open. Dedicated spoken
-self-correction is not implemented; its fixtures specify future behavior, not expected current output.
-See setup.md for deployment evidence and performance.md for measured samples.
+Project status lives in [CLAUDE.md](CLAUDE.md). See setup.md for deployment evidence and
+performance.md for measured samples. Dedicated spoken self-correction is not implemented; its
+fixtures specify future behavior, not expected current output.
 
-## Snapdragon laptop — combined retest (current)
+## Snapdragon laptop — combined retest
 
-One sitting, built-in mic, blank Notepad, Left Alt+Space (was Left Ctrl+S). One sentence per hold unless a step says
+Steps 0–4 passed (performance.md); step 5 stays optional (todo.md). One sitting, built-in mic, blank Notepad, Left Alt+Space (was Left Ctrl+S). One sentence per hold unless a step says
 otherwise; 2–3 s between holds; normal pace. Early-chunk recognition is **on** for steps 1–4.
 This is the first live test of the Voice Workspace build from `main` (renamed app, new engine
 worker, re-warm and early phrases ported to it), so also check step 0.

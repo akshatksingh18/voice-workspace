@@ -15,29 +15,24 @@ with an English-first local model profile. No cloud key is needed. Read
 [setup.md](setup.md) for exact verification boundaries and [testing-guide.md](testing-guide.md)
 for microphone selection and the first test. Runtimes/models are not included in GitHub.
 
-Active scope is **English only**, superseding the earlier Hindi/Hinglish requirement. The updated
-Turbo live test improved speed but still took 3–4 seconds and produced unwanted English from Hindi.
+Active scope is **English only**, superseding the earlier Hindi/Hinglish requirement.
 Hindi work is deferred; the experimental converter is off and existing data is preserved.
-The English test candidate is Parakeet Unified EN Q8 on NVIDIA, with startup warm-up and no AI
-cleanup or translation. Akshat accepts the earlier streaming profile's live English speed, but
-its initial live E03 test missed PostgreSQL and punctuation. The full-recording/narrow-dictionary
-profile is deployed; Akshat reports technical words and punctuation worked perfectly on retest,
-without AI cleanup. Broader accuracy/insertion/reliability and quantitative latency remain open.
+Current status is in [CLAUDE.md](CLAUDE.md). The English test candidate is Parakeet Unified EN Q8,
+with startup warm-up and no AI cleanup or translation.
 Contextual cleanup/spoken repair are separate experiments, not enabled features. See [performance.md](performance.md) for
-comparisons and verification boundaries. Recognition-only timings are not an insertion guarantee.
+comparisons, rejected options and verification boundaries. Recognition-only timings are not an insertion guarantee.
 Spoken self-correction is requested but not built; its proposed behavior and tests are in
 [product-framework.md](product-framework.md) and [test-cases.md](test-cases.md).
 
-From PowerShell:
+From PowerShell, in this repository's folder:
 
 ```powershell
-Set-Location 'D:\AI Important Files\personal-project\voice-workspace'
 .\scripts\verify-workspace.ps1 -CheckRuntime -HashModel
 .\scripts\start-test.ps1
 ```
 
 Close other dictation apps first. The launcher opens Voice Workspace; it does not start recording.
-Focus Notepad, hold the Transcribe shortcut shown in the app (currently Left Ctrl+S), speak, then
+Focus Notepad, hold the Transcribe shortcut shown in the app (currently Left Alt+Space), speak, then
 release. Escape cancels. If the shortcut cannot be registered, choose an unused shortcut in the
 app and update your test notes. Never test in a real
 terminal command line, password field, chat send box, or confidential meeting first.
@@ -51,7 +46,7 @@ terminal command line, password field, chat send box, or confidential meeting fi
 - [testing-guide.md](testing-guide.md) and [test-cases.md](test-cases.md): settings and synthetic tests.
 - [setup.md](setup.md): actual local readiness, not advertised capabilities.
 - [performance.md](performance.md): measured latency, user speed acceptance and remaining accuracy/reliability gates.
-- [tasks.md](tasks.md): remaining decisions and implementation gates.
+- [todo.md](todo.md): remaining decisions and implementation gates.
 - [repositories.json](repositories.json): exact reference revisions and license qualifications.
 - [CLAUDE.md](CLAUDE.md): canonical instructions for any coding agent.
 
