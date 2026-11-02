@@ -61,8 +61,7 @@ the other ASR models in `Data/models/`, `Qwen3-0.6B-Q8_0.gguf` in `runtime/clean
 re-verified as Authenticode-valid, signer Gizmo Labs Inc.; still not installed or launched).
 The extracted llama.cpp folder is the x64 Vulkan build and its launcher hash matches; this
 laptop's Snapdragon has no use for it, and the cleanup experiment stays off.
-`runtime/cleanup/` and the zip are parked, at the same relative paths, in
-`%LOCALAPPDATA%\ai-cleanup\phase3-holding\personal-project__voice-workspace\`; move them back first.
+`runtime/cleanup/` and the zip are parked in `%LOCALAPPDATA%\ai-cleanup\phase3-holding\`.
 
 `runtime/desktop/` holds GitHub Release **v0.10.0** (`voice-workspace-desktop` commit
 `3c57e35c`, [release run 40520112353](https://github.com/akshatksingh18/voice-workspace-desktop/actions/runs/40520112353)),
